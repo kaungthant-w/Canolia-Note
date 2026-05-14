@@ -291,13 +291,81 @@
                                 <i class="fa-regular fa-comment"></i>
                                 <span id="detailComments">0 Comments</span>
                             </button>
-                            <span><i class="fa-solid fa-share mr-1"></i> <span data-i18n="btn_share">Share</span></span>
+                            <button id="detailShareBtn" class="hover:text-primary transition">
+                                <i class="fa-solid fa-share mr-1"></i> <span data-i18n="btn_share">Share</span>
+                            </button>
                             <button id="detailBookmark" class="hover:text-primary transition">
                                 <i class="fa-regular fa-bookmark text-lg"></i>
                             </button>
                         </div>
                     </div>
                 </article>
+
+                <!-- Share Modal -->
+                <div id="shareModal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+                    <div class="fixed inset-0 bg-black/50 backdrop-blur-sm" id="closeShareModal"></div>
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 w-full max-w-sm mx-4 relative z-10 shadow-xl border border-gray-100 dark:border-gray-700">
+                        <h3 class="font-bold text-lg dark:text-white mb-4">Share via</h3>
+                        <div class="grid grid-cols-4 gap-6">
+                            <!-- Facebook -->
+                            <a href="#" class="flex flex-col items-center gap-1 text-gray-600 dark:text-gray-300 hover:text-primary transition">
+                                <div class="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 text-xl">
+                                    <i class="fa-brands fa-facebook"></i>
+                                </div>
+                                <span class="text-xs">Facebook</span>
+                            </a>
+                            <!-- Messenger -->
+                            <a href="#" class="flex flex-col items-center gap-1 text-gray-600 dark:text-gray-300 hover:text-primary transition">
+                                <div class="w-12 h-12 rounded-full bg-pink-100 dark:bg-pink-900/30 flex items-center justify-center text-pink-500 text-xl">
+                                    <i class="fa-brands fa-facebook-messenger"></i>
+                                </div>
+                                <span class="text-xs">Messenger</span>
+                            </a>
+                            <!-- Telegram -->
+                            <a href="#" class="flex flex-col items-center gap-1 text-gray-600 dark:text-gray-300 hover:text-primary transition">
+                                <div class="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-500 text-xl">
+                                    <i class="fa-brands fa-telegram"></i>
+                                </div>
+                                <span class="text-xs">Telegram</span>
+                            </a>
+                            <!-- Viber -->
+                            <a href="#" class="flex flex-col items-center gap-1 text-gray-600 dark:text-gray-300 hover:text-primary transition">
+                                <div class="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-500 text-xl">
+                                    <i class="fa-brands fa-viber"></i>
+                                </div>
+                                <span class="text-xs">Viber</span>
+                            </a>
+                            <!-- WhatsApp -->
+                            <a href="#" class="flex flex-col items-center gap-1 text-gray-600 dark:text-gray-300 hover:text-primary transition">
+                                <div class="w-12 h-12 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-500 text-xl">
+                                    <i class="fa-brands fa-whatsapp"></i>
+                                </div>
+                                <span class="text-xs">WhatsApp</span>
+                            </a>
+                            <!-- X (Twitter) -->
+                            <a href="#" class="flex flex-col items-center gap-1 text-gray-600 dark:text-gray-300 hover:text-primary transition">
+                                <div class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-gray-900 dark:text-white text-xl">
+                                    <i class="fa-brands fa-x-twitter"></i>
+                                </div>
+                                <span class="text-xs">X</span>
+                            </a>
+                            <!-- LinkedIn -->
+                            <a href="#" class="flex flex-col items-center gap-1 text-gray-600 dark:text-gray-300 hover:text-primary transition">
+                                <div class="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-700 text-xl">
+                                    <i class="fa-brands fa-linkedin"></i>
+                                </div>
+                                <span class="text-xs">LinkedIn</span>
+                            </a>
+                            <!-- Copy Link -->
+                            <button class="flex flex-col items-center gap-1 text-gray-600 dark:text-gray-300 hover:text-primary transition" id="copyLinkBtn">
+                                <div class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-gray-500 text-xl">
+                                    <i class="fa-solid fa-link"></i>
+                                </div>
+                                <span class="text-xs">Copy Link</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Comments Section -->
                 <div id="commentsSection" class="mt-8 bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-sm border border-gray-100 dark:border-gray-700 hidden">
@@ -311,7 +379,7 @@
                         </div>
                     </div>
 
-                    <div id="commentsContainer" class="space-y-6">
+                    <div id="commentsContainer" class="space-y-6 max-h-[400px] overflow-y-auto pr-2 no-scrollbar">
                         <!-- Comments will be loaded here -->
                     </div>
                 </div>
@@ -555,7 +623,7 @@
                     $('#detailDate').text(post.date);
                     $('#detailCategory').text(categoryTitle);
                     $('#detailLikes').text(`Like (${post.likes})`);
-                    $('#detailComments').html(`<i class="fa-regular fa-comment mr-1"></i> ${post.comments} Comments`);
+                    $('#detailComments').html(`<i class="fa-regular mr-1"></i> ${post.comments} Comments`);
                     
                     // Update bookmark state
                     const bookmarks = JSON.parse(localStorage.getItem('canolia_bookmarks') || '[]');
@@ -576,6 +644,7 @@
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('show_comments') === 'true') {
                 $('#commentsSection').removeClass('hidden');
+                $('#detailCommentsBtn').removeClass('text-gray-500').addClass('text-primary');
                 renderComments();
                 // Scroll to comments
                 setTimeout(() => {
@@ -585,6 +654,7 @@
 
             $('#detailCommentsBtn').click(function() {
                 $('#commentsSection').toggleClass('hidden');
+                $(this).toggleClass('text-primary text-gray-500');
                 if (!$('#commentsSection').hasClass('hidden')) {
                     renderComments();
                 }
@@ -594,11 +664,11 @@
                 const container = document.getElementById('commentsContainer');
                 container.innerHTML = '';
                 
-                // Get dummy comments
+                // Get dummy comments with IDs
                 const dummyComments = [
-                    { author: "Alex", date: "1 hour ago", text: "Very insightful article! Thanks for sharing." },
-                    { author: "Moe", date: "3 hours ago", text: "I totally agree with the simplicity philosophy." },
-                    { author: "Su", date: "1 day ago", text: "Looking forward to more posts like this." }
+                    { id: 1, author: "Alex", date: "1 hour ago", text: "Very insightful article! Thanks for sharing." },
+                    { id: 2, author: "Moe", date: "3 hours ago", text: "I totally agree with the simplicity philosophy." },
+                    { id: 3, author: "Su", date: "1 day ago", text: "Looking forward to more posts like this." }
                 ];
                 
                 dummyComments.forEach(comment => {
@@ -613,8 +683,21 @@
                             </div>
                             <p class="text-sm text-gray-600 dark:text-gray-300">${comment.text}</p>
                             <div class="mt-2 flex items-center gap-4 text-xs text-gray-500">
-                                <button class="hover:text-primary transition"><i class="fa-solid fa-reply mr-1"></i> Reply</button>
+                                <button class="reply-btn hover:text-primary transition" data-id="${comment.id}"><i class="fa-solid fa-reply mr-1"></i> Reply</button>
                                 <button class="hover:text-red-500 transition"><i class="fa-regular fa-heart mr-1"></i> Like</button>
+                            </div>
+                            
+                            <!-- Sub-comments Container -->
+                            <div class="sub-comments-container ml-10 mt-3 space-y-3 hidden" id="replies-${comment.id}">
+                                <!-- Sub-comments will be loaded here -->
+                            </div>
+                            
+                            <!-- Reply Input Box -->
+                            <div class="reply-input-box ml-10 mt-2 hidden" id="reply-input-${comment.id}">
+                                <div class="flex gap-2">
+                                    <textarea class="w-full border border-gray-200 dark:border-gray-700 rounded-lg p-2 text-xs bg-gray-50 dark:bg-gray-900 dark:text-white outline-none focus:ring-2 focus:ring-primary transition" rows="1" placeholder="Write a reply..."></textarea>
+                                    <button class="submit-reply-btn bg-primary text-primaryDark px-3 py-1 rounded-lg font-semibold text-xs hover:bg-primaryDark hover:text-white transition" data-id="${comment.id}">Reply</button>
+                                </div>
                             </div>
                         </div>
                     `;
@@ -628,6 +711,7 @@
                 if (!text) return;
                 
                 const container = document.getElementById('commentsContainer');
+                const commentId = Date.now(); // Unique ID for new comment
                 const commentHTML = `
                     <div class="border-b border-gray-100 dark:border-gray-700 pb-4 last:border-0">
                         <div class="flex items-center gap-3 mb-2">
@@ -639,8 +723,21 @@
                         </div>
                         <p class="text-sm text-gray-600 dark:text-gray-300">${text}</p>
                         <div class="mt-2 flex items-center gap-4 text-xs text-gray-500">
-                            <button class="hover:text-primary transition"><i class="fa-solid fa-reply mr-1"></i> Reply</button>
+                            <button class="reply-btn hover:text-primary transition" data-id="${commentId}"><i class="fa-solid fa-reply mr-1"></i> Reply</button>
                             <button class="hover:text-red-500 transition"><i class="fa-regular fa-heart mr-1"></i> Like</button>
+                        </div>
+                        
+                        <!-- Sub-comments Container -->
+                        <div class="sub-comments-container ml-10 mt-3 space-y-3 hidden" id="replies-${commentId}">
+                            <!-- Sub-comments will be loaded here -->
+                        </div>
+                        
+                        <!-- Reply Input Box -->
+                        <div class="reply-input-box ml-10 mt-2 hidden" id="reply-input-${commentId}">
+                            <div class="flex gap-2">
+                                <textarea class="w-full border border-gray-200 dark:border-gray-700 rounded-lg p-2 text-xs bg-gray-50 dark:bg-gray-900 dark:text-white outline-none focus:ring-2 focus:ring-primary transition" rows="1" placeholder="Write a reply..."></textarea>
+                                <button class="submit-reply-btn bg-primary text-primaryDark px-3 py-1 rounded-lg font-semibold text-xs hover:bg-primaryDark hover:text-white transition" data-id="${commentId}">Reply</button>
+                            </div>
                         </div>
                     </div>
                 `;
@@ -652,6 +749,58 @@
                 // Update comment count
                 const currentCount = parseInt($('#detailComments').text()) || 0;
                 $('#detailComments').text(`${currentCount + 1} Comments`);
+            });
+
+            // Main Comment Enter Key
+            $('#newCommentText').keydown(function(e) {
+                if (e.keyCode === 13 && !e.shiftKey) {
+                    e.preventDefault();
+                    $('#submitCommentBtn').click();
+                }
+            });
+
+            // Reply Click
+            $(document).on('click', '.reply-btn', function() {
+                const id = $(this).data('id');
+                $(`#reply-input-${id}`).toggleClass('hidden');
+                $(`#replies-${id}`).removeClass('hidden'); // Show replies too if any
+            });
+
+            // Submit Reply
+            $(document).on('click', '.submit-reply-btn', function() {
+                const id = $(this).data('id');
+                const text = $(`#reply-input-${id} textarea`).val().trim();
+                if (!text) return;
+                
+                const container = document.getElementById(`replies-${id}`);
+                const replyHTML = `
+                    <div class="border-t border-gray-50 dark:border-gray-800/50 pt-2 mt-2">
+                        <div class="flex items-center gap-2 mb-1">
+                            <div class="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center font-bold text-primaryDark text-xs">Y</div>
+                            <div>
+                                <div class="font-bold text-xs dark:text-white">You</div>
+                                <div class="text-[10px] text-gray-500">Just now</div>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-600 dark:text-gray-300 ml-8">${text}</p>
+                        <div class="mt-1 ml-8 flex items-center gap-3 text-[10px] text-gray-500">
+                            <button class="hover:text-red-500 transition"><i class="fa-regular fa-heart mr-1"></i> Like</button>
+                            <button class="hover:text-primary transition"><i class="fa-regular fa-comment mr-1"></i> Reply</button>
+                        </div>
+                    </div>
+                `;
+                
+                container.innerHTML += replyHTML;
+                $(`#reply-input-${id} textarea`).val('');
+                $(`#reply-input-${id}`).addClass('hidden');
+            });
+
+            // Reply Enter Key
+            $(document).on('keydown', '.reply-input-box textarea', function(e) {
+                if (e.keyCode === 13 && !e.shiftKey) {
+                    e.preventDefault();
+                    $(this).closest('.reply-input-box').find('.submit-reply-btn').click();
+                }
             });
 
             function getCategoryClass(category) {
@@ -681,6 +830,36 @@
                 }
                 
                 localStorage.setItem('canolia_bookmarks', JSON.stringify(bookmarks));
+            });
+
+            // Share Click
+            $('#detailShareBtn').click(function() {
+                if (navigator.share) {
+                    navigator.share({
+                        title: document.title,
+                        text: 'Check out this post on Canolia Note!',
+                        url: window.location.href
+                    }).then(() => {
+                        console.log('Successful share');
+                    }).catch((error) => {
+                        console.log('Error sharing', error);
+                    });
+                } else {
+                    // Fallback to custom modal
+                    $('#shareModal').removeClass('hidden');
+                }
+            });
+
+            // Close Share Modal
+            $('#closeShareModal').click(function() {
+                $('#shareModal').addClass('hidden');
+            });
+
+            // Copy Link
+            $('#copyLinkBtn').click(function() {
+                navigator.clipboard.writeText(window.location.href);
+                alert('Link copied to clipboard!');
+                $('#shareModal').addClass('hidden');
             });
         });
     </script>

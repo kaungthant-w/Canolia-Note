@@ -832,7 +832,7 @@ $(document).ready(function() {
                             <a href="post-detail.html?id=${post.id}" class="text-primary font-semibold text-sm hover:underline">Read More</a>
                             <div class="flex items-center gap-4 text-gray-500 text-sm">
                                 <span><i class="fa-regular fa-heart mr-1"></i> ${post.likes}</span>
-                                <span><i class="fa-regular fa-comment mr-1"></i> ${post.comments}</span>
+                                <a href="post-detail.html?id=${post.id}&show_comments=true" class="hover:text-primary transition"><i class="fa-regular fa-comment mr-1"></i> ${post.comments}</a>
                                 <span><i class="fa-regular fa-share-from-square mr-1"></i> ${post.shares || 0}</span>
                                 <button class="bookmark-btn hover:text-primary transition" data-id="${post.id}">
                                     <i class="fa-${isBookmarked(post.id) ? 'solid' : 'regular'} fa-bookmark"></i>

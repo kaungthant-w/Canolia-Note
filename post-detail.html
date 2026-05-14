@@ -287,7 +287,10 @@
                             <span class="font-semibold" id="detailLikes">Like (0)</span>
                         </button>
                         <div class="flex items-center gap-4 text-gray-500 text-sm">
-                            <span id="detailComments"><i class="fa-regular fa-comment mr-1"></i> 0 Comments</span>
+                            <button id="detailCommentsBtn" class="flex items-center gap-1 text-gray-500 hover:text-primary transition">
+                                <i class="fa-regular fa-comment"></i>
+                                <span id="detailComments">0 Comments</span>
+                            </button>
                             <span><i class="fa-solid fa-share mr-1"></i> <span data-i18n="btn_share">Share</span></span>
                             <button id="detailBookmark" class="hover:text-primary transition">
                                 <i class="fa-regular fa-bookmark text-lg"></i>
@@ -295,7 +298,23 @@
                         </div>
                     </div>
                 </article>
-            </div>
+
+                <!-- Comments Section -->
+                <div id="commentsSection" class="mt-8 bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-sm border border-gray-100 dark:border-gray-700 hidden">
+                    <h3 class="font-bold text-lg dark:text-white mb-6">Comments</h3>
+                    
+                    <!-- New Comment Box -->
+                    <div class="mb-6">
+                        <textarea id="newCommentText" class="w-full border border-gray-200 dark:border-gray-700 rounded-xl p-4 text-sm bg-gray-50 dark:bg-gray-900 dark:text-white outline-none focus:ring-2 focus:ring-primary transition" rows="3" placeholder="Write a comment..."></textarea>
+                        <div class="flex justify-end mt-2">
+                            <button id="submitCommentBtn" class="bg-primary text-primaryDark px-4 py-2 rounded-lg font-semibold text-sm hover:bg-primaryDark hover:text-white transition">Comment</button>
+                        </div>
+                    </div>
+
+                    <div id="commentsContainer" class="space-y-6">
+                        <!-- Comments will be loaded here -->
+                    </div>
+                </div>
         </main>
 
         <!-- Footer -->
@@ -552,6 +571,88 @@
                     contentEl.innerHTML = "<p>Post not found.</p>";
                 }
             }
+
+            // Check if we should show comments on load
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('show_comments') === 'true') {
+                $('#commentsSection').removeClass('hidden');
+                renderComments();
+                // Scroll to comments
+                setTimeout(() => {
+                    document.getElementById('commentsSection').scrollIntoView({ behavior: 'smooth' });
+                }, 300);
+            }
+
+            $('#detailCommentsBtn').click(function() {
+                $('#commentsSection').toggleClass('hidden');
+                if (!$('#commentsSection').hasClass('hidden')) {
+                    renderComments();
+                }
+            });
+
+            function renderComments() {
+                const container = document.getElementById('commentsContainer');
+                container.innerHTML = '';
+                
+                // Get dummy comments
+                const dummyComments = [
+                    { author: "Alex", date: "1 hour ago", text: "Very insightful article! Thanks for sharing." },
+                    { author: "Moe", date: "3 hours ago", text: "I totally agree with the simplicity philosophy." },
+                    { author: "Su", date: "1 day ago", text: "Looking forward to more posts like this." }
+                ];
+                
+                dummyComments.forEach(comment => {
+                    const commentHTML = `
+                        <div class="border-b border-gray-100 dark:border-gray-700 pb-4 last:border-0">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center font-bold text-primaryDark">${comment.author.charAt(0)}</div>
+                                <div>
+                                    <div class="font-bold text-sm dark:text-white">${comment.author}</div>
+                                    <div class="text-xs text-gray-500">${comment.date}</div>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">${comment.text}</p>
+                            <div class="mt-2 flex items-center gap-4 text-xs text-gray-500">
+                                <button class="hover:text-primary transition"><i class="fa-solid fa-reply mr-1"></i> Reply</button>
+                                <button class="hover:text-red-500 transition"><i class="fa-regular fa-heart mr-1"></i> Like</button>
+                            </div>
+                        </div>
+                    `;
+                    container.innerHTML += commentHTML;
+                });
+            }
+
+            // Submit Comment
+            $(document).on('click', '#submitCommentBtn', function() {
+                const text = $('#newCommentText').val().trim();
+                if (!text) return;
+                
+                const container = document.getElementById('commentsContainer');
+                const commentHTML = `
+                    <div class="border-b border-gray-100 dark:border-gray-700 pb-4 last:border-0">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center font-bold text-primaryDark">Y</div>
+                            <div>
+                                <div class="font-bold text-sm dark:text-white">You</div>
+                                <div class="text-xs text-gray-500">Just now</div>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">${text}</p>
+                        <div class="mt-2 flex items-center gap-4 text-xs text-gray-500">
+                            <button class="hover:text-primary transition"><i class="fa-solid fa-reply mr-1"></i> Reply</button>
+                            <button class="hover:text-red-500 transition"><i class="fa-regular fa-heart mr-1"></i> Like</button>
+                        </div>
+                    </div>
+                `;
+                
+                // Prepend to container
+                container.insertAdjacentHTML('afterbegin', commentHTML);
+                $('#newCommentText').val('');
+                
+                // Update comment count
+                const currentCount = parseInt($('#detailComments').text()) || 0;
+                $('#detailComments').text(`${currentCount + 1} Comments`);
+            });
 
             function getCategoryClass(category) {
                 switch(category) {

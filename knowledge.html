@@ -461,8 +461,8 @@
                 $('#mobileFont').val(font);
             }
 
-            let currentCategory = 'all';
-            let currentSort = 'date';
+            let currentCategory = sessionStorage.getItem('canolia_category') || 'all';
+            let currentSort = sessionStorage.getItem('canolia_sort') || 'date';
 
             async function applyLanguage(lang) {
                 currentLang = lang;
@@ -580,7 +580,7 @@
                                     <a href="post-detail.html?id=${post.id}" class="text-primary font-semibold text-sm hover:underline">Read More</a>
                                     <div class="flex items-center gap-4 text-gray-500 text-sm">
                                         <span><i class="fa-regular fa-heart mr-1"></i> ${post.likes}</span>
-                                        <span><i class="fa-regular fa-comment mr-1"></i> ${post.comments}</span>
+                                        <a href="post-detail.html?id=${post.id}&show_comments=true" class="hover:text-primary transition"><i class="fa-regular fa-comment mr-1"></i> ${post.comments}</a>
                                         <span><i class="fa-regular fa-share-from-square mr-1"></i> ${post.shares || 0}</span>
                                         <button class="bookmark-btn hover:text-primary transition" data-id="${post.id}">
                                             <i class="fa-${isBookmarked(post.id) ? 'solid' : 'regular'} fa-bookmark"></i>
@@ -609,11 +609,19 @@
             }
 
             // Call on Knowledge page
-            renderPostCards('knowledgePostsContainer', null);
+            renderPostCards('knowledgePostsContainer', null, currentCategory, currentSort);
+
+            // Set initial active filter button
+            $('.filter-btn').removeClass('bg-primary text-primaryDark shadow-sm').addClass('bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700');
+            $(`.filter-btn[data-category="${currentCategory}"]`).removeClass('bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700').addClass('bg-primary text-primaryDark shadow-sm');
+            
+            // Set initial sort select value
+            $('#sortSelect').val(currentSort);
 
             // Category Filter Click
             $('.filter-btn').click(function() {
                 currentCategory = $(this).data('category');
+                sessionStorage.setItem('canolia_category', currentCategory);
                 
                 // Update active class
                 $('.filter-btn').removeClass('bg-primary text-primaryDark shadow-sm').addClass('bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700');
@@ -646,6 +654,7 @@
             // Sort Select Change
             $('#sortSelect').change(function() {
                 currentSort = $(this).val();
+                sessionStorage.setItem('canolia_sort', currentSort);
                 renderPostCards('knowledgePostsContainer', null, currentCategory, currentSort);
             });
         });

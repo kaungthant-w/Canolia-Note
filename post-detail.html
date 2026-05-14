@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy | Canolia Note</title>
+    <title>Post Detail | Canolia Note</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -69,7 +69,7 @@
                         <a href="index.html#hero" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary font-medium" data-i18n="nav_home">Home</a>
                         <a href="index.html#software" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary font-medium" data-i18n="nav_software">Software</a>
                         <a href="index.html#packages" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary font-medium" data-i18n="nav_packages">Packages</a>
-                        <a href="index.html#knowledge" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary font-medium" data-i18n="nav_knowledge">Knowledge</a>
+                        <a href="knowledge.html" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary font-medium">Knowledge</a>
                         
                         <!-- Theme Toggle Btn -->
                         <button id="navThemeToggle" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition">
@@ -181,9 +181,9 @@
                     <i class="fa-solid fa-box w-4 text-center text-gray-400"></i>
                     <span data-i18n="nav_packages">Packages</span>
                 </a>
-                <a href="index.html#knowledge" class="mobile-nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-primary/10 hover:text-primary transition">
+                <a href="knowledge.html" class="mobile-nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-primary/10 hover:text-primary transition">
                     <i class="fa-solid fa-book w-4 text-center text-gray-400"></i>
-                    <span data-i18n="nav_knowledge">Knowledge</span>
+                    <span>Knowledge</span>
                 </a>
             </div>
 
@@ -204,6 +204,7 @@
                         <option value="jp">日本語</option>
                         <option value="kr">한국어</option>
                         <option value="th">ไทย</option>
+                        <option value="cn">中文</option>
                     </select>
                 </div>
 
@@ -252,75 +253,56 @@
 
         <!-- Content Area -->
         <main class="flex-grow py-12 px-4 sm:px-6 lg:px-8">
-            <div class="card bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-sm border border-gray-100 dark:border-gray-700 max-w-4xl mx-auto">
-                <div class="flex items-center gap-3 mb-6">
-                    <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                        <i class="fa-solid fa-shield-halved text-primary text-xl"></i>
+            <div class="max-w-4xl mx-auto">
+                <!-- Back Button -->
+                <a href="knowledge.html" class="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary mb-8 transition">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span class="font-semibold">Back to Knowledge Sharing</span>
+                </a>
+
+                <!-- Article -->
+                <article class="card bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-sm border border-gray-100 dark:border-gray-700">
+                    <!-- Header -->
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primaryDark font-bold text-lg">C</div>
+                        <div>
+                            <div class="font-bold text-lg dark:text-white">Canolia Team</div>
+                            <div class="text-sm text-gray-500 dark:text-gray-400">Published 2 hours ago</div>
+                        </div>
+                        <span class="ml-auto bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 text-xs font-bold px-3 py-1 rounded-full">Philosophy</span>
                     </div>
-                    <div>
-                        <h1 class="text-3xl font-bold dark:text-white" data-i18n="privacy_title">Privacy Policy</h1>
-                        <p class="text-sm text-gray-500 dark:text-gray-400" data-i18n="privacy_updated">Last Updated: April 1, 2026</p>
+
+                    <!-- Title -->
+                    <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">The Philosophy of Simple Living</h1>
+
+                    <!-- Content -->
+                    <div class="space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed">
+                        <p>In a world full of distractions, finding peace in simplicity is a superpower. We are constantly bombarded with notifications, emails, and demands on our attention. It's easy to feel overwhelmed and lose sight of what truly matters.</p>
+                        
+                        <p>Simple living is not about deprivation or living in a cave. It's about intentionally choosing what to include in your life and what to let go. It's about removing the clutter—both physical and mental—so you can focus on your priorities.</p>
+                        
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mt-6 mb-2">Core Principles</h2>
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li><strong>Intentionality:</strong> Make conscious choices about how you spend your time and money.</li>
+                            <li><strong>Clutter Reduction:</strong> Let go of things that don't add value to your life.</li>
+                            <li><strong>Focus:</strong> Concentrate on a few meaningful goals rather than many superficial ones.</li>
+                        </ul>
+
+                        <p class="mt-6">By applying these principles, you can reduce stress, increase focus, and find more joy in the present moment. Start small: declutter one drawer, turn off notifications for an hour, or take 5 minutes to sit in silence. You'll be surprised at the difference it makes.</p>
                     </div>
-                </div>
 
-                <div class="space-y-6 text-gray-600 dark:text-gray-300 leading-relaxed">
-                    <section>
-                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2" data-i18n="privacy_intro_h">Thank you for using Canolia Note</h2>
-                        <p data-i18n="privacy_intro_p">We prioritize the security of your personal information. This policy explains how we handle your data when you use our App.</p>
-                    </section>
-
-                    <section>
-                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2" data-i18n="privacy_1_h">1. Information Collection</h2>
-                        <p class="mb-2" data-i18n="privacy_1_p">We may collect the following information:</p>
-                        <ul class="list-disc pl-5 space-y-1">
-                            <li data-i18n="privacy_1_li1"><strong>Note Data:</strong> Notes you write, including titles and formatted text.</li>
-                            <li data-i18n="privacy_1_li2"><strong>Preferences:</strong> Settings you choose within the App, such as Themes (Aurora, Neumorphic, etc.) and time format (24-hour system).</li>
-                            <li data-i18n="privacy_1_li3"><strong>Device Information:</strong> Basic data such as OS version and device model used to improve the App's performance.</li>
-                        </ul>
-                    </section>
-
-                    <section>
-                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2" data-i18n="privacy_2_h">2. Use of Information</h2>
-                        <p class="mb-2" data-i18n="privacy_2_p">The collected information is used for the following purposes:</p>
-                        <ul class="list-disc pl-5 space-y-1">
-                            <li data-i18n="privacy_2_li1">To ensure the App's features function correctly.</li>
-                            <li data-i18n="privacy_2_li2">To store and organize your notes systematically.</li>
-                            <li data-i18n="privacy_2_li3">To remember your chosen settings and preferences.</li>
-                        </ul>
-                    </section>
-
-                    <section>
-                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2" data-i18n="privacy_3_h">3. Data Storage</h2>
-                        <ul class="list-disc pl-5 space-y-1">
-                            <li data-i18n="privacy_3_li1"><strong>Local Storage:</strong> All your notes are primarily stored directly on your device (Phone).</li>
-                            <li data-i18n="privacy_3_li2"><strong>Cloud Sync:</strong> If you use the Sync feature, your data will be stored on a secure Cloud Server. Please note that this feature is currently in a beta/testing phase.</li>
-                        </ul>
-                    </section>
-
-                    <section>
-                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2" data-i18n="privacy_4_h">4. Third-party Services</h2>
-                        <p data-i18n="privacy_4_p">When you share your notes as PDF, PNG, or Text to other applications (e.g., Viber, Telegram, WhatsApp), the privacy policies of those specific third-party applications will apply.</p>
-                    </section>
-
-                    <section>
-                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2" data-i18n="privacy_5_h">5. Security</h2>
-                        <p data-i18n="privacy_5_p">We strive to use commercially acceptable means to protect your information from unauthorized access. However, please be aware that no method of transmission over the internet is 100% secure.</p>
-                    </section>
-
-                    <section>
-                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2" data-i18n="privacy_6_h">6. Your Rights</h2>
-                        <p data-i18n="privacy_6_p">You can edit or delete your notes within the App at any time. If you uninstall the App, all data stored in your Local Storage will be permanently removed.</p>
-                    </section>
-
-                    <section>
-                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2" data-i18n="privacy_7_h">7. Contact Us</h2>
-                        <p data-i18n="privacy_7_p">If you have any questions regarding this Privacy Policy, you can contact us at:</p>
-                        <a href="mailto:kyawmyothant.dev@gmail.com" class="inline-flex items-center gap-2 mt-2 text-primary font-semibold hover:underline">
-                            <i class="fa-solid fa-envelope"></i>
-                            kyawmyothant.dev@gmail.com
-                        </a>
-                    </section>
-                </div>
+                    <!-- Interaction -->
+                    <div class="mt-8 pt-6 border-t border-gray-100 dark:border-gray-700 flex justify-between items-center">
+                        <button class="flex items-center gap-2 text-gray-500 hover:text-red-500 transition">
+                            <i class="fa-regular fa-heart text-xl"></i>
+                            <span class="font-semibold">Like (24)</span>
+                        </button>
+                        <div class="flex items-center gap-4 text-gray-500 text-sm">
+                            <span><i class="fa-regular fa-comment mr-1"></i> 5 Comments</span>
+                            <span><i class="fa-solid fa-share mr-1"></i> Share</span>
+                        </div>
+                    </div>
+                </article>
             </div>
         </main>
 
@@ -344,7 +326,7 @@
         </footer>
     </div>
 
-    <!-- Script for Privacy Policy Page -->
+    <!-- Script for Post Detail Page -->
     <script>
         const translations = {};
         let currentLang = localStorage.getItem('canolia_lang') || 'en';

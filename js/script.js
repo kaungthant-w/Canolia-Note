@@ -488,7 +488,7 @@ $(document).ready(function() {
             // Check if default is PayPal
             if (methods[0].name === 'PayPal') {
                 $('#paymentPlanAmount').text(usdAmount);
-                $('#paymentPlanCurrency').text('USD');
+                $('#paymentPlanCurrency').text('$');
             }
         }
 
@@ -515,7 +515,7 @@ $(document).ready(function() {
             if (name === 'PayPal') {
                 const usd = $('#paymentModal').attr('data-usd');
                 $('#paymentPlanAmount').text(usd);
-                $('#paymentPlanCurrency').text('USD');
+                $('#paymentPlanCurrency').text('$');
             } else {
                 const origAmount = $('#paymentModal').attr('data-orig-amount');
                 const origCurrency = $('#paymentModal').attr('data-orig-currency');
@@ -670,6 +670,66 @@ $(document).ready(function() {
                         <div class="text-xs text-gray-500 dark:text-gray-400">Coming Soon</div>
                     </div>
                 </div>
+            `;
+        } else if (os === 'mac') {
+            $title.text('Download for macOS');
+            $icon.removeClass().addClass('fa-solid fa-laptop text-gray-600 dark:text-gray-300 text-2xl');
+            optionsHtml = `
+                <a href="#" class="flex items-center gap-4 p-4 rounded-xl border dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                    <div class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-gray-800 dark:text-white">
+                        <i class="fa-solid fa-download text-xl"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold dark:text-white">DMG File</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400">Direct download for macOS</div>
+                    </div>
+                </a>
+            `;
+        } else if (os === 'windows') {
+            $title.text('Download for Windows');
+            $icon.removeClass().addClass('fa-brands fa-windows text-blue-500 text-2xl');
+            optionsHtml = `
+                <a href="#" class="flex items-center gap-4 p-4 rounded-xl border dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-500">
+                        <i class="fa-solid fa-download text-xl"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold dark:text-white">EXE File</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400">Standard Windows installer</div>
+                    </div>
+                </a>
+                <a href="#" class="flex items-center gap-4 p-4 rounded-xl border dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-500">
+                        <i class="fa-solid fa-download text-xl"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold dark:text-white">MSI File</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400">Windows Installer Package</div>
+                    </div>
+                </a>
+            `;
+        } else if (os === 'linux') {
+            $title.text('Download for Linux');
+            $icon.removeClass().addClass('fa-brands fa-linux text-yellow-600 text-2xl');
+            optionsHtml = `
+                <a href="#" class="flex items-center gap-4 p-4 rounded-xl border dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                    <div class="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-600">
+                        <i class="fa-solid fa-download text-xl"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold dark:text-white">DEB File</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400">For Ubuntu/Debian</div>
+                    </div>
+                </a>
+                <a href="#" class="flex items-center gap-4 p-4 rounded-xl border dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                    <div class="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-600">
+                        <i class="fa-solid fa-download text-xl"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold dark:text-white">AppImage</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400">Universal Linux package</div>
+                    </div>
+                </a>
             `;
         }
 

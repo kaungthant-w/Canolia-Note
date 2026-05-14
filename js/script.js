@@ -517,6 +517,17 @@ $(document).ready(function() {
         $('#paymentStep1').removeClass('hidden');
     });
 
+    function validatePaymentForm() {
+        const isGmailFilled = $('#paymentGmail').val() && $('#paymentGmail').val().trim() !== '';
+        const isScreenshotFilled = $('#screenshotInput')[0] && $('#screenshotInput')[0].files.length > 0;
+        
+        if (isPaymentCaptchaVerified && isGmailFilled && isScreenshotFilled) {
+            $('#sendPaymentBtn').prop('disabled', false);
+        } else {
+            $('#sendPaymentBtn').prop('disabled', true);
+        }
+    }
+
     // Payment Captcha Click
     $('#paymentCaptchaBox').click(function() {
         if(!isPaymentCaptchaVerified) {
@@ -524,9 +535,28 @@ $(document).ready(function() {
             setTimeout(() => {
                 $('#paymentCaptchaCheck').html('<i class="fa-solid fa-check"></i>').removeClass('border-gray-400 bg-white').addClass('border-green-500 bg-green-50 text-green-500');
                 isPaymentCaptchaVerified = true;
-                $('#sendPaymentBtn').prop('disabled', false);
+                validatePaymentForm();
             }, 1000);
         }
+    });
+
+    // Image Preview for Payment Screenshot
+    $('#screenshotInput').change(function() {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                $('#screenshotPreview').attr('src', e.target.result).removeClass('hidden');
+                $('#uploadPlaceholder').addClass('hidden');
+            }
+            reader.readAsDataURL(file);
+        }
+        validatePaymentForm();
+    });
+
+    // Gmail Input Listener
+    $('#paymentGmail').on('input', function() {
+        validatePaymentForm();
     });
 
     // Send Payment Button Logic (Mock Network Request)

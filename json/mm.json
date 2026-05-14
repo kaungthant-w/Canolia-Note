@@ -22,6 +22,7 @@
     "btn_download": "ဒေါင်းလုဒ်",
     "pkg_title": "Premium နှင့် AI ဝန်ဆောင်မှုများ",
     "pkg_desc": "ကြော်ငြာကင်းစင်ရန်နှင့် Cloud Sync လုပ်ဆောင်ချက်များကို အကန့်အသတ်မရှိအသုံးပြုရန် ရွေးချယ်ပါ။",
+    "pkg_calculated": "<span id='currentCurrencyDisplay'>MMK</span> ဖြင့် တွက်ချက်ထားသည်",
     "pkg_free_title": "နေ့စဥ် အခမဲ့",
     "pkg_free_desc": "အခြေခံလုပ်ဆောင်ချက်များ အားလုံးပါဝင်သည်",
     "feat_notes": "မှတ်စုများ အကန့်အသတ်မရှိ",

@@ -22,6 +22,7 @@
     "btn_download": "Download",
     "pkg_title": "Premium & AI Services",
     "pkg_desc": "Upgrade for an ad-free experience and unlimited Cloud Sync features.",
+    "pkg_calculated": "Calculated in <span id='currentCurrencyDisplay'>MMK</span>",
     "pkg_free_title": "Daily Free",
     "pkg_free_desc": "Includes all basic features",
     "feat_notes": "Unlimited Notes",

@@ -21,6 +21,7 @@
     "btn_download": "ダウンロード",
     "pkg_title": "プレミアム & AI サービス",
     "pkg_desc": "広告なしの体験と無制限のクラウド同期のためにアップグレード。",
+    "pkg_calculated": "<span id='currentCurrencyDisplay'>MMK</span> で計算",
     "pkg_free_title": "毎日無料",
     "pkg_free_desc": "基本的な機能が含まれます",
     "feat_notes": "無制限のノート",

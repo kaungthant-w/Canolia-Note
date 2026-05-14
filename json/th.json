@@ -21,6 +21,7 @@
     "btn_download": "ดาวน์โหลด",
     "pkg_title": "บริการพรีเมียม & AI",
     "pkg_desc": "อัปเกรดเพื่อประสบการณ์ที่ไม่มีโฆษณาและการซิงค์คลาวด์ไม่จำกัด",
+    "pkg_calculated": "คำนวณเป็น <span id='currentCurrencyDisplay'>MMK</span>",
     "pkg_free_title": "ฟรีรายวัน",
     "pkg_free_desc": "รวมฟีเจอร์พื้นฐานทั้งหมด",
     "feat_notes": "บันทึกไม่จำกัด",

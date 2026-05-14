@@ -21,6 +21,7 @@
     "btn_download": "다운로드",
     "pkg_title": "프리미엄 & AI 서비스",
     "pkg_desc": "광고 없는 환경과 무제한 클라우드 동기화를 위해 업그레이드하세요.",
+    "pkg_calculated": "<span id='currentCurrencyDisplay'>MMK</span> 로 계산됨",
     "pkg_free_title": "매일 무료",
     "pkg_free_desc": "모든 기본 기능 포함",
     "feat_notes": "무제한 노트",

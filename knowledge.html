@@ -598,14 +598,7 @@
                     postsToRenderCopy.sort((a, b) => b.id - a.id);
                 }
                 
-                // Simulate 50 posts if count is small (to test infinite scroll)
-                if (postsToRenderCopy.length < 20 && filterCategory === 'all') {
-                    let simulatedPosts = [];
-                    for (let i = 0; i < 50; i++) {
-                        simulatedPosts.push({...postsToRenderCopy[i % postsToRenderCopy.length], id: i + 1});
-                    }
-                    postsToRenderCopy = simulatedPosts;
-                }
+
                 
                 currentPostsData = postsToRenderCopy; // Save for scroll loading
                 

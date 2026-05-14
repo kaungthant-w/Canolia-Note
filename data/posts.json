@@ -285,5 +285,325 @@
         "content": "<p>ไม่มีคำว่าเร็วเกินไปที่จะเริ่มวางแผนเกษียณอายุ เรียนรู้เกี่ยวกับบัญชีและกลยุทธ์การเกษียณอายุที่แตกต่างกัน</p>"
       }
     }
+  },
+  {
+    "id": 8,
+    "category": "Philosophy",
+    "author": "Canolia Team",
+    "date": "1 day ago",
+    "likes": 15,
+    "comments": 2,
+    "shares": 1,
+    "translations": {
+      "en": {
+        "title": "The Art of Saying No",
+        "excerpt": "Learn how to protect your time and energy by setting boundaries...",
+        "content": "<p>Saying no is a skill. It allows you to focus on what truly matters and avoid overcommitting. Practice saying no politely but firmly.</p>"
+      }
+    }
+  },
+  {
+    "id": 9,
+    "category": "Finance",
+    "author": "Finance Expert",
+    "date": "2 days ago",
+    "likes": 30,
+    "comments": 8,
+    "shares": 5,
+    "translations": {
+      "en": {
+        "title": "Emergency Fund Basics",
+        "excerpt": "Why you need an emergency fund and how to build one...",
+        "content": "<p>An emergency fund is a safety net. Aim to save 3 to 6 months of living expenses. Start small and be consistent.</p>"
+      }
+    }
+  },
+  {
+    "id": 10,
+    "category": "Planning",
+    "author": "Productivity Pro",
+    "date": "3 days ago",
+    "likes": 12,
+    "comments": 1,
+    "shares": 0,
+    "translations": {
+      "en": {
+        "title": "Daily Routine Design",
+        "excerpt": "Design a daily routine that maximizes your energy and focus...",
+        "content": "<p>A good routine helps reduce decision fatigue. Plan your day the night before. Include time for work, rest, and play.</p>"
+      }
+    }
+  },
+  {
+    "id": 11,
+    "category": "Philosophy",
+    "author": "Zen Master",
+    "date": "4 days ago",
+    "likes": 45,
+    "comments": 10,
+    "shares": 12,
+    "translations": {
+      "en": {
+        "title": "Mindfulness in Daily Life",
+        "excerpt": "How to practice mindfulness without sitting on a cushion...",
+        "content": "<p>Mindfulness is about being present. You can practice it while washing dishes, walking, or listening to someone.</p>"
+      }
+    }
+  },
+  {
+    "id": 12,
+    "category": "Finance",
+    "author": "Wealth Coach",
+    "date": "5 days ago",
+    "likes": 50,
+    "comments": 15,
+    "shares": 20,
+    "translations": {
+      "en": {
+        "title": "Understanding Compound Interest",
+        "excerpt": "The eighth wonder of the world and how it can work for you...",
+        "content": "<p>Compound interest is interest on interest. The earlier you start investing, the more time your money has to grow.</p>"
+      }
+    }
+  },
+  {
+    "id": 13,
+    "category": "Planning",
+    "author": "Goal Getter",
+    "date": "6 days ago",
+    "likes": 22,
+    "comments": 4,
+    "shares": 2,
+    "translations": {
+      "en": {
+        "title": "Goal Setting Framework",
+        "excerpt": "Use the SMART criteria to set goals that you will actually achieve...",
+        "content": "<p>SMART stands for Specific, Measurable, Achievable, Relevant, and Time-bound. Break big goals into smaller steps.</p>"
+      }
+    }
+  },
+  {
+    "id": 14,
+    "category": "Philosophy",
+    "author": "Stoic Sage",
+    "date": "1 week ago",
+    "likes": 60,
+    "comments": 25,
+    "shares": 30,
+    "translations": {
+      "en": {
+        "title": "Stoicism for Beginners",
+        "excerpt": "An introduction to the ancient philosophy of resilience...",
+        "content": "<p>Stoicism teaches us to focus on what we can control and accept what we cannot. It's about maintaining inner peace.</p>"
+      }
+    }
+  },
+  {
+    "id": 15,
+    "category": "Finance",
+    "author": "Budget Boss",
+    "date": "1 week ago",
+    "likes": 18,
+    "comments": 3,
+    "shares": 1,
+    "translations": {
+      "en": {
+        "title": "Budgeting on a Variable Income",
+        "excerpt": "How to manage your money when your paycheck changes every month...",
+        "content": "<p>Use a baseline budget based on your lowest-earning month. Save excess income during good months to cover lean months.</p>"
+      }
+    }
+  },
+  {
+    "id": 16,
+    "category": "Planning",
+    "author": "Organizer",
+    "date": "1 week ago",
+    "likes": 25,
+    "comments": 6,
+    "shares": 4,
+    "translations": {
+      "en": {
+        "title": "Weekly Review Process",
+        "excerpt": "The most important habit for staying organized and productive...",
+        "content": "<p>Take 30 minutes every week to review your tasks, calendar, and goals. Clear your inbox and plan for the next week.</p>"
+      }
+    }
+  },
+  {
+    "id": 17,
+    "category": "Philosophy",
+    "author": "Habit Lab",
+    "date": "2 weeks ago",
+    "likes": 70,
+    "comments": 30,
+    "shares": 40,
+    "translations": {
+      "en": {
+        "title": "The Power of Habits",
+        "excerpt": "How small changes can lead to remarkable results over time...",
+        "content": "<p>Habits are the compound interest of self-improvement. Focus on making 1% improvements every day.</p>"
+      }
+    }
+  },
+  {
+    "id": 18,
+    "category": "Finance",
+    "author": "Investor",
+    "date": "2 weeks ago",
+    "likes": 40,
+    "comments": 12,
+    "shares": 10,
+    "translations": {
+      "en": {
+        "title": "Investing vs Saving",
+        "excerpt": "Know the difference and when to do which for your financial future...",
+        "content": "<p>Saving is for short-term goals and emergencies. Investing is for long-term wealth building. Both are necessary.</p>"
+      }
+    }
+  },
+  {
+    "id": 19,
+    "category": "Planning",
+    "author": "Time Manager",
+    "date": "2 weeks ago",
+    "likes": 35,
+    "comments": 8,
+    "shares": 6,
+    "translations": {
+      "en": {
+        "title": "Time Blocking Technique",
+        "excerpt": "How to schedule your day in blocks for deep work and focus...",
+        "content": "<p>Time blocking involves assigning specific blocks of time to specific tasks. It helps prevent multitasking and distraction.</p>"
+      }
+    }
+  },
+  {
+    "id": 20,
+    "category": "Philosophy",
+    "author": "Life Coach",
+    "date": "3 weeks ago",
+    "likes": 55,
+    "comments": 20,
+    "shares": 15,
+    "translations": {
+      "en": {
+        "title": "Finding Your Why",
+        "excerpt": "How to discover your purpose and let it guide your decisions...",
+        "content": "<p>Your 'why' is your purpose. When you know your purpose, it becomes easier to make decisions and stay motivated.</p>"
+      }
+    }
+  },
+  {
+    "id": 21,
+    "category": "Finance",
+    "author": "Debt Free",
+    "date": "3 weeks ago",
+    "likes": 28,
+    "comments": 5,
+    "shares": 3,
+    "translations": {
+      "en": {
+        "title": "Debt Payoff Strategies",
+        "excerpt": "Snowball vs Avalanche methods. Which one is right for you?...",
+        "content": "<p>The snowball method focuses on paying smallest debts first for quick wins. The avalanche method focuses on highest interest rates.</p>"
+      }
+    }
+  },
+  {
+    "id": 22,
+    "category": "Planning",
+    "author": "Minimalist",
+    "date": "3 weeks ago",
+    "likes": 42,
+    "comments": 11,
+    "shares": 8,
+    "translations": {
+      "en": {
+        "title": "Digital Minimalism",
+        "excerpt": "How to declutter your digital life and reclaim your attention...",
+        "content": "<p>Delete unused apps, turn off non-essential notifications, and set boundaries for social media use.</p>"
+      }
+    }
+  },
+  {
+    "id": 23,
+    "category": "Philosophy",
+    "author": "Gratitude",
+    "date": "1 month ago",
+    "likes": 80,
+    "comments": 35,
+    "shares": 50,
+    "translations": {
+      "en": {
+        "title": "Gratitude Practice",
+        "excerpt": "Simple ways to cultivate a mindset of gratitude every day...",
+        "content": "<p>Write down three things you are grateful for every day. It shifts your focus from what you lack to what you have.</p>"
+      }
+    }
+  },
+  {
+    "id": 24,
+    "category": "Finance",
+    "author": "Credit Expert",
+    "date": "1 month ago",
+    "likes": 20,
+    "comments": 4,
+    "shares": 2,
+    "translations": {
+      "en": {
+        "title": "Credit Score Management",
+        "excerpt": "How to build and maintain a healthy credit score for big purchases...",
+        "content": "<p>Pay your bills on time, keep your credit utilization low, and monitor your credit report for errors.</p>"
+      }
+    }
+  },
+  {
+    "id": 25,
+    "category": "Planning",
+    "author": "Chef Plan",
+    "date": "1 month ago",
+    "likes": 30,
+    "comments": 7,
+    "shares": 5,
+    "translations": {
+      "en": {
+        "title": "Meal Prep for Productivity",
+        "excerpt": "How planning your meals can save you time, money, and energy...",
+        "content": "<p>Plan your meals for the week on Sunday. Cook in batches. It saves time during the week and helps you eat healthier.</p>"
+      }
+    }
+  },
+  {
+    "id": 26,
+    "category": "Philosophy",
+    "author": "Growth Mindset",
+    "date": "1 month ago",
+    "likes": 65,
+    "comments": 22,
+    "shares": 25,
+    "translations": {
+      "en": {
+        "title": "Embracing Failure",
+        "excerpt": "How to view failure as feedback and a stepping stone to success...",
+        "content": "<p>Failure is not the opposite of success; it is part of it. Learn from your mistakes and keep moving forward.</p>"
+      }
+    }
+  },
+  {
+    "id": 27,
+    "category": "Finance",
+    "author": "Side Hustler",
+    "date": "1 month ago",
+    "likes": 50,
+    "comments": 18,
+    "shares": 15,
+    "translations": {
+      "en": {
+        "title": "Side Hustle Ideas",
+        "excerpt": "Explore different ways to make extra money in your spare time...",
+        "content": "<p>Freelancing, tutoring, selling crafts, or starting a blog are great side hustles. Find something you enjoy.</p>"
+      }
+    }
   }
 ]

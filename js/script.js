@@ -797,6 +797,48 @@ $(document).ready(function() {
         }
     }
 
+    let indexVisibleCount = 3;
+    let loadingIndexPosts = false;
+    let allPostsData = [];
+
+    function createCardHTML(post, currentLang) {
+        const langData = post.translations[currentLang] || post.translations['en'];
+        const categoryKey = `filter_${post.category.toLowerCase()}`;
+        const categoryTitle = (translations[currentLang] && translations[currentLang][categoryKey]) || post.category;
+        
+        return `
+            <div class="card bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition flex flex-col">
+                <div class="p-6 flex flex-col flex-grow">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primaryDark font-bold">
+                            ${post.author.charAt(0)}
+                        </div>
+                        <div>
+                            <div class="font-bold dark:text-white">${post.author}</div>
+                            <div class="text-xs text-gray-500 dark:text-gray-400">${post.date}</div>
+                        </div>
+                        <span class="ml-auto text-xs font-bold px-2.5 py-0.5 rounded-full ${getCategoryClass(post.category)}">${categoryTitle}</span>
+                    </div>
+                    <h3 class="font-bold text-lg dark:text-white mb-2">${langData.title}</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-3">${langData.excerpt}</p>
+                    <div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700 flex justify-between items-center">
+                        <a href="post-detail.html?id=${post.id}" class="text-primary font-semibold text-sm hover:underline">Read More</a>
+                        <div class="flex items-center gap-4 text-gray-500 text-sm">
+                            <span><i class="fa-regular fa-heart mr-1"></i> ${post.likes}</span>
+                            <a href="post-detail.html?id=${post.id}&show_comments=true" class="hover:text-primary transition"><i class="fa-regular fa-comment mr-1"></i> ${post.comments}</a>
+                            <button class="share-btn hover:text-primary transition" data-id="${post.id}" data-title="${langData.title}">
+                                <i class="fa-regular fa-share-from-square mr-1"></i> ${post.shares || 0}
+                            </button>
+                            <button class="bookmark-btn hover:text-primary transition" data-id="${post.id}">
+                                <i class="fa-${isBookmarked(post.id) ? 'solid' : 'regular'} fa-bookmark"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
     async function renderPostCards(containerId, limit = null) {
         const container = document.getElementById(containerId);
         if (!container) return;
@@ -804,49 +846,40 @@ $(document).ready(function() {
         const posts = await fetchPosts();
         const currentLang = localStorage.getItem('canolia_lang') || 'en';
         
-        const postsToRender = limit ? posts.slice(0, limit) : posts;
+        allPostsData = posts; // Save for infinite scroll
+        
+        const postsToRender = limit ? posts.slice(0, limit) : posts.slice(0, indexVisibleCount);
         
         container.innerHTML = '';
 
         postsToRender.forEach(post => {
-            const langData = post.translations[currentLang] || post.translations['en'];
-            const categoryKey = `filter_${post.category.toLowerCase()}`;
-            const categoryTitle = (translations[currentLang] && translations[currentLang][categoryKey]) || post.category;
-            
-            const cardHTML = `
-                <div class="card bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition flex flex-col">
-                    <div class="p-6 flex flex-col flex-grow">
-                        <div class="flex items-center gap-3 mb-4">
-                            <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primaryDark font-bold">
-                                ${post.author.charAt(0)}
-                            </div>
-                            <div>
-                                <div class="font-bold dark:text-white">${post.author}</div>
-                                <div class="text-xs text-gray-500 dark:text-gray-400">${post.date}</div>
-                            </div>
-                            <span class="ml-auto text-xs font-bold px-2.5 py-0.5 rounded-full ${getCategoryClass(post.category)}">${categoryTitle}</span>
-                        </div>
-                        <h3 class="font-bold text-lg dark:text-white mb-2">${langData.title}</h3>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-3">${langData.excerpt}</p>
-                        <div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700 flex justify-between items-center">
-                            <a href="post-detail.html?id=${post.id}" class="text-primary font-semibold text-sm hover:underline">Read More</a>
-                            <div class="flex items-center gap-4 text-gray-500 text-sm">
-                                <span><i class="fa-regular fa-heart mr-1"></i> ${post.likes}</span>
-                                <a href="post-detail.html?id=${post.id}&show_comments=true" class="hover:text-primary transition"><i class="fa-regular fa-comment mr-1"></i> ${post.comments}</a>
-                                <button class="share-btn hover:text-primary transition" data-id="${post.id}" data-title="${langData.title}">
-                                    <i class="fa-regular fa-share-from-square mr-1"></i> ${post.shares || 0}
-                                </button>
-                                <button class="bookmark-btn hover:text-primary transition" data-id="${post.id}">
-                                    <i class="fa-${isBookmarked(post.id) ? 'solid' : 'regular'} fa-bookmark"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-            container.innerHTML += cardHTML;
+            container.innerHTML += createCardHTML(post, currentLang);
         });
     }
+
+    // Infinite Scroll for Index Page
+    $(window).scroll(function() {
+        const container = document.getElementById('indexPostsContainer');
+        if (!container) return; // Only run on index page
+
+        if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {
+            if (!loadingIndexPosts && indexVisibleCount < 12 && indexVisibleCount < allPostsData.length) {
+                loadingIndexPosts = true;
+                
+                setTimeout(() => {
+                    const currentLang = localStorage.getItem('canolia_lang') || 'en';
+                    const nextBatch = allPostsData.slice(indexVisibleCount, indexVisibleCount + 3);
+                    
+                    nextBatch.forEach(post => {
+                        container.innerHTML += createCardHTML(post, currentLang);
+                    });
+                    
+                    indexVisibleCount += 3;
+                    loadingIndexPosts = false;
+                }, 500);
+            }
+        }
+    });
 
     function isBookmarked(id) {
         const bookmarks = JSON.parse(localStorage.getItem('canolia_bookmarks') || '[]');

@@ -505,9 +505,55 @@
                 }
             }
 
-            async function renderPostCards(containerId, limit = null, filterCategory = 'all', sortBy = 'date') {
+            let visibleCount = 20;
+            let loadingPosts = false;
+            let currentPostsData = []; // Store filtered & sorted posts
+
+            function createCardHTML(post, currentLang) {
+                const langData = post.translations[currentLang] || post.translations['en'];
+                const categoryKey = `filter_${post.category.toLowerCase()}`;
+                const categoryTitle = (translations[currentLang] && translations[currentLang][categoryKey]) || post.category;
+                
+                return `
+                    <div class="card bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition flex flex-col">
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primaryDark font-bold">
+                                    ${post.author.charAt(0)}
+                                </div>
+                                <div>
+                                    <div class="font-bold dark:text-white">${post.author}</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">${post.date}</div>
+                                </div>
+                                <span class="ml-auto text-xs font-bold px-2.5 py-0.5 rounded-full ${getCategoryClass(post.category)}">${categoryTitle}</span>
+                            </div>
+                            <h3 class="font-bold text-lg dark:text-white mb-2">${langData.title}</h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-3">${langData.excerpt}</p>
+                            <div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700 flex justify-between items-center">
+                                <a href="post-detail.html?id=${post.id}" class="text-primary font-semibold text-sm hover:underline">Read More</a>
+                                <div class="flex items-center gap-4 text-gray-500 text-sm">
+                                    <span><i class="fa-regular fa-heart mr-1"></i> ${post.likes}</span>
+                                    <a href="post-detail.html?id=${post.id}&show_comments=true" class="hover:text-primary transition"><i class="fa-regular fa-comment mr-1"></i> ${post.comments}</a>
+                                    <button class="share-btn hover:text-primary transition" data-id="${post.id}" data-title="${langData.title}">
+                                        <i class="fa-regular fa-share-from-square mr-1"></i> ${post.shares || 0}
+                                    </button>
+                                    <button class="bookmark-btn hover:text-primary transition" data-id="${post.id}">
+                                        <i class="fa-${isBookmarked(post.id) ? 'solid' : 'regular'} fa-bookmark"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            async function renderPostCards(containerId, limit = null, filterCategory = 'all', sortBy = 'date', resetCount = true) {
                 const container = document.getElementById(containerId);
                 if (!container) return;
+
+                if (resetCount) {
+                    visibleCount = 20; // Reset count on filter/sort change
+                }
 
                 const posts = await fetchPosts();
                 const currentLang = localStorage.getItem('canolia_lang') || 'en';
@@ -552,47 +598,47 @@
                     postsToRenderCopy.sort((a, b) => b.id - a.id);
                 }
                 
-                const postsToRenderFinal = limit ? postsToRenderCopy.slice(0, limit) : postsToRenderCopy;
+                // Simulate 50 posts if count is small (to test infinite scroll)
+                if (postsToRenderCopy.length < 20 && filterCategory === 'all') {
+                    let simulatedPosts = [];
+                    for (let i = 0; i < 50; i++) {
+                        simulatedPosts.push({...postsToRenderCopy[i % postsToRenderCopy.length], id: i + 1});
+                    }
+                    postsToRenderCopy = simulatedPosts;
+                }
+                
+                currentPostsData = postsToRenderCopy; // Save for scroll loading
+                
+                const postsToRenderFinal = limit ? postsToRenderCopy.slice(0, limit) : postsToRenderCopy.slice(0, visibleCount);
                 
                 container.innerHTML = '';
 
                 postsToRenderFinal.forEach(post => {
-                    const langData = post.translations[currentLang] || post.translations['en'];
-                    const categoryKey = `filter_${post.category.toLowerCase()}`;
-                    const categoryTitle = (translations[currentLang] && translations[currentLang][categoryKey]) || post.category;
-                    
-                    const cardHTML = `
-                        <div class="card bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition flex flex-col">
-                            <div class="p-6 flex flex-col flex-grow">
-                                <div class="flex items-center gap-3 mb-4">
-                                    <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primaryDark font-bold">
-                                        ${post.author.charAt(0)}
-                                    </div>
-                                    <div>
-                                        <div class="font-bold dark:text-white">${post.author}</div>
-                                        <div class="text-xs text-gray-500 dark:text-gray-400">${post.date}</div>
-                                    </div>
-                                    <span class="ml-auto text-xs font-bold px-2.5 py-0.5 rounded-full ${getCategoryClass(post.category)}">${categoryTitle}</span>
-                                </div>
-                                <h3 class="font-bold text-lg dark:text-white mb-2">${langData.title}</h3>
-                                <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-3">${langData.excerpt}</p>
-                                <div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700 flex justify-between items-center">
-                                    <a href="post-detail.html?id=${post.id}" class="text-primary font-semibold text-sm hover:underline">Read More</a>
-                                    <div class="flex items-center gap-4 text-gray-500 text-sm">
-                                        <span><i class="fa-regular fa-heart mr-1"></i> ${post.likes}</span>
-                                        <a href="post-detail.html?id=${post.id}&show_comments=true" class="hover:text-primary transition"><i class="fa-regular fa-comment mr-1"></i> ${post.comments}</a>
-                                        <span><i class="fa-regular fa-share-from-square mr-1"></i> ${post.shares || 0}</span>
-                                        <button class="bookmark-btn hover:text-primary transition" data-id="${post.id}">
-                                            <i class="fa-${isBookmarked(post.id) ? 'solid' : 'regular'} fa-bookmark"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    container.innerHTML += cardHTML;
+                    container.innerHTML += createCardHTML(post, currentLang);
                 });
             }
+
+            // Infinite Scroll
+            $(window).scroll(function() {
+                if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {
+                    if (!loadingPosts && visibleCount < currentPostsData.length) {
+                        loadingPosts = true;
+                        
+                        setTimeout(() => { // Simulate loading delay
+                            const container = document.getElementById('knowledgePostsContainer');
+                            const currentLang = localStorage.getItem('canolia_lang') || 'en';
+                            
+                            const nextBatch = currentPostsData.slice(visibleCount, visibleCount + 10);
+                            nextBatch.forEach(post => {
+                                container.innerHTML += createCardHTML(post, currentLang);
+                            });
+                            
+                            visibleCount += 10;
+                            loadingPosts = false;
+                        }, 500);
+                    }
+                }
+            });
 
             function isBookmarked(id) {
                 const bookmarks = JSON.parse(localStorage.getItem('canolia_bookmarks') || '[]');
@@ -628,6 +674,29 @@
                 $(this).removeClass('bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700').addClass('bg-primary text-primaryDark shadow-sm');
                 
                 renderPostCards('knowledgePostsContainer', null, currentCategory, currentSort);
+            });
+
+            // Share Click
+            $(document).on('click', '.share-btn', function() {
+                const id = $(this).data('id');
+                const title = $(this).data('title');
+                const url = `${window.location.origin}/post-detail.html?id=${id}`;
+                
+                if (navigator.share) {
+                    navigator.share({
+                        title: title,
+                        text: 'Check out this post on Canolia Note!',
+                        url: url
+                    }).then(() => {
+                        console.log('Successful share');
+                    }).catch((error) => {
+                        console.log('Error sharing', error);
+                    });
+                } else {
+                    // Fallback to copy link
+                    navigator.clipboard.writeText(url);
+                    alert('Link copied to clipboard!');
+                }
             });
 
             // Bookmark Click

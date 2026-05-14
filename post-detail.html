@@ -284,15 +284,21 @@
                     <div class="mt-8 pt-6 border-t border-gray-100 dark:border-gray-700 flex justify-between items-center">
                         <button class="flex items-center gap-2 text-gray-500 hover:text-red-500 transition">
                             <i class="fa-regular fa-heart text-xl"></i>
-                            <span class="font-semibold" id="detailLikes">Like (0)</span>
+                            <span class="font-semibold flex items-center gap-1">
+                                <span class="hidden md:inline">Like</span>
+                                <span id="detailLikes">(0)</span>
+                            </span>
                         </button>
                         <div class="flex items-center gap-4 text-gray-500 text-sm">
                             <button id="detailCommentsBtn" class="flex items-center gap-1 text-gray-500 hover:text-primary transition">
                                 <i class="fa-regular fa-comment"></i>
-                                <span id="detailComments">0 Comments</span>
+                                <span class="flex items-center gap-1">
+                                    <span id="detailCommentsCount">0</span>
+                                    <span class="hidden md:inline">Comments</span>
+                                </span>
                             </button>
                             <button id="detailShareBtn" class="hover:text-primary transition">
-                                <i class="fa-solid fa-share mr-1"></i> <span data-i18n="btn_share">Share</span>
+                                <i class="fa-solid fa-share mr-1"></i> <span data-i18n="btn_share" class="hidden md:inline">Share</span>
                             </button>
                             <button id="detailBookmark" class="hover:text-primary transition">
                                 <i class="fa-regular fa-bookmark text-lg"></i>
@@ -622,8 +628,8 @@
                     $('#detailAuthor').text(post.author);
                     $('#detailDate').text(post.date);
                     $('#detailCategory').text(categoryTitle);
-                    $('#detailLikes').text(`Like (${post.likes})`);
-                    $('#detailComments').html(`<i class="fa-regular mr-1"></i> ${post.comments} Comments`);
+                    $('#detailLikes').text(`(${post.likes})`);
+                    $('#detailCommentsCount').text(post.comments);
                     
                     // Update bookmark state
                     const bookmarks = JSON.parse(localStorage.getItem('canolia_bookmarks') || '[]');

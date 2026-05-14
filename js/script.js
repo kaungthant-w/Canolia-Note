@@ -833,7 +833,9 @@ $(document).ready(function() {
                             <div class="flex items-center gap-4 text-gray-500 text-sm">
                                 <span><i class="fa-regular fa-heart mr-1"></i> ${post.likes}</span>
                                 <a href="post-detail.html?id=${post.id}&show_comments=true" class="hover:text-primary transition"><i class="fa-regular fa-comment mr-1"></i> ${post.comments}</a>
-                                <span><i class="fa-regular fa-share-from-square mr-1"></i> ${post.shares || 0}</span>
+                                <button class="share-btn hover:text-primary transition" data-id="${post.id}" data-title="${langData.title}">
+                                    <i class="fa-regular fa-share-from-square mr-1"></i> ${post.shares || 0}
+                                </button>
                                 <button class="bookmark-btn hover:text-primary transition" data-id="${post.id}">
                                     <i class="fa-${isBookmarked(post.id) ? 'solid' : 'regular'} fa-bookmark"></i>
                                 </button>
@@ -865,6 +867,29 @@ $(document).ready(function() {
         }
         
         localStorage.setItem('canolia_bookmarks', JSON.stringify(bookmarks));
+    });
+
+    // Share Click
+    $(document).on('click', '.share-btn', function() {
+        const id = $(this).data('id');
+        const title = $(this).data('title');
+        const url = `${window.location.origin}/post-detail.html?id=${id}`;
+        
+        if (navigator.share) {
+            navigator.share({
+                title: title,
+                text: 'Check out this post on Canolia Note!',
+                url: url
+            }).then(() => {
+                console.log('Successful share');
+            }).catch((error) => {
+                console.log('Error sharing', error);
+            });
+        } else {
+            // Fallback to copy link
+            navigator.clipboard.writeText(url);
+            alert('Link copied to clipboard!');
+        }
     });
 
     function getCategoryClass(category) {

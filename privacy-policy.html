@@ -1,191 +1,516 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy | Canolia Suite</title>
-    <meta name="description" content="Privacy Policy for Canolia Note and the Canolia Suite.">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        body {
-            font-family: 'Outfit', sans-serif;
-            background-color: #050505;
-            color: #ffffff;
-            overflow-x: hidden;
-        }
-        .glass {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .text-gradient {
-            background: linear-gradient(135deg, #4fd1c5 0%, #38b2ac 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .bg-gradient-primary {
-            background: linear-gradient(135deg, #0d1b1b 0%, #050505 100%);
-        }
-        .aura-glow {
-            position: absolute;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(79, 209, 197, 0.08) 0%, transparent 70%);
-            filter: blur(60px);
-            z-index: -1;
-            pointer-events: none;
-        }
-    </style>
-</head>
-<body class="antialiased min-h-screen flex flex-col relative">
+    <title>Privacy Policy | Canolia Note</title>
     
-    <!-- Background Effects -->
-    <div class="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
-        <div class="aura-glow top-0 left-0 translate-x-[-20%] translate-y-[-20%]"></div>
-        <div class="aura-glow bottom-0 right-0 translate-x-[20%] translate-y-[20%]"></div>
-        <!-- Grid Pattern -->
-        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDMpIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0wIDQwaDQwVjBIMHoiLz48L2c+PC9zdmc+')] opacity-20"></div>
-    </div>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FACC15',
+                        primaryDark: '#713F12',
+                        darkBg: '#0F172A',
+                        neoBg: '#A5F3FC'
+                    },
+                    fontFamily: {
+                        sans: ['Padauk', 'system-ui', 'sans-serif'],
+                        serif: ['"Myanmar Text"', 'serif'],
+                        mono: ['Monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 glass border-b border-white/5 transition-all duration-300" id="navbar">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <div class="flex-shrink-0 flex items-center">
-                    <a href="index.html" class="flex items-center gap-2 group">
-                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#4fd1c5] to-[#38b2ac] flex items-center justify-center text-white font-bold text-xl shadow-[0_0_15px_rgba(79,209,197,0.3)] group-hover:shadow-[0_0_25px_rgba(79,209,197,0.5)] transition-all">
-                            C
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gray-50 text-gray-900 transition-colors duration-300 antialiased font-sans">
+
+    <!-- Main Content Wrapper -->
+    <div id="mainApp" class="min-h-screen flex flex-col">
+        
+        <!-- Navigation -->
+        <nav class="sticky top-0 z-40 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <!-- Logo -->
+                    <a href="index.html" class="flex-shrink-0 flex items-center gap-2 cursor-pointer">
+                        <div class="w-8 h-8 bg-primary rounded-md flex items-center justify-center">
+                            <i class="fa-solid fa-book-open text-primaryDark"></i>
                         </div>
-                        <span class="font-semibold text-xl tracking-tight">Canolia <span class="text-white/60 font-light">Suite</span></span>
+                        <span class="font-bold text-xl dark:text-white">Canolia Note</span>
                     </a>
+                    
+                    <!-- Mobile Menu Button -->
+                    <div class="flex md:hidden items-center gap-2">
+                        <button id="navThemeToggleMobile" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                            <i class="fa-solid fa-moon dark:hidden"></i>
+                            <i class="fa-solid fa-sun hidden dark:block"></i>
+                        </button>
+                        <button id="mobileMenuBtn" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                            <i class="fa-solid fa-bars"></i>
+                        </button>
+                    </div>
+
+                    <!-- Desktop Menu -->
+                    <div class="hidden md:flex items-center space-x-6">
+                        <a href="index.html#hero" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary font-medium" data-i18n="nav_home">Home</a>
+                        <a href="index.html#software" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary font-medium" data-i18n="nav_software">Software</a>
+                        <a href="index.html#packages" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary font-medium" data-i18n="nav_packages">Packages</a>
+                        
+                        <!-- Theme Toggle Btn -->
+                        <button id="navThemeToggle" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                            <i class="fa-solid fa-moon dark:hidden"></i>
+                            <i class="fa-solid fa-sun hidden dark:block"></i>
+                        </button>
+
+                        <!-- Options Menu (Three Dots) -->
+                        <div class="relative">
+                            <button id="threeDotsBtn" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                            </button>
+                            <div id="threeDotsMenu" class="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-md shadow-lg py-2 hidden border dark:border-gray-700 z-50 max-h-[75vh] overflow-y-auto">
+                                
+                                <!-- Language Submenu Group -->
+                                <div>
+                                    <button class="group-toggle w-full flex items-center justify-between px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                                        <div class="flex items-center gap-3">
+                                            <i class="fa-solid fa-globe text-gray-400 w-4"></i>
+                                            <span data-i18n="label_lang">Language</span>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <span id="currentNavLangDisplay" class="text-xs font-bold text-primary">EN</span>
+                                            <i class="fa-solid fa-chevron-right text-[10px] text-gray-400 transition-transform duration-200 chevron-icon"></i>
+                                        </div>
+                                    </button>
+                                    <div class="submenu hidden bg-gray-50 dark:bg-gray-800/80 border-y border-gray-100 dark:border-gray-700 py-1">
+                                        <a href="#" class="lang-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="en">English</a>
+                                        <a href="#" class="lang-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="mm">မြန်မာ</a>
+                                        <a href="#" class="lang-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="jp">日本語</a>
+                                        <a href="#" class="lang-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="kr">한국어</a>
+                                        <a href="#" class="lang-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="th">ไทย</a>
+                                    </div>
+                                </div>
+
+                                <!-- Font Submenu Group -->
+                                <div>
+                                    <button class="group-toggle w-full flex items-center justify-between px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                                        <div class="flex items-center gap-3">
+                                            <i class="fa-solid fa-font text-gray-400 w-4"></i>
+                                            <span data-i18n="label_font">Font</span>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <span id="currentNavFontDisplay" class="text-xs font-bold text-primary">Sans</span>
+                                            <i class="fa-solid fa-chevron-right text-[10px] text-gray-400 transition-transform duration-200 chevron-icon"></i>
+                                        </div>
+                                    </button>
+                                    <div class="submenu hidden bg-gray-50 dark:bg-gray-800/80 border-y border-gray-100 dark:border-gray-700 py-1">
+                                        <a href="#" class="font-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-font="sans">Sans-serif</a>
+                                        <a href="#" class="font-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-font="serif">Serif</a>
+                                        <a href="#" class="font-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-font="mono">Monospace</a>
+                                    </div>
+                                </div>
+
+                                <!-- Theme Submenu Group -->
+                                <div>
+                                    <button class="group-toggle w-full flex items-center justify-between px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                                        <div class="flex items-center gap-3">
+                                            <i class="fa-solid fa-palette text-gray-400 w-4"></i>
+                                            <span data-i18n="label_theme">Theme</span>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <span id="currentNavThemeDisplay" class="text-xs font-bold text-primary">Light</span>
+                                            <i class="fa-solid fa-chevron-right text-[10px] text-gray-400 transition-transform duration-200 chevron-icon"></i>
+                                        </div>
+                                    </button>
+                                    <div class="submenu hidden bg-gray-50 dark:bg-gray-800/80 border-y border-gray-100 dark:border-gray-700 py-1">
+                                        <a href="#" class="theme-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-theme="light">Light</a>
+                                        <a href="#" class="theme-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-theme="dark">Dark</a>
+                                        <a href="#" class="theme-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-theme="neo">Neo</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </nav>
+        </nav>
 
-    <!-- Content -->
-    <main class="flex-grow pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="max-w-3xl mx-auto glass rounded-2xl p-8 sm:p-12 relative overflow-hidden">
-            <!-- Glow Accent -->
-            <div class="absolute top-0 right-0 w-64 h-64 bg-[#4fd1c5] opacity-[0.03] blur-3xl rounded-full"></div>
+        <!-- Mobile Menu Backdrop Overlay -->
+        <div id="mobileMenuBackdrop" class="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm hidden md:hidden transition-opacity duration-300 opacity-0"></div>
 
-            <div class="relative z-10">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-12 h-12 rounded-xl bg-[#4fd1c5]/10 flex items-center justify-center">
-                        <i data-lucide="shield-check" class="text-[#4fd1c5] w-6 h-6"></i>
+        <!-- Mobile Side Drawer -->
+        <aside id="mobileDrawer" class="fixed top-0 right-0 h-full w-[80%] max-w-xs z-50 bg-white dark:bg-gray-900 shadow-2xl flex flex-col md:hidden translate-x-full transition-transform duration-300 ease-in-out">
+            <div class="flex items-center justify-between px-5 py-4 border-b border-gray-200 dark:border-gray-700 bg-primary">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-primaryDark rounded-md flex items-center justify-center">
+                        <i class="fa-solid fa-book-open text-primary text-sm"></i>
                     </div>
-                    <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-white">Privacy Policy</h1>
+                    <span class="font-bold text-primaryDark text-lg">Canolia Note</span>
                 </div>
-                
-                <p class="text-white/40 text-sm mb-12">Last Updated: April 1, 2026</p>
+                <button id="mobileDrawerClose" class="w-9 h-9 rounded-full bg-primaryDark/20 flex items-center justify-center text-primaryDark hover:bg-primaryDark/30 transition">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
 
-                <div class="space-y-10 text-white/70 leading-relaxed">
-                    
+            <div class="px-4 pt-4 pb-2 space-y-1">
+                <p class="text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500 px-2 mb-2 tracking-widest">Navigation</p>
+                <a href="index.html#hero" class="mobile-nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-primary/10 hover:text-primary transition">
+                    <i class="fa-solid fa-house w-4 text-center text-gray-400"></i>
+                    <span data-i18n="nav_home">Home</span>
+                </a>
+                <a href="index.html#software" class="mobile-nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-primary/10 hover:text-primary transition">
+                    <i class="fa-solid fa-laptop w-4 text-center text-gray-400"></i>
+                    <span data-i18n="nav_software">Software</span>
+                </a>
+                <a href="index.html#packages" class="mobile-nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-primary/10 hover:text-primary transition">
+                    <i class="fa-solid fa-box w-4 text-center text-gray-400"></i>
+                    <span data-i18n="nav_packages">Packages</span>
+                </a>
+            </div>
+
+            <div class="mx-4 my-2 border-t border-gray-100 dark:border-gray-800"></div>
+
+            <div class="flex-1 overflow-y-auto px-4 pb-6 space-y-4 pt-2">
+                <p class="text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500 px-2 tracking-widest">Settings</p>
+
+                <!-- Language -->
+                <div class="bg-gray-50 dark:bg-gray-800 rounded-xl px-4 py-3">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i class="fa-solid fa-globe text-primary text-sm"></i>
+                        <label class="text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wide" data-i18n="label_lang">Language</label>
+                    </div>
+                    <select id="mobileLang" class="w-full border border-gray-200 dark:border-gray-600 rounded-lg p-2 text-sm bg-white dark:bg-gray-700 dark:text-white outline-none focus:ring-2 focus:ring-primary">
+                        <option value="en">English</option>
+                        <option value="mm">မြန်မာ</option>
+                        <option value="jp">日本語</option>
+                        <option value="kr">한국어</option>
+                        <option value="th">ไทย</option>
+                    </select>
+                </div>
+
+                <!-- Font -->
+                <div class="bg-gray-50 dark:bg-gray-800 rounded-xl px-4 py-3">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i class="fa-solid fa-font text-primary text-sm"></i>
+                        <label class="text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wide" data-i18n="label_font">Font</label>
+                    </div>
+                    <select id="mobileFont" class="w-full border border-gray-200 dark:border-gray-600 rounded-lg p-2 text-sm bg-white dark:bg-gray-700 dark:text-white outline-none focus:ring-2 focus:ring-primary">
+                        <option value="sans">Sans-serif</option>
+                        <option value="serif">Serif</option>
+                        <option value="mono">Monospace</option>
+                    </select>
+                </div>
+
+                <!-- Theme -->
+                <div class="bg-gray-50 dark:bg-gray-800 rounded-xl px-4 py-3">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i class="fa-solid fa-palette text-primary text-sm"></i>
+                        <label class="text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wide" data-i18n="label_theme">Theme</label>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button class="mobile-theme-btn flex flex-col items-center gap-1.5 py-2.5 px-2 rounded-xl border-2 border-gray-200 dark:border-gray-600 hover:border-primary transition" data-theme="light">
+                            <div class="w-8 h-8 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center">
+                                <i class="fa-solid fa-sun text-yellow-500 text-xs"></i>
+                            </div>
+                            <span class="text-[11px] font-semibold text-gray-600 dark:text-gray-300">Light</span>
+                        </button>
+                        <button class="mobile-theme-btn flex flex-col items-center gap-1.5 py-2.5 px-2 rounded-xl border-2 border-gray-200 dark:border-gray-600 hover:border-primary transition" data-theme="dark">
+                            <div class="w-8 h-8 rounded-full bg-gray-800 border border-gray-600 flex items-center justify-center">
+                                <i class="fa-solid fa-moon text-blue-400 text-xs"></i>
+                            </div>
+                            <span class="text-[11px] font-semibold text-gray-600 dark:text-gray-300">Dark</span>
+                        </button>
+                        <button class="mobile-theme-btn flex flex-col items-center gap-1.5 py-2.5 px-2 rounded-xl border-2 border-gray-200 dark:border-gray-600 hover:border-primary transition" data-theme="neo">
+                            <div class="w-8 h-8 rounded-full bg-[#A5F3FC] border-2 border-black flex items-center justify-center" style="box-shadow:2px 2px 0 #000">
+                                <i class="fa-solid fa-bolt text-black text-xs"></i>
+                            </div>
+                            <span class="text-[11px] font-semibold text-gray-600 dark:text-gray-300">Neo</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Content Area -->
+        <main class="flex-grow py-12 px-4 sm:px-6 lg:px-8">
+            <div class="card bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-sm border border-gray-100 dark:border-gray-700 max-w-4xl mx-auto">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                        <i class="fa-solid fa-shield-halved text-primary text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-3xl font-bold dark:text-white" data-i18n="privacy_title">Privacy Policy</h1>
+                        <p class="text-sm text-gray-500 dark:text-gray-400" data-i18n="privacy_updated">Last Updated: April 1, 2026</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6 text-gray-600 dark:text-gray-300 leading-relaxed">
                     <section>
-                        <h2 class="text-xl font-semibold text-white mb-3 flex items-center gap-2">
-                            Thank you for using Canolia Note
-                        </h2>
-                        <p>We prioritize the security of your personal information. This policy explains how we handle your data when you use our App.</p>
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2" data-i18n="privacy_intro_h">Thank you for using Canolia Note</h2>
+                        <p data-i18n="privacy_intro_p">We prioritize the security of your personal information. This policy explains how we handle your data when you use our App.</p>
                     </section>
 
                     <section>
-                        <h2 class="text-xl font-semibold text-white mb-3 flex items-center gap-2">
-                            <span class="text-[#4fd1c5]">1.</span> Information Collection
-                        </h2>
-                        <p class="mb-2">We may collect the following information:</p>
-                        <ul class="list-disc pl-5 space-y-2 text-white/60">
-                            <li><strong class="text-white/80">Note Data:</strong> Notes you write, including titles and formatted text.</li>
-                            <li><strong class="text-white/80">Preferences:</strong> Settings you choose within the App, such as Themes (Aurora, Neumorphic, etc.) and time format (24-hour system).</li>
-                            <li><strong class="text-white/80">Device Information:</strong> Basic data such as OS version and device model used to improve the App's performance.</li>
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2" data-i18n="privacy_1_h">1. Information Collection</h2>
+                        <p class="mb-2" data-i18n="privacy_1_p">We may collect the following information:</p>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li data-i18n="privacy_1_li1"><strong>Note Data:</strong> Notes you write, including titles and formatted text.</li>
+                            <li data-i18n="privacy_1_li2"><strong>Preferences:</strong> Settings you choose within the App, such as Themes (Aurora, Neumorphic, etc.) and time format (24-hour system).</li>
+                            <li data-i18n="privacy_1_li3"><strong>Device Information:</strong> Basic data such as OS version and device model used to improve the App's performance.</li>
                         </ul>
                     </section>
 
                     <section>
-                        <h2 class="text-xl font-semibold text-white mb-3 flex items-center gap-2">
-                            <span class="text-[#4fd1c5]">2.</span> Use of Information
-                        </h2>
-                        <p class="mb-2">The collected information is used for the following purposes:</p>
-                        <ul class="list-disc pl-5 space-y-2 text-white/60">
-                            <li>To ensure the App's features function correctly.</li>
-                            <li>To store and organize your notes systematically.</li>
-                            <li>To remember your chosen settings and preferences.</li>
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2" data-i18n="privacy_2_h">2. Use of Information</h2>
+                        <p class="mb-2" data-i18n="privacy_2_p">The collected information is used for the following purposes:</p>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li data-i18n="privacy_2_li1">To ensure the App's features function correctly.</li>
+                            <li data-i18n="privacy_2_li2">To store and organize your notes systematically.</li>
+                            <li data-i18n="privacy_2_li3">To remember your chosen settings and preferences.</li>
                         </ul>
                     </section>
 
                     <section>
-                        <h2 class="text-xl font-semibold text-white mb-3 flex items-center gap-2">
-                            <span class="text-[#4fd1c5]">3.</span> Data Storage
-                        </h2>
-                        <ul class="list-disc pl-5 space-y-2 text-white/60">
-                            <li><strong class="text-white/80">Local Storage:</strong> All your notes are primarily stored directly on your device (Phone).</li>
-                            <li><strong class="text-white/80">Cloud Sync:</strong> If you use the Sync feature, your data will be stored on a secure Cloud Server. Please note that this feature is currently in a beta/testing phase.</li>
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2" data-i18n="privacy_3_h">3. Data Storage</h2>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li data-i18n="privacy_3_li1"><strong>Local Storage:</strong> All your notes are primarily stored directly on your device (Phone).</li>
+                            <li data-i18n="privacy_3_li2"><strong>Cloud Sync:</strong> If you use the Sync feature, your data will be stored on a secure Cloud Server. Please note that this feature is currently in a beta/testing phase.</li>
                         </ul>
                     </section>
 
                     <section>
-                        <h2 class="text-xl font-semibold text-white mb-3 flex items-center gap-2">
-                            <span class="text-[#4fd1c5]">4.</span> Third-party Services
-                        </h2>
-                        <p>When you share your notes as PDF, PNG, or Text to other applications (e.g., Viber, Telegram, WhatsApp), the privacy policies of those specific third-party applications will apply.</p>
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2" data-i18n="privacy_4_h">4. Third-party Services</h2>
+                        <p data-i18n="privacy_4_p">When you share your notes as PDF, PNG, or Text to other applications (e.g., Viber, Telegram, WhatsApp), the privacy policies of those specific third-party applications will apply.</p>
                     </section>
 
                     <section>
-                        <h2 class="text-xl font-semibold text-white mb-3 flex items-center gap-2">
-                            <span class="text-[#4fd1c5]">5.</span> Security
-                        </h2>
-                        <p>We strive to use commercially acceptable means to protect your information from unauthorized access. However, please be aware that no method of transmission over the internet is 100% secure.</p>
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2" data-i18n="privacy_5_h">5. Security</h2>
+                        <p data-i18n="privacy_5_p">We strive to use commercially acceptable means to protect your information from unauthorized access. However, please be aware that no method of transmission over the internet is 100% secure.</p>
                     </section>
 
                     <section>
-                        <h2 class="text-xl font-semibold text-white mb-3 flex items-center gap-2">
-                            <span class="text-[#4fd1c5]">6.</span> Your Rights
-                        </h2>
-                        <p>You can edit or delete your notes within the App at any time. If you uninstall the App, all data stored in your Local Storage will be permanently removed.</p>
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2" data-i18n="privacy_6_h">6. Your Rights</h2>
+                        <p data-i18n="privacy_6_p">You can edit or delete your notes within the App at any time. If you uninstall the App, all data stored in your Local Storage will be permanently removed.</p>
                     </section>
 
                     <section>
-                        <h2 class="text-xl font-semibold text-white mb-3 flex items-center gap-2">
-                            <span class="text-[#4fd1c5]">7.</span> Contact Us
-                        </h2>
-                        <p>If you have any questions regarding this Privacy Policy, you can contact us at:</p>
-                        <a href="mailto:kyawmyothant.dev@gmail.com" class="inline-flex items-center gap-2 mt-3 text-[#4fd1c5] hover:text-white transition-colors bg-[#4fd1c5]/10 px-4 py-2 rounded-lg">
-                            <i data-lucide="mail" class="w-4 h-4"></i>
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2" data-i18n="privacy_7_h">7. Contact Us</h2>
+                        <p data-i18n="privacy_7_p">If you have any questions regarding this Privacy Policy, you can contact us at:</p>
+                        <a href="mailto:kyawmyothant.dev@gmail.com" class="inline-flex items-center gap-2 mt-2 text-primary font-semibold hover:underline">
+                            <i class="fa-solid fa-envelope"></i>
                             kyawmyothant.dev@gmail.com
                         </a>
                     </section>
                 </div>
             </div>
-        </div>
-    </main>
+        </main>
 
-    <!-- Footer -->
-    <footer class="border-t border-white/5 bg-[#030303] relative z-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-                <div class="flex items-center gap-2 opacity-50 hover:opacity-100 transition-opacity">
-                    <div class="w-6 h-6 rounded bg-[#4fd1c5] flex items-center justify-center text-black font-bold text-xs">C</div>
-                    <span class="font-medium tracking-wide">Canolia Suite</span>
+        <!-- Footer -->
+        <footer class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-10 mt-auto">
+            <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="flex items-center gap-2">
+                    <div class="w-6 h-6 bg-primary rounded flex items-center justify-center">
+                        <i class="fa-solid fa-book-open text-primaryDark text-xs"></i>
+                    </div>
+                    <span class="font-bold dark:text-white">Canolia Note</span>
                 </div>
-                <p class="text-white/30 text-sm">
-                    &copy; 2026 Canolia. All rights reserved.
+                <div class="flex flex-wrap justify-center gap-6 text-sm text-gray-600 dark:text-gray-400">
+                    <a href="mailto:kyawmyothant.dev@gmail.com" class="hover:text-primary transition"><i class="fa-solid fa-envelope mr-1"></i> kyawmyothant.dev@gmail.com</a>
+                    <a href="privacy-policy.html" class="hover:text-primary transition" data-i18n="footer_privacy">Privacy Policy</a>
+                </div>
+                <p class="text-sm text-gray-500">
+                    &copy; <span id="year"></span> Canolia Note. All rights reserved.
                 </p>
             </div>
-        </div>
-    </footer>
+        </footer>
+    </div>
 
+    <!-- Script for Privacy Policy Page -->
     <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
+        const translations = {};
+        let currentLang = localStorage.getItem('canolia_lang') || 'en';
+        let currentTheme = localStorage.getItem('canolia_theme') || 'light';
+        let currentFont = localStorage.getItem('canolia_font') || 'sans';
 
-        // Navbar blur effect on scroll
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 20) {
-                navbar.style.backgroundColor = 'rgba(5, 5, 5, 0.8)';
-            } else {
-                navbar.style.backgroundColor = 'transparent';
+        $(document).ready(function() {
+            // Set year
+            $('#year').text(new Date().getFullYear());
+
+            // Apply initial theme
+            applyTheme(currentTheme);
+            // Apply initial font
+            applyFont(currentFont);
+            // Apply initial language
+            applyLanguage(currentLang);
+
+            // Desktop Theme Toggle
+            $('#navThemeToggle').click(function() {
+                toggleTheme();
+            });
+
+            // Mobile Theme Toggle
+            $('#navThemeToggleMobile').click(function() {
+                toggleTheme();
+            });
+
+            // Mobile Theme Buttons
+            $('.mobile-theme-btn').click(function() {
+                const theme = $(this).data('theme');
+                applyTheme(theme);
+                localStorage.setItem('canolia_theme', theme);
+            });
+
+            // Language Switch
+            $('.lang-switch').click(function(e) {
+                e.preventDefault();
+                const lang = $(this).attr('data-lang');
+                applyLanguage(lang);
+                localStorage.setItem('canolia_lang', lang);
+                $('#threeDotsMenu').addClass('hidden');
+            });
+
+            // Mobile Language Switch
+            $('#mobileLang').change(function() {
+                const lang = $(this).val();
+                applyLanguage(lang);
+                localStorage.setItem('canolia_lang', lang);
+            });
+
+            // Font Switch
+            $('.font-switch').click(function(e) {
+                e.preventDefault();
+                const font = $(this).attr('data-font');
+                applyFont(font);
+                localStorage.setItem('canolia_font', font);
+                $('#threeDotsMenu').addClass('hidden');
+            });
+
+            // Mobile Font Switch
+            $('#mobileFont').change(function() {
+                const font = $(this).val();
+                applyFont(font);
+                localStorage.setItem('canolia_font', font);
+            });
+
+            // Three Dots Menu Toggle
+            $('#threeDotsBtn').click(function(e) {
+                e.stopPropagation();
+                $('#threeDotsMenu').toggleClass('hidden');
+            });
+
+            // Close menu on outside click
+            $(document).click(function() {
+                $('#threeDotsMenu').addClass('hidden');
+                $('.submenu').slideUp(0);
+                $('.chevron-icon').removeClass('rotate-90');
+            });
+
+            // Submenu toggle in 3 dots menu
+            $('.group-toggle').click(function(e) {
+                e.stopPropagation();
+                const $submenu = $(this).next('.submenu');
+                const $icon = $(this).find('.chevron-icon');
+                
+                $('.submenu').not($submenu).slideUp(200);
+                $('.chevron-icon').not($icon).removeClass('rotate-90');
+                
+                $submenu.slideToggle(200);
+                $icon.toggleClass('rotate-90');
+            });
+
+            // Mobile Drawer
+            $('#mobileMenuBtn').click(function(e) {
+                e.stopPropagation();
+                openMobileDrawer();
+            });
+
+            $('#mobileDrawerClose, #mobileMenuBackdrop').click(function() {
+                closeMobileDrawer();
+            });
+
+            function openMobileDrawer() {
+                $('#mobileMenuBackdrop').removeClass('hidden').addClass('opacity-0');
+                setTimeout(() => $('#mobileMenuBackdrop').removeClass('opacity-0').addClass('opacity-100'), 10);
+                $('#mobileDrawer').removeClass('translate-x-full');
+                $('#mobileMenuBtn i').removeClass('fa-bars').addClass('fa-xmark');
+            }
+
+            function closeMobileDrawer() {
+                $('#mobileMenuBackdrop').removeClass('opacity-100').addClass('opacity-0');
+                setTimeout(() => $('#mobileMenuBackdrop').addClass('hidden'), 300);
+                $('#mobileDrawer').addClass('translate-x-full');
+                $('#mobileMenuBtn i').removeClass('fa-xmark').addClass('fa-bars');
+            }
+
+            function toggleTheme() {
+                let newTheme;
+                if($('html').hasClass('theme-neo')) {
+                    newTheme = 'dark';
+                } else if($('html').hasClass('dark')) {
+                    newTheme = 'light';
+                } else {
+                    newTheme = 'dark';
+                }
+                applyTheme(newTheme);
+                localStorage.setItem('canolia_theme', newTheme);
+            }
+
+            function applyTheme(theme) {
+                $('html').removeClass('dark theme-neo');
+                if(theme === 'dark') {
+                    $('html').addClass('dark');
+                } else if(theme === 'neo') {
+                    $('html').addClass('theme-neo');
+                }
+                
+                // Update displays
+                $('#currentNavThemeDisplay').text(theme.charAt(0).toUpperCase() + theme.slice(1));
+                $('.mobile-theme-btn').removeClass('border-primary bg-primary/10');
+                $(`.mobile-theme-btn[data-theme="${theme}"]`).addClass('border-primary bg-primary/10');
+            }
+
+            function applyFont(font) {
+                $('body').removeClass('font-sans font-serif font-mono').addClass('font-' + font);
+                $('#currentNavFontDisplay').text(font.charAt(0).toUpperCase() + font.slice(1));
+                $('#mobileFont').val(font);
+            }
+
+            async function applyLanguage(lang) {
+                currentLang = lang;
+                $('#currentNavLangDisplay').text(lang.toUpperCase());
+                $('#mobileLang').val(lang);
+
+                if (!translations[lang]) {
+                    try {
+                        const res = await fetch(`json/${lang}.json`);
+                        translations[lang] = await res.json();
+                    } catch (e) {
+                        console.error("Failed to load language", lang, e);
+                    }
+                }
+                
+                const texts = translations[lang] || translations['en'];
+                if (!texts) return;
+                
+                $('[data-i18n]').each(function() {
+                    const key = $(this).attr('data-i18n');
+                    if(texts[key]) {
+                        $(this).html(texts[key]);
+                    }
+                });
             }
         });
     </script>

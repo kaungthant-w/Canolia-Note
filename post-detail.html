@@ -257,7 +257,7 @@
                 <!-- Back Button -->
                 <a href="knowledge.html" class="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary mb-8 transition">
                     <i class="fa-solid fa-arrow-left"></i>
-                    <span class="font-semibold">Back to Knowledge Sharing</span>
+                    <span class="font-semibold" data-i18n="btn_back_knowledge">Back to Knowledge Sharing</span>
                 </a>
 
                 <!-- Article -->
@@ -266,40 +266,32 @@
                     <div class="flex items-center gap-3 mb-6">
                         <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primaryDark font-bold text-lg">C</div>
                         <div>
-                            <div class="font-bold text-lg dark:text-white">Canolia Team</div>
-                            <div class="text-sm text-gray-500 dark:text-gray-400">Published 2 hours ago</div>
+                            <div class="font-bold text-lg dark:text-white" id="detailAuthor">Loading...</div>
+                            <div class="text-sm text-gray-500 dark:text-gray-400" id="detailDate">Loading...</div>
                         </div>
-                        <span class="ml-auto bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 text-xs font-bold px-3 py-1 rounded-full">Philosophy</span>
+                        <span class="ml-auto bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 text-xs font-bold px-3 py-1 rounded-full" id="detailCategory">Category</span>
                     </div>
 
                     <!-- Title -->
-                    <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">The Philosophy of Simple Living</h1>
+                    <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-4" id="detailTitle">Loading...</h1>
 
                     <!-- Content -->
-                    <div class="space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed">
-                        <p>In a world full of distractions, finding peace in simplicity is a superpower. We are constantly bombarded with notifications, emails, and demands on our attention. It's easy to feel overwhelmed and lose sight of what truly matters.</p>
-                        
-                        <p>Simple living is not about deprivation or living in a cave. It's about intentionally choosing what to include in your life and what to let go. It's about removing the clutter—both physical and mental—so you can focus on your priorities.</p>
-                        
-                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mt-6 mb-2">Core Principles</h2>
-                        <ul class="list-disc pl-5 space-y-2">
-                            <li><strong>Intentionality:</strong> Make conscious choices about how you spend your time and money.</li>
-                            <li><strong>Clutter Reduction:</strong> Let go of things that don't add value to your life.</li>
-                            <li><strong>Focus:</strong> Concentrate on a few meaningful goals rather than many superficial ones.</li>
-                        </ul>
-
-                        <p class="mt-6">By applying these principles, you can reduce stress, increase focus, and find more joy in the present moment. Start small: declutter one drawer, turn off notifications for an hour, or take 5 minutes to sit in silence. You'll be surprised at the difference it makes.</p>
+                    <div class="space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed" id="detailContent">
+                        <p>Loading content...</p>
                     </div>
 
                     <!-- Interaction -->
                     <div class="mt-8 pt-6 border-t border-gray-100 dark:border-gray-700 flex justify-between items-center">
                         <button class="flex items-center gap-2 text-gray-500 hover:text-red-500 transition">
                             <i class="fa-regular fa-heart text-xl"></i>
-                            <span class="font-semibold">Like (24)</span>
+                            <span class="font-semibold" id="detailLikes">Like (0)</span>
                         </button>
                         <div class="flex items-center gap-4 text-gray-500 text-sm">
-                            <span><i class="fa-regular fa-comment mr-1"></i> 5 Comments</span>
-                            <span><i class="fa-solid fa-share mr-1"></i> Share</span>
+                            <span id="detailComments"><i class="fa-regular fa-comment mr-1"></i> 0 Comments</span>
+                            <span><i class="fa-solid fa-share mr-1"></i> <span data-i18n="btn_share">Share</span></span>
+                            <button id="detailBookmark" class="hover:text-primary transition">
+                                <i class="fa-regular fa-bookmark text-lg"></i>
+                            </button>
                         </div>
                     </div>
                 </article>
@@ -499,7 +491,96 @@
                         $(this).html(texts[key]);
                     }
                 });
+
+                // Re-render post detail
+                if (document.getElementById('detailTitle')) {
+                    renderPostDetail();
+                }
             }
+
+            // Knowledge System Logic
+            async function fetchPosts() {
+                try {
+                    const response = await fetch('data/posts.json');
+                    return await response.json();
+                } catch (error) {
+                    console.error("Error loading posts:", error);
+                    return [];
+                }
+            }
+
+            async function renderPostDetail() {
+                const titleEl = document.getElementById('detailTitle');
+                const contentEl = document.getElementById('detailContent');
+                if (!titleEl || !contentEl) return;
+
+                // Get ID from the URL
+                const urlParams = new URLSearchParams(window.location.search);
+                const postId = parseInt(urlParams.get('id'));
+
+                const posts = await fetchPosts();
+                const post = posts.find(p => p.id === postId);
+
+                if (post) {
+                    const currentLang = localStorage.getItem('canolia_lang') || 'en';
+                    const langData = post.translations[currentLang] || post.translations['en'];
+
+                    const categoryKey = `filter_${post.category.toLowerCase()}`;
+                    const categoryTitle = (translations[currentLang] && translations[currentLang][categoryKey]) || post.category;
+                    
+                    titleEl.textContent = langData.title;
+                    contentEl.innerHTML = langData.content; // Render HTML content
+                    
+                    // Update other fields
+                    $('#detailAuthor').text(post.author);
+                    $('#detailDate').text(post.date);
+                    $('#detailCategory').text(categoryTitle);
+                    $('#detailLikes').text(`Like (${post.likes})`);
+                    $('#detailComments').html(`<i class="fa-regular fa-comment mr-1"></i> ${post.comments} Comments`);
+                    
+                    // Update bookmark state
+                    const bookmarks = JSON.parse(localStorage.getItem('canolia_bookmarks') || '[]');
+                    if (bookmarks.includes(postId)) {
+                        $('#detailBookmark i').removeClass('fa-regular').addClass('fa-solid');
+                    } else {
+                        $('#detailBookmark i').removeClass('fa-solid').addClass('fa-regular');
+                    }
+                    
+                    // Update category class
+                    $('#detailCategory').removeClass().addClass(`ml-auto text-xs font-bold px-3 py-1 rounded-full ${getCategoryClass(post.category)}`);
+                } else {
+                    contentEl.innerHTML = "<p>Post not found.</p>";
+                }
+            }
+
+            function getCategoryClass(category) {
+                switch(category) {
+                    case 'Philosophy': return 'bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400';
+                    case 'Finance': return 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400';
+                    case 'Planning': return 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400';
+                    default: return 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400';
+                }
+            }
+
+            // Call on Detail page
+            renderPostDetail();
+
+            // Bookmark Click
+            $('#detailBookmark').click(function() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const postId = parseInt(urlParams.get('id'));
+                let bookmarks = JSON.parse(localStorage.getItem('canolia_bookmarks') || '[]');
+                
+                if (bookmarks.includes(postId)) {
+                    bookmarks = bookmarks.filter(b => b !== postId);
+                    $(this).find('i').removeClass('fa-solid').addClass('fa-regular');
+                } else {
+                    bookmarks.push(postId);
+                    $(this).find('i').removeClass('fa-regular').addClass('fa-solid');
+                }
+                
+                localStorage.setItem('canolia_bookmarks', JSON.stringify(bookmarks));
+            });
         });
     </script>
 </body>

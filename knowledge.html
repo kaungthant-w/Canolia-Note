@@ -259,153 +259,34 @@
                     <p class="text-gray-500 dark:text-gray-400" data-i18n="knowledge_desc">Explore articles about philosophy, finance, and planning.</p>
                 </div>
 
-                <!-- Filters -->
-                <div class="flex flex-wrap justify-center gap-3 mb-10">
-                    <button class="bg-primary text-primaryDark px-4 py-2 rounded-full font-semibold text-sm shadow-sm">All</button>
-                    <button class="bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full font-semibold text-sm hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700 transition">Philosophy</button>
-                    <button class="bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full font-semibold text-sm hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700 transition">Finance</button>
-                    <button class="bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full font-semibold text-sm hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700 transition">Planning</button>
+                <!-- Filters & Sorting -->
+                <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mb-10">
+                    <div class="flex flex-wrap justify-center gap-3">
+                        <button class="filter-btn bg-primary text-primaryDark px-4 py-2 rounded-full font-semibold text-sm shadow-sm" data-category="all" data-i18n="filter_all">All</button>
+                        <button class="filter-btn bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full font-semibold text-sm hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700 transition" data-category="Philosophy" data-i18n="filter_philosophy">Philosophy</button>
+                        <button class="filter-btn bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full font-semibold text-sm hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700 transition" data-category="Finance" data-i18n="filter_finance">Finance</button>
+                        <button class="filter-btn bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full font-semibold text-sm hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700 transition" data-category="Planning" data-i18n="filter_planning">Planning</button>
+                        <button class="filter-btn bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full font-semibold text-sm hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700 transition" data-category="bookmarked" data-i18n="filter_bookmarked">Bookmarked</button>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-sm text-gray-500 dark:text-gray-400" data-i18n="sort_by">Sort by:</span>
+                        <select id="sortSelect" class="bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg font-semibold text-sm border border-gray-200 dark:border-gray-700 focus:outline-none focus:border-primary transition">
+                            <option value="date" data-i18n="sort_date">Date</option>
+                            <option value="az" data-i18n="sort_az">A-Z</option>
+                            <option value="za" data-i18n="sort_za">Z-A</option>
+                            <option value="random" data-i18n="sort_random">Random</option>
+                            <option value="likes_desc" data-i18n="sort_likes_desc">Likes (High to Low)</option>
+                            <option value="likes_asc" data-i18n="sort_likes_asc">Likes (Low to High)</option>
+                            <option value="comments_desc" data-i18n="sort_comments_desc">Comments (High to Low)</option>
+                            <option value="comments_asc" data-i18n="sort_comments_asc">Comments (Low to High)</option>
+                            <option value="shares_desc" data-i18n="sort_shares_desc">Shares (High to Low)</option>
+                            <option value="shares_asc" data-i18n="sort_shares_asc">Shares (Low to High)</option>
+                        </select>
+                    </div>
                 </div>
 
-                <!-- Posts Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Post 1 (Philosophy) -->
-                    <div class="card bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition flex flex-col">
-                        <div class="p-6 flex flex-col flex-grow">
-                            <div class="flex items-center gap-3 mb-4">
-                                <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primaryDark font-bold">C</div>
-                                <div>
-                                    <div class="font-bold dark:text-white">Canolia Team</div>
-                                    <div class="text-xs text-gray-500 dark:text-gray-400">2 hours ago</div>
-                                </div>
-                                <span class="ml-auto bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 text-xs font-bold px-2.5 py-0.5 rounded-full">Philosophy</span>
-                            </div>
-                            <h3 class="font-bold text-lg dark:text-white mb-2">The Philosophy of Simple Living</h3>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-3">In a world full of distractions, finding peace in simplicity is a superpower. Here is how we can apply philosophical principles to our daily routine...</p>
-                            <div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700 flex justify-between items-center">
-                                <a href="post-detail.html?id=1" class="text-primary font-semibold text-sm hover:underline">Read More</a>
-                                <div class="flex items-center gap-4 text-gray-500 text-sm">
-                                    <span><i class="fa-regular fa-heart mr-1"></i> 24</span>
-                                    <span><i class="fa-regular fa-comment mr-1"></i> 5</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Post 2 (Short Finance) -->
-                    <div class="card bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition flex flex-col">
-                        <div class="p-6 flex flex-col flex-grow">
-                            <div class="flex items-center gap-3 mb-4">
-                                <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primaryDark font-bold">C</div>
-                                <div>
-                                    <div class="font-bold dark:text-white">Canolia Team</div>
-                                    <div class="text-xs text-gray-500 dark:text-gray-400">1 day ago</div>
-                                </div>
-                                <span class="ml-auto bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 text-xs font-bold px-2.5 py-0.5 rounded-full">Finance</span>
-                            </div>
-                            <h3 class="font-bold text-lg dark:text-white mb-2">5-Minute Financial Checkup</h3>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-3">Quick tips to review your budget and save more money this month. Simple steps that make a big difference...</p>
-                            <div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700 flex justify-between items-center">
-                                <a href="post-detail.html?id=2" class="text-primary font-semibold text-sm hover:underline">Read More</a>
-                                <div class="flex items-center gap-4 text-gray-500 text-sm">
-                                    <span><i class="fa-regular fa-heart mr-1"></i> 45</span>
-                                    <span><i class="fa-regular fa-comment mr-1"></i> 12</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Post 3 (Long Finance) -->
-                    <div class="card bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition flex flex-col">
-                        <div class="p-6 flex flex-col flex-grow">
-                            <div class="flex items-center gap-3 mb-4">
-                                <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primaryDark font-bold">C</div>
-                                <div>
-                                    <div class="font-bold dark:text-white">Canolia Team</div>
-                                    <div class="text-xs text-gray-500 dark:text-gray-400">3 days ago</div>
-                                </div>
-                                <span class="ml-auto bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-bold px-2.5 py-0.5 rounded-full">Planning</span>
-                            </div>
-                            <h3 class="font-bold text-lg dark:text-white mb-2">Long-Term Wealth Building</h3>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-3">Understanding compound interest and investing for the future. A comprehensive guide for beginners...</p>
-                            <div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700 flex justify-between items-center">
-                                <a href="post-detail.html?id=3" class="text-primary font-semibold text-sm hover:underline">Read More</a>
-                                <div class="flex items-center gap-4 text-gray-500 text-sm">
-                                    <span><i class="fa-regular fa-heart mr-1"></i> 89</span>
-                                    <span><i class="fa-regular fa-comment mr-1"></i> 34</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Post 4 (Philosophy) -->
-                    <div class="card bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition flex flex-col">
-                        <div class="p-6 flex flex-col flex-grow">
-                            <div class="flex items-center gap-3 mb-4">
-                                <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primaryDark font-bold">C</div>
-                                <div>
-                                    <div class="font-bold dark:text-white">Canolia Team</div>
-                                    <div class="text-xs text-gray-500 dark:text-gray-400">1 week ago</div>
-                                </div>
-                                <span class="ml-auto bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 text-xs font-bold px-2.5 py-0.5 rounded-full">Philosophy</span>
-                            </div>
-                            <h3 class="font-bold text-lg dark:text-white mb-2">Stoicism in Modern Times</h3>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-3">How ancient Stoic philosophy can help us manage stress and anxiety in the digital age. Focus on what you can control...</p>
-                            <div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700 flex justify-between items-center">
-                                <a href="post-detail.html?id=4" class="text-primary font-semibold text-sm hover:underline">Read More</a>
-                                <div class="flex items-center gap-4 text-gray-500 text-sm">
-                                    <span><i class="fa-regular fa-heart mr-1"></i> 56</span>
-                                    <span><i class="fa-regular fa-comment mr-1"></i> 18</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Post 5 (Short Finance) -->
-                    <div class="card bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition flex flex-col">
-                        <div class="p-6 flex flex-col flex-grow">
-                            <div class="flex items-center gap-3 mb-4">
-                                <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primaryDark font-bold">C</div>
-                                <div>
-                                    <div class="font-bold dark:text-white">Canolia Team</div>
-                                    <div class="text-xs text-gray-500 dark:text-gray-400">2 weeks ago</div>
-                                </div>
-                                <span class="ml-auto bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 text-xs font-bold px-2.5 py-0.5 rounded-full">Finance</span>
-                            </div>
-                            <h3 class="font-bold text-lg dark:text-white mb-2">The Latte Factor: Small Savings, Big Results</h3>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-3">How cutting back on daily small expenses can lead to significant savings over time. It's not about the coffee, it's about the habit...</p>
-                            <div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700 flex justify-between items-center">
-                                <a href="post-detail.html?id=5" class="text-primary font-semibold text-sm hover:underline">Read More</a>
-                                <div class="flex items-center gap-4 text-gray-500 text-sm">
-                                    <span><i class="fa-regular fa-heart mr-1"></i> 32</span>
-                                    <span><i class="fa-regular fa-comment mr-1"></i> 7</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Post 6 (Long Finance) -->
-                    <div class="card bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition flex flex-col">
-                        <div class="p-6 flex flex-col flex-grow">
-                            <div class="flex items-center gap-3 mb-4">
-                                <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primaryDark font-bold">C</div>
-                                <div>
-                                    <div class="font-bold dark:text-white">Canolia Team</div>
-                                    <div class="text-xs text-gray-500 dark:text-gray-400">1 month ago</div>
-                                </div>
-                                <span class="ml-auto bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-bold px-2.5 py-0.5 rounded-full">Planning</span>
-                            </div>
-                            <h3 class="font-bold text-lg dark:text-white mb-2">Retirement Planning 101</h3>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-3">It's never too early to start planning for retirement. Learn about different retirement accounts and strategies to ensure a comfortable future...</p>
-                            <div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700 flex justify-between items-center">
-                                <a href="post-detail.html?id=6" class="text-primary font-semibold text-sm hover:underline">Read More</a>
-                                <div class="flex items-center gap-4 text-gray-500 text-sm">
-                                    <span><i class="fa-regular fa-heart mr-1"></i> 110</span>
-                                    <span><i class="fa-regular fa-comment mr-1"></i> 42</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div id="knowledgePostsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Dynamic posts will be loaded here -->
                 </div>
             </div>
         </main>
@@ -580,6 +461,9 @@
                 $('#mobileFont').val(font);
             }
 
+            let currentCategory = 'all';
+            let currentSort = 'date';
+
             async function applyLanguage(lang) {
                 currentLang = lang;
                 $('#currentNavLangDisplay').text(lang.toUpperCase());
@@ -603,7 +487,167 @@
                         $(this).html(texts[key]);
                     }
                 });
+
+                // Re-render posts
+                if (document.getElementById('knowledgePostsContainer')) {
+                    renderPostCards('knowledgePostsContainer', null, currentCategory, currentSort);
+                }
             }
+
+            // Knowledge System Logic
+            async function fetchPosts() {
+                try {
+                    const response = await fetch('data/posts.json');
+                    return await response.json();
+                } catch (error) {
+                    console.error("Error loading posts:", error);
+                    return [];
+                }
+            }
+
+            async function renderPostCards(containerId, limit = null, filterCategory = 'all', sortBy = 'date') {
+                const container = document.getElementById(containerId);
+                if (!container) return;
+
+                const posts = await fetchPosts();
+                const currentLang = localStorage.getItem('canolia_lang') || 'en';
+                
+                let postsToRender = posts;
+                if (filterCategory === 'bookmarked') {
+                    const bookmarks = JSON.parse(localStorage.getItem('canolia_bookmarks') || '[]');
+                    postsToRender = posts.filter(post => bookmarks.includes(post.id));
+                } else if (filterCategory !== 'all') {
+                    postsToRender = posts.filter(post => post.category === filterCategory);
+                }
+                
+                // Sorting
+                let postsToRenderCopy = [...postsToRender];
+                if (sortBy === 'az') {
+                    postsToRenderCopy.sort((a, b) => {
+                        const titleA = (a.translations[currentLang] || a.translations['en']).title.toLowerCase();
+                        const titleB = (b.translations[currentLang] || b.translations['en']).title.toLowerCase();
+                        return titleA.localeCompare(titleB);
+                    });
+                } else if (sortBy === 'za') {
+                    postsToRenderCopy.sort((a, b) => {
+                        const titleA = (a.translations[currentLang] || a.translations['en']).title.toLowerCase();
+                        const titleB = (b.translations[currentLang] || b.translations['en']).title.toLowerCase();
+                        return titleB.localeCompare(titleA);
+                    });
+                } else if (sortBy === 'likes_desc') {
+                    postsToRenderCopy.sort((a, b) => b.likes - a.likes);
+                } else if (sortBy === 'likes_asc') {
+                    postsToRenderCopy.sort((a, b) => a.likes - b.likes);
+                } else if (sortBy === 'comments_desc') {
+                    postsToRenderCopy.sort((a, b) => b.comments - a.comments);
+                } else if (sortBy === 'comments_asc') {
+                    postsToRenderCopy.sort((a, b) => a.comments - b.comments);
+                } else if (sortBy === 'shares_desc') {
+                    postsToRenderCopy.sort((a, b) => (b.shares || 0) - (a.shares || 0));
+                } else if (sortBy === 'shares_asc') {
+                    postsToRenderCopy.sort((a, b) => (a.shares || 0) - (b.shares || 0));
+                } else if (sortBy === 'random') {
+                    postsToRenderCopy.sort(() => Math.random() - 0.5);
+                } else if (sortBy === 'date') {
+                    postsToRenderCopy.sort((a, b) => b.id - a.id);
+                }
+                
+                const postsToRenderFinal = limit ? postsToRenderCopy.slice(0, limit) : postsToRenderCopy;
+                
+                container.innerHTML = '';
+
+                postsToRenderFinal.forEach(post => {
+                    const langData = post.translations[currentLang] || post.translations['en'];
+                    const categoryKey = `filter_${post.category.toLowerCase()}`;
+                    const categoryTitle = (translations[currentLang] && translations[currentLang][categoryKey]) || post.category;
+                    
+                    const cardHTML = `
+                        <div class="card bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition flex flex-col">
+                            <div class="p-6 flex flex-col flex-grow">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primaryDark font-bold">
+                                        ${post.author.charAt(0)}
+                                    </div>
+                                    <div>
+                                        <div class="font-bold dark:text-white">${post.author}</div>
+                                        <div class="text-xs text-gray-500 dark:text-gray-400">${post.date}</div>
+                                    </div>
+                                    <span class="ml-auto text-xs font-bold px-2.5 py-0.5 rounded-full ${getCategoryClass(post.category)}">${categoryTitle}</span>
+                                </div>
+                                <h3 class="font-bold text-lg dark:text-white mb-2">${langData.title}</h3>
+                                <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-3">${langData.excerpt}</p>
+                                <div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700 flex justify-between items-center">
+                                    <a href="post-detail.html?id=${post.id}" class="text-primary font-semibold text-sm hover:underline">Read More</a>
+                                    <div class="flex items-center gap-4 text-gray-500 text-sm">
+                                        <span><i class="fa-regular fa-heart mr-1"></i> ${post.likes}</span>
+                                        <span><i class="fa-regular fa-comment mr-1"></i> ${post.comments}</span>
+                                        <span><i class="fa-regular fa-share-from-square mr-1"></i> ${post.shares || 0}</span>
+                                        <button class="bookmark-btn hover:text-primary transition" data-id="${post.id}">
+                                            <i class="fa-${isBookmarked(post.id) ? 'solid' : 'regular'} fa-bookmark"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.innerHTML += cardHTML;
+                });
+            }
+
+            function isBookmarked(id) {
+                const bookmarks = JSON.parse(localStorage.getItem('canolia_bookmarks') || '[]');
+                return bookmarks.includes(id);
+            }
+
+            function getCategoryClass(category) {
+                switch(category) {
+                    case 'Philosophy': return 'bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400';
+                    case 'Finance': return 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400';
+                    case 'Planning': return 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400';
+                    default: return 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400';
+                }
+            }
+
+            // Call on Knowledge page
+            renderPostCards('knowledgePostsContainer', null);
+
+            // Category Filter Click
+            $('.filter-btn').click(function() {
+                currentCategory = $(this).data('category');
+                
+                // Update active class
+                $('.filter-btn').removeClass('bg-primary text-primaryDark shadow-sm').addClass('bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700');
+                $(this).removeClass('bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700').addClass('bg-primary text-primaryDark shadow-sm');
+                
+                renderPostCards('knowledgePostsContainer', null, currentCategory, currentSort);
+            });
+
+            // Bookmark Click
+            $(document).on('click', '.bookmark-btn', function() {
+                const id = $(this).data('id');
+                let bookmarks = JSON.parse(localStorage.getItem('canolia_bookmarks') || '[]');
+                
+                if (bookmarks.includes(id)) {
+                    bookmarks = bookmarks.filter(b => b !== id);
+                    $(this).find('i').removeClass('fa-solid').addClass('fa-regular');
+                } else {
+                    bookmarks.push(id);
+                    $(this).find('i').removeClass('fa-regular').addClass('fa-solid');
+                }
+                
+                localStorage.setItem('canolia_bookmarks', JSON.stringify(bookmarks));
+                
+                // If we are on the bookmarked filter, re-render
+                if (currentCategory === 'bookmarked') {
+                    renderPostCards('knowledgePostsContainer', null, currentCategory, currentSort);
+                }
+            });
+
+            // Sort Select Change
+            $('#sortSelect').change(function() {
+                currentSort = $(this).val();
+                renderPostCards('knowledgePostsContainer', null, currentCategory, currentSort);
+            });
         });
     </script>
 </body>

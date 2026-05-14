@@ -239,6 +239,11 @@ $(document).ready(function() {
         // Update Nav Dropdown text
         $('#currentNavLangDisplay').text(lang.toUpperCase());
         $('#mobileLang').val(lang);
+
+        // Re-render posts if container exists
+        if (document.getElementById('indexPostsContainer')) {
+            renderPostCards('indexPostsContainer', 3);
+        }
     }
 
     function updateCurrency(curr) {
@@ -780,6 +785,99 @@ $(document).ready(function() {
             $(`.download-trigger-btn[data-os="windows"]`).trigger('click');
         }
     });
+
+    // Knowledge System Logic
+    async function fetchPosts() {
+        try {
+            const response = await fetch('data/posts.json');
+            return await response.json();
+        } catch (error) {
+            console.error("Error loading posts:", error);
+            return [];
+        }
+    }
+
+    async function renderPostCards(containerId, limit = null) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+
+        const posts = await fetchPosts();
+        const currentLang = localStorage.getItem('canolia_lang') || 'en';
+        
+        const postsToRender = limit ? posts.slice(0, limit) : posts;
+        
+        container.innerHTML = '';
+
+        postsToRender.forEach(post => {
+            const langData = post.translations[currentLang] || post.translations['en'];
+            const categoryKey = `filter_${post.category.toLowerCase()}`;
+            const categoryTitle = (translations[currentLang] && translations[currentLang][categoryKey]) || post.category;
+            
+            const cardHTML = `
+                <div class="card bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition flex flex-col">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primaryDark font-bold">
+                                ${post.author.charAt(0)}
+                            </div>
+                            <div>
+                                <div class="font-bold dark:text-white">${post.author}</div>
+                                <div class="text-xs text-gray-500 dark:text-gray-400">${post.date}</div>
+                            </div>
+                            <span class="ml-auto text-xs font-bold px-2.5 py-0.5 rounded-full ${getCategoryClass(post.category)}">${categoryTitle}</span>
+                        </div>
+                        <h3 class="font-bold text-lg dark:text-white mb-2">${langData.title}</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-3">${langData.excerpt}</p>
+                        <div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700 flex justify-between items-center">
+                            <a href="post-detail.html?id=${post.id}" class="text-primary font-semibold text-sm hover:underline">Read More</a>
+                            <div class="flex items-center gap-4 text-gray-500 text-sm">
+                                <span><i class="fa-regular fa-heart mr-1"></i> ${post.likes}</span>
+                                <span><i class="fa-regular fa-comment mr-1"></i> ${post.comments}</span>
+                                <span><i class="fa-regular fa-share-from-square mr-1"></i> ${post.shares || 0}</span>
+                                <button class="bookmark-btn hover:text-primary transition" data-id="${post.id}">
+                                    <i class="fa-${isBookmarked(post.id) ? 'solid' : 'regular'} fa-bookmark"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.innerHTML += cardHTML;
+        });
+    }
+
+    function isBookmarked(id) {
+        const bookmarks = JSON.parse(localStorage.getItem('canolia_bookmarks') || '[]');
+        return bookmarks.includes(id);
+    }
+
+    // Bookmark Click
+    $(document).on('click', '.bookmark-btn', function() {
+        const id = $(this).data('id');
+        let bookmarks = JSON.parse(localStorage.getItem('canolia_bookmarks') || '[]');
+        
+        if (bookmarks.includes(id)) {
+            bookmarks = bookmarks.filter(b => b !== id);
+            $(this).find('i').removeClass('fa-solid').addClass('fa-regular');
+        } else {
+            bookmarks.push(id);
+            $(this).find('i').removeClass('fa-regular').addClass('fa-solid');
+        }
+        
+        localStorage.setItem('canolia_bookmarks', JSON.stringify(bookmarks));
+    });
+
+    function getCategoryClass(category) {
+        switch(category) {
+            case 'Philosophy': return 'bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400';
+            case 'Finance': return 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400';
+            case 'Planning': return 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400';
+            default: return 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400';
+        }
+    }
+
+    // Call on Index page
+    renderPostCards('indexPostsContainer', 3);
 
     // 6. Utilities
     function showMessage(msg, type) {

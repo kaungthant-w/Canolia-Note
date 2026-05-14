@@ -54,6 +54,11 @@ const paymentProviders = {
         { name: "PayPal", color: "text-blue-600 bg-blue-100 dark:bg-blue-900/30", icon: "fa-brands fa-paypal", account: "kyawmyothant2049@gmail.com" },
         { name: "Stripe", color: "text-indigo-500 bg-indigo-100 dark:bg-indigo-900/30", icon: "fa-brands fa-stripe", account: "Stripe-ID-XXXX" },
         { name: "Bank Transfer", color: "text-gray-600 bg-gray-100 dark:bg-gray-900/30 dark:text-gray-300", icon: "fa-solid fa-building-columns", account: "Bank-Acct-XXXX" }
+    ],
+    CNY: [
+        { name: "WeChat Pay", color: "text-green-500 bg-green-100 dark:bg-green-900/30", icon: "fa-brands fa-weixin", account: "WeChat-ID-XXXX" },
+        { name: "Alipay", color: "text-blue-500 bg-blue-100 dark:bg-blue-900/30", icon: "fa-brands fa-alipay", account: "Alipay-ID-XXXX" },
+        { name: "PayPal", color: "text-blue-600 bg-blue-100 dark:bg-blue-900/30", icon: "fa-brands fa-paypal", account: "kyawmyothant2049@gmail.com" }
     ]
 };
 
@@ -64,7 +69,8 @@ const fallbackRates = {
     MMK: { rate: 3500, symbol: 'Ks' },
     JPY: { rate: 150, symbol: '¥' },
     KRW: { rate: 1350, symbol: '₩' },
-    THB: { rate: 36, symbol: '฿' }
+    THB: { rate: 36, symbol: '฿' },
+    CNY: { rate: 7.2, symbol: '¥' }
 };
 
 let currentLang = 'en';
@@ -441,6 +447,12 @@ $(document).ready(function() {
         const planTitle = $card.find('.plan-title').text();
         const amount = $card.find('.price-display').text();
         const currencySymbol = $card.find('.currency-symbol').text();
+        const usdAmount = $card.find('.price-display').attr('data-usd');
+        
+        // Store original values on modal
+        $('#paymentModal').attr('data-orig-amount', amount);
+        $('#paymentModal').attr('data-orig-currency', currencySymbol);
+        $('#paymentModal').attr('data-usd', usdAmount);
         
         // Update Modal Content
         $('#paymentPlanTitle').text(planTitle);
@@ -453,7 +465,7 @@ $(document).ready(function() {
         
         methods.forEach((method, index) => {
             methodsHtml += `
-                <button class="payment-method-btn flex items-center gap-3 p-3 rounded-lg border dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition ${index === 0 ? 'selected' : ''}" data-account="${method.account}" data-qr="${method.qr || ''}">
+                <button class="payment-method-btn flex items-center gap-3 p-3 rounded-lg border dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition ${index === 0 ? 'selected' : ''}" data-account="${method.account}" data-qr="${method.qr || ''}" data-name="${method.name}">
                     <div class="w-8 h-8 rounded-full flex items-center justify-center ${method.color}">
                         <i class="${method.icon}"></i>
                     </div>
@@ -471,6 +483,12 @@ $(document).ready(function() {
                 $('#paymentQrContainer').removeClass('hidden');
             } else {
                 $('#paymentQrContainer').addClass('hidden');
+            }
+            
+            // Check if default is PayPal
+            if (methods[0].name === 'PayPal') {
+                $('#paymentPlanAmount').text(usdAmount);
+                $('#paymentPlanCurrency').text('USD');
             }
         }
 
@@ -490,6 +508,19 @@ $(document).ready(function() {
                 $('#paymentQrContainer').removeClass('hidden');
             } else {
                 $('#paymentQrContainer').addClass('hidden');
+            }
+
+            // Switch amount if PayPal
+            const name = $(this).data('name');
+            if (name === 'PayPal') {
+                const usd = $('#paymentModal').attr('data-usd');
+                $('#paymentPlanAmount').text(usd);
+                $('#paymentPlanCurrency').text('USD');
+            } else {
+                const origAmount = $('#paymentModal').attr('data-orig-amount');
+                const origCurrency = $('#paymentModal').attr('data-orig-currency');
+                $('#paymentPlanAmount').text(origAmount);
+                $('#paymentPlanCurrency').text(origCurrency);
             }
         });
 
@@ -582,6 +613,89 @@ $(document).ready(function() {
         }, 300);
     });
 
+
+    // --- 6. Download Modal Logic ---
+    $('.download-trigger-btn').click(function(e) {
+        e.preventDefault();
+        const os = $(this).data('os');
+        const $modal = $('#downloadModal');
+        const $title = $('#downloadModalTitle');
+        const $icon = $('#downloadModalIcon');
+        const $container = $('#downloadOptionsContainer');
+
+        let optionsHtml = '';
+
+        if (os === 'android') {
+            $title.text('Download for Android');
+            $icon.removeClass().addClass('fa-brands fa-android text-green-500 text-2xl');
+            optionsHtml = `
+                <a href="#" class="flex items-center gap-4 p-4 rounded-xl border dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                    <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-500">
+                        <i class="fa-solid fa-download text-xl"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold dark:text-white">Direct Download</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400">Download APK file directly</div>
+                    </div>
+                </a>
+                <a href="#" class="flex items-center gap-4 p-4 rounded-xl border dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-500">
+                        <i class="fa-brands fa-google-play text-xl"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold dark:text-white">Play Store</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400">Download from Google Play</div>
+                    </div>
+                </a>
+            `;
+        } else if (os === 'ios') {
+            $title.text('Download for iOS');
+            $icon.removeClass().addClass('fa-brands fa-apple text-gray-800 dark:text-white text-2xl');
+            optionsHtml = `
+                <a href="#" class="flex items-center gap-4 p-4 rounded-xl border dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                    <div class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-gray-800 dark:text-white">
+                        <i class="fa-solid fa-download text-xl"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold dark:text-white">Direct Download</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400">Download TestFlight / IPA</div>
+                    </div>
+                </a>
+                <div class="flex items-center gap-4 p-4 rounded-xl border dark:border-gray-600 opacity-50 cursor-not-allowed">
+                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-500">
+                        <i class="fa-brands fa-app-store-ios text-xl"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold dark:text-white">App Store</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400">Coming Soon</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        $container.html(optionsHtml);
+        $modal.removeClass('hidden').addClass('flex');
+        setTimeout(() => {
+            $modal.removeClass('opacity-0');
+            $('#downloadModalContent').removeClass('scale-95').addClass('scale-100');
+        }, 10);
+    });
+
+    // Close Download Modal
+    $('#closeDownloadModal, #downloadModal').click(function(e) {
+        if (e.target !== this && e.target.id !== 'closeDownloadModal' && $(e.target).closest('#closeDownloadModal').length === 0) return;
+        
+        const $modal = $('#downloadModal');
+        $modal.addClass('opacity-0');
+        $('#downloadModalContent').removeClass('scale-100').addClass('scale-95');
+        setTimeout(() => {
+            $modal.removeClass('flex').addClass('hidden');
+        }, 300);
+    });
+
+    $('#downloadModalContent').click(function(e) {
+        e.stopPropagation();
+    });
 
     // 6. Utilities
     function showMessage(msg, type) {

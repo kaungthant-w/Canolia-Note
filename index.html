@@ -73,6 +73,7 @@
                         <option value="jp">日本語 (Japanese)</option>
                         <option value="kr">한국어 (Korean)</option>
                         <option value="th">ไทย (Thai)</option>
+                        <option value="cn">中文 (Chinese)</option>
                     </select>
                 </div>
 
@@ -85,6 +86,7 @@
                         <option value="JPY">JPY (¥)</option>
                         <option value="KRW">KRW (₩)</option>
                         <option value="THB">THB (฿)</option>
+                        <option value="CNY">CNY (¥)</option>
                     </select>
                 </div>
 
@@ -146,8 +148,8 @@
                 <div class="flex justify-between items-center h-16">
                     <!-- Logo -->
                     <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer">
-                        <div class="w-8 h-8 rounded-md flex items-center justify-center">
-                            <img src="img/app_logo.png" alt="Logo" class="w-5 h-5 object-contain">
+                        <div class="w-12 h-12 rounded-md flex items-center justify-center">
+                            <img src="img/app_logo.png" alt="Logo" class="w-12 h-12 object-contain">
                         </div>
                         <span class="font-bold text-xl dark:text-white">Canolia Note</span>
                     </div>
@@ -201,6 +203,7 @@
                                         <a href="#" class="lang-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="jp">日本語</a>
                                         <a href="#" class="lang-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="kr">한국어</a>
                                         <a href="#" class="lang-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="th">ไทย</a>
+                                        <a href="#" class="lang-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="cn">中文</a>
                                     </div>
                                 </div>
 
@@ -222,6 +225,7 @@
                                         <a href="#" class="currency-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-currency="JPY">JPY</a>
                                         <a href="#" class="currency-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-currency="KRW">KRW</a>
                                         <a href="#" class="currency-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-currency="THB">THB</a>
+                                        <a href="#" class="currency-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-currency="CNY">CNY</a>
                                     </div>
                                 </div>
 
@@ -429,14 +433,14 @@
                         <i class="fa-brands fa-android text-4xl text-green-500 mb-4"></i>
                         <h3 class="font-bold text-lg dark:text-white mb-2">Android</h3>
                         <p class="text-xs text-gray-500 dark:text-gray-400 mb-4">APK File</p>
-                        <button class="mt-auto text-primary font-semibold text-sm hover:underline"><span data-i18n="btn_download">Download</span></button>
+                        <button class="download-trigger-btn mt-auto text-primary font-semibold text-sm hover:underline" data-os="android"><span data-i18n="btn_download">Download</span></button>
                     </div>
                     <!-- iOS -->
                     <div class="card bg-white dark:bg-gray-800 rounded-2xl p-6 text-center shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-xl transition flex flex-col items-center">
                         <i class="fa-brands fa-apple text-4xl text-gray-800 dark:text-white mb-4"></i>
                         <h3 class="font-bold text-lg dark:text-white mb-2">iOS</h3>
                         <p class="text-xs text-gray-500 dark:text-gray-400 mb-4">TestFlight</p>
-                        <button class="mt-auto text-primary font-semibold text-sm hover:underline"><span data-i18n="btn_download">Download</span></button>
+                        <button class="download-trigger-btn mt-auto text-primary font-semibold text-sm hover:underline" data-os="ios"><span data-i18n="btn_download">Download</span></button>
                     </div>
                     <!-- Mac -->
                     <div class="card bg-white dark:bg-gray-800 rounded-2xl p-6 text-center shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-xl transition flex flex-col items-center">
@@ -551,8 +555,8 @@
         <footer class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-10 mt-auto">
             <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
                 <div class="flex items-center gap-2">
-                    <div class="w-6 h-6 bg-primary rounded flex items-center justify-center">
-                        <img src="img/app_logo.png" alt="Logo" class="w-4 h-4 object-contain">
+                    <div class="w-8 h-8 rounded flex items-center justify-center">
+                        <img src="img/app_logo.png" alt="Logo" class="w-8 h-8 object-contain">
                     </div>
                     <span class="font-bold dark:text-white">Canolia Note</span>
                 </div>
@@ -675,6 +679,30 @@
                         </button>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Download Modal -->
+    <div id="downloadModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4 transition-opacity duration-300">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl w-full max-w-md p-6 shadow-2xl transform scale-95 transition-transform duration-300 relative" id="downloadModalContent">
+            <!-- Close Btn -->
+            <button id="closeDownloadModal" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+
+            <!-- Header -->
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
+                    <i id="downloadModalIcon" class="fa-brands fa-android text-primary text-2xl"></i>
+                </div>
+                <h2 id="downloadModalTitle" class="text-2xl font-bold dark:text-white">Download for Android</h2>
+                <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">Select your preferred download method</p>
+            </div>
+
+            <!-- Options -->
+            <div class="space-y-3" id="downloadOptionsContainer">
+                <!-- Dynamic options will be here -->
             </div>
         </div>
     </div>

@@ -35,77 +35,236 @@
 </head>
 <body class="bg-gray-50 text-gray-900 font-sans antialiased transition-colors duration-300">
 
-<!-- Nav -->
-<nav class="sticky top-0 z-40 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
-    <div class="max-w-5xl mx-auto px-4 h-16 flex justify-between items-center">
-        <a href="index.html" class="flex items-center gap-2">
-            <img src="img/app_logo.png" alt="Logo" class="w-9 h-9 object-contain">
-            <span class="font-bold text-lg dark:text-white">Canolia Note</span>
-        </a>
-        <div class="flex items-center gap-3">
-            <a href="index.html" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-primary transition flex items-center gap-1">
-                <i class="fa-solid fa-arrow-left text-xs"></i>
-                <span data-i18n="nav_home">Home</span>
-            </a>
-            <button id="navThemeToggle" class="w-9 h-9 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition">
-                <i class="fa-solid fa-moon dark:hidden"></i>
-                <i class="fa-solid fa-sun hidden dark:block"></i>
-            </button>
-            <div class="relative">
-                <button id="threeDotsBtn" class="w-9 h-9 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-gray-200 transition">
-                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                </button>
-                <div id="threeDotsMenu" class="absolute right-0 mt-2 w-52 bg-white dark:bg-gray-800 rounded-xl shadow-lg py-2 hidden border dark:border-gray-700 z-50">
-                    <div>
-                        <button class="group-toggle w-full flex items-center justify-between px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-                            <span class="flex items-center gap-3"><i class="fa-solid fa-globe text-gray-400 w-4"></i><span data-i18n="label_lang">Language</span></span>
-                            <span class="flex items-center gap-2"><span id="currentNavLangDisplay" class="text-xs font-bold text-primary">EN</span><i class="fa-solid fa-chevron-right text-[10px] text-gray-400 transition-transform duration-200 chevron-icon"></i></span>
-                        </button>
-                        <div class="submenu hidden bg-gray-50 dark:bg-gray-800/80 border-y border-gray-100 dark:border-gray-700 py-1">
-                            <a href="#" class="lang-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="en">English</a>
-                            <a href="#" class="lang-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="mm">မြန်မာ</a>
-                            <a href="#" class="lang-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="jp">日本語</a>
-                            <a href="#" class="lang-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="kr">한국어</a>
-                            <a href="#" class="lang-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="cn">中文</a>
+<!-- Navigation -->
+        <nav class="sticky top-0 z-40 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <!-- Logo -->
+                    <a href="index.html" class="flex-shrink-0 flex items-center gap-2 cursor-pointer">
+                        <div class="w-12 h-12 rounded-md flex items-center justify-center">
+                            <img src="img/app_logo.png" alt="Logo" class="w-12 h-12 object-contain">
                         </div>
-                    </div>
-                    <div>
-                        <button class="group-toggle w-full flex items-center justify-between px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-                            <span class="flex items-center gap-3"><i class="fa-solid fa-palette text-gray-400 w-4"></i><span data-i18n="label_theme">Theme</span></span>
-                            <span class="flex items-center gap-2"><span id="currentNavThemeDisplay" class="text-xs font-bold text-primary">Light</span><i class="fa-solid fa-chevron-right text-[10px] text-gray-400 transition-transform duration-200 chevron-icon"></i></span>
+                        <span class="font-bold text-xl dark:text-white">Canolia Note</span>
+                    </a>
+                    
+                    <!-- Mobile Menu Button -->
+                    <div class="flex md:hidden items-center gap-2">
+                        <button id="navThemeToggleMobile" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                            <i class="fa-solid fa-moon dark:hidden"></i>
+                            <i class="fa-solid fa-sun hidden dark:block"></i>
                         </button>
-                        <div class="submenu hidden bg-gray-50 dark:bg-gray-800/80 border-y border-gray-100 dark:border-gray-700 py-1">
-                            <a href="#" class="theme-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-theme="light">Light</a>
-                            <a href="#" class="theme-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-theme="dark">Dark</a>
-                            <a href="#" class="theme-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-theme="neo">Neo</a>
-                        </div>
-                    </div>
-                    <div>
-                        <button class="group-toggle w-full flex items-center justify-between px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-                            <span class="flex items-center gap-3"><i class="fa-solid fa-font text-gray-400 w-4"></i><span data-i18n="label_font">Font</span></span>
-                            <span class="flex items-center gap-2"><span id="currentNavFontDisplay" class="text-xs font-bold text-primary">Sans</span><i class="fa-solid fa-chevron-right text-[10px] text-gray-400 transition-transform duration-200 chevron-icon"></i></span>
+                        <button id="mobileMenuBtn" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                            <i class="fa-solid fa-bars"></i>
                         </button>
-                        <div class="submenu hidden bg-gray-50 dark:bg-gray-800/80 border-y border-gray-100 dark:border-gray-700 py-1">
-                            <a href="#" class="font-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-font="sans">Sans-serif</a>
-                            <a href="#" class="font-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-font="serif">Serif</a>
-                            <a href="#" class="font-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-font="mono">Monospace</a>
+                    </div>
+
+                    <!-- Desktop Menu -->
+                    <div class="hidden md:flex items-center space-x-6">
+                        <a href="index.html#hero" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary font-medium" data-i18n="nav_home">Home</a>
+                        <a href="index.html#software" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary font-medium" data-i18n="nav_software">Software</a>
+                        <a href="index.html#packages" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary font-medium" data-i18n="nav_packages">Packages</a>
+                        <a href="index.html#knowledge" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary font-medium" data-i18n="nav_knowledge">Knowledge</a>
+                        <a href="index.html#version-history" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary font-medium" data-i18n="nav_versions">Version History</a>
+                        
+                        <!-- Theme Toggle Btn -->
+                        <button id="navThemeToggle" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                            <i class="fa-solid fa-moon dark:hidden"></i>
+                            <i class="fa-solid fa-sun hidden dark:block"></i>
+                        </button>
+
+                        <!-- Options Menu (Three Dots) -->
+                        <div class="relative">
+                            <button id="threeDotsBtn" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                            </button>
+                            <div id="threeDotsMenu" class="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-md shadow-lg py-2 hidden border dark:border-gray-700 z-50 max-h-[75vh] overflow-y-auto">
+                                
+                                <!-- Language Submenu Group -->
+                                <div>
+                                    <button class="group-toggle w-full flex items-center justify-between px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                                        <span class="flex items-center gap-3">
+                                            <i class="fa-solid fa-globe text-gray-400 w-4"></i>
+                                            <span data-i18n="label_lang">Language</span>
+                                        </span>
+                                        <span class="flex items-center gap-2">
+                                            <span id="currentNavLangDisplay" class="text-xs font-bold text-primary">EN</span>
+                                            <i class="fa-solid fa-chevron-right text-[10px] text-gray-400 transition-transform duration-200 chevron-icon"></i>
+                                        </span>
+                                    </button>
+                                    <div class="submenu hidden bg-gray-50 dark:bg-gray-800/80 border-y border-gray-100 dark:border-gray-700 py-1">
+                                        <a href="#" class="lang-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="en">English</a>
+                                        <a href="#" class="lang-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="mm">မြန်မာ</a>
+                                        <a href="#" class="lang-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="jp">日本語</a>
+                                        <a href="#" class="lang-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="kr">한국어</a>
+                                        <a href="#" class="lang-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="th">ไทย</a>
+                                        <a href="#" class="lang-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="cn">中文</a>
+                                    </div>
+                                </div>
+
+                                <!-- Font Submenu Group -->
+                                <div>
+                                    <button class="group-toggle w-full flex items-center justify-between px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                                        <span class="flex items-center gap-3">
+                                            <i class="fa-solid fa-font text-gray-400 w-4"></i>
+                                            <span data-i18n="label_font">Font</span>
+                                        </span>
+                                        <span class="flex items-center gap-2">
+                                            <span id="currentNavFontDisplay" class="text-xs font-bold text-primary">Sans</span>
+                                            <i class="fa-solid fa-chevron-right text-[10px] text-gray-400 transition-transform duration-200 chevron-icon"></i>
+                                        </span>
+                                    </button>
+                                    <div class="submenu hidden bg-gray-50 dark:bg-gray-800/80 border-y border-gray-100 dark:border-gray-700 py-1">
+                                        <a href="#" class="font-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-font="sans">Sans-serif</a>
+                                        <a href="#" class="font-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-font="serif">Serif</a>
+                                        <a href="#" class="font-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-font="mono">Monospace</a>
+                                    </div>
+                                </div>
+
+                                <!-- Theme Submenu Group -->
+                                <div>
+                                    <button class="group-toggle w-full flex items-center justify-between px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                                        <span class="flex items-center gap-3">
+                                            <i class="fa-solid fa-palette text-gray-400 w-4"></i>
+                                            <span data-i18n="label_theme">Theme</span>
+                                        </span>
+                                        <span class="flex items-center gap-2">
+                                            <span id="currentNavThemeDisplay" class="text-xs font-bold text-primary">Light</span>
+                                            <i class="fa-solid fa-chevron-right text-[10px] text-gray-400 transition-transform duration-200 chevron-icon"></i>
+                                        </span>
+                                    </button>
+                                    <div class="submenu hidden bg-gray-50 dark:bg-gray-800/80 border-y border-gray-100 dark:border-gray-700 py-1">
+                                        <a href="#" class="theme-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-theme="light">Light</a>
+                                        <a href="#" class="theme-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-theme="dark">Dark</a>
+                                        <a href="#" class="theme-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-theme="neo">Neo</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</nav>
+        </nav>
 
-<!-- Hero -->
+        <!-- Mobile Menu Backdrop Overlay -->
+        <div id="mobileMenuBackdrop" class="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm hidden md:hidden transition-opacity duration-300 opacity-0"></div>
+
+        <!-- Mobile Side Drawer -->
+        <aside id="mobileDrawer" class="fixed top-0 right-0 h-full w-[80%] max-w-xs z-50 bg-white dark:bg-gray-900 shadow-2xl flex flex-col md:hidden translate-x-full transition-transform duration-300 ease-in-out">
+            <div class="flex items-center justify-between px-5 py-4 border-b border-gray-200 dark:border-gray-700 bg-primary">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-primaryDark rounded-md flex items-center justify-center">
+                        <i class="fa-solid fa-book-open text-primary text-sm"></i>
+                    </div>
+                    <span class="font-bold text-primaryDark text-lg">Canolia Note</span>
+                </div>
+                <button id="mobileDrawerClose" class="w-9 h-9 rounded-full bg-primaryDark/20 flex items-center justify-center text-primaryDark hover:bg-primaryDark/30 transition">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <div class="px-4 pt-4 pb-2 space-y-1">
+                <p class="text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500 px-2 mb-2 tracking-widest">Navigation</p>
+                <a href="index.html#hero" class="mobile-nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-primary/10 hover:text-primary transition">
+                    <i class="fa-solid fa-house w-4 text-center text-gray-400"></i>
+                    <span data-i18n="nav_home">Home</span>
+                </a>
+                <a href="index.html#software" class="mobile-nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-primary/10 hover:text-primary transition">
+                    <i class="fa-solid fa-laptop w-4 text-center text-gray-400"></i>
+                    <span data-i18n="nav_software">Software</span>
+                </a>
+                <a href="index.html#packages" class="mobile-nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-primary/10 hover:text-primary transition">
+                    <i class="fa-solid fa-box w-4 text-center text-gray-400"></i>
+                    <span data-i18n="nav_packages">Packages</span>
+                </a>
+                <a href="index.html#knowledge" class="mobile-nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-primary/10 hover:text-primary transition">
+                    <i class="fa-solid fa-book w-4 text-center text-gray-400"></i>
+                    <span data-i18n="nav_knowledge">Knowledge</span>
+                </a>
+                <a href="index.html#version-history" class="mobile-nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-primary/10 hover:text-primary transition">
+                    <i class="fa-solid fa-clock-rotate-left w-4 text-center text-gray-400"></i>
+                    <span data-i18n="nav_versions">Version History</span>
+                </a>
+            </div>
+
+            <div class="mx-4 my-2 border-t border-gray-100 dark:border-gray-800"></div>
+
+            <div class="flex-1 overflow-y-auto px-4 pb-6 space-y-4 pt-2">
+                <p class="text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500 px-2 tracking-widest">Settings</p>
+
+                <!-- Language -->
+                <div class="bg-gray-50 dark:bg-gray-800 rounded-xl px-4 py-3">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i class="fa-solid fa-globe text-primary text-sm"></i>
+                        <label class="text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wide" data-i18n="label_lang">Language</label>
+                    </div>
+                    <select id="mobileLang" class="w-full border border-gray-200 dark:border-gray-600 rounded-lg p-2 text-sm bg-white dark:bg-gray-700 dark:text-white outline-none focus:ring-2 focus:ring-primary">
+                        <option value="en">English</option>
+                        <option value="mm">မြန်မာ</option>
+                        <option value="jp">日本語</option>
+                        <option value="kr">한국어</option>
+                        <option value="th">ไทย</option>
+                    </select>
+                </div>
+
+                <!-- Font -->
+                <div class="bg-gray-50 dark:bg-gray-800 rounded-xl px-4 py-3">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i class="fa-solid fa-font text-primary text-sm"></i>
+                        <label class="text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wide" data-i18n="label_font">Font</label>
+                    </div>
+                    <select id="mobileFont" class="w-full border border-gray-200 dark:border-gray-600 rounded-lg p-2 text-sm bg-white dark:bg-gray-700 dark:text-white outline-none focus:ring-2 focus:ring-primary">
+                        <option value="sans">Sans-serif</option>
+                        <option value="serif">Serif</option>
+                        <option value="mono">Monospace</option>
+                    </select>
+                </div>
+
+                <!-- Theme -->
+                <div class="bg-gray-50 dark:bg-gray-800 rounded-xl px-4 py-3">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i class="fa-solid fa-palette text-primary text-sm"></i>
+                        <label class="text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wide" data-i18n="label_theme">Theme</label>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button class="mobile-theme-btn flex flex-col items-center gap-1.5 py-2.5 px-2 rounded-xl border-2 border-gray-200 dark:border-gray-600 hover:border-primary transition" data-theme="light">
+                            <span class="w-8 h-8 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center">
+                                <i class="fa-solid fa-sun text-yellow-500 text-xs"></i>
+                            </span>
+                            <span class="text-[11px] font-semibold text-gray-600 dark:text-gray-300">Light</span>
+                        </button>
+                        <button class="mobile-theme-btn flex flex-col items-center gap-1.5 py-2.5 px-2 rounded-xl border-2 border-gray-200 dark:border-gray-600 hover:border-primary transition" data-theme="dark">
+                            <span class="w-8 h-8 rounded-full bg-gray-800 border border-gray-600 flex items-center justify-center">
+                                <i class="fa-solid fa-moon text-blue-400 text-xs"></i>
+                            </span>
+                            <span class="text-[11px] font-semibold text-gray-600 dark:text-gray-300">Dark</span>
+                        </button>
+                        <button class="mobile-theme-btn flex flex-col items-center gap-1.5 py-2.5 px-2 rounded-xl border-2 border-gray-200 dark:border-gray-600 hover:border-primary transition" data-theme="neo">
+                            <span class="w-8 h-8 rounded-full bg-[#A5F3FC] border-2 border-black flex items-center justify-center" style="box-shadow:2px 2px 0 #000">
+                                <i class="fa-solid fa-bolt text-black text-xs"></i>
+                            </span>
+                            <span class="text-[11px] font-semibold text-gray-600 dark:text-gray-300">Neo</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Hero -->
 <section class="py-16 bg-gradient-to-br from-gray-50 via-white to-yellow-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 border-b border-gray-200 dark:border-gray-800">
-    <div class="max-w-5xl mx-auto px-4 text-center">
-        <div class="inline-flex items-center gap-2 bg-primary/10 text-primaryDark dark:text-primary border border-primary/20 rounded-full px-4 py-1.5 text-sm font-semibold mb-5">
-            <i class="fa-solid fa-code-branch"></i>
-            <span data-i18n="vh_changelog">Changelog</span>
-        </div>
+    <div class="max-w-5xl mx-auto px-4">
+        <!-- Back Button -->
+        <a href="index.html#version-history" class="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary mb-8 transition">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span data-i18n="nav_home">Home</span>
+        </a>
+        <div class="text-center">
+            <div class="inline-flex items-center gap-2 bg-primary/10 text-primaryDark dark:text-primary border border-primary/20 rounded-full px-4 py-1.5 text-sm font-semibold mb-5">
+                <i class="fa-solid fa-code-branch"></i>
+                <span data-i18n="vh_changelog">Changelog</span>
+            </div>
         <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-4" data-i18n="vh_page_title">Version History</h1>
         <p class="text-gray-500 dark:text-gray-400 max-w-xl mx-auto" data-i18n="vh_page_desc">A complete timeline of every Canolia Note release.</p>
+        </div>
     </div>
 </section>
 

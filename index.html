@@ -172,6 +172,7 @@
                         <a href="#software" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary font-medium" data-i18n="nav_software">Software</a>
                         <a href="#packages" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary font-medium" data-i18n="nav_packages">Packages</a>
                         <a href="#knowledge" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary font-medium" data-i18n="nav_knowledge">Knowledge</a>
+                        <a href="version-history.html" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary font-medium" data-i18n="nav_versions">Version History</a>
                         
                         <!-- Theme Toggle Btn -->
                         <button id="navThemeToggle" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition">
@@ -315,6 +316,10 @@
                 <a href="#knowledge" class="mobile-nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-primary/10 hover:text-primary transition">
                     <i class="fa-solid fa-book w-4 text-center text-gray-400"></i>
                     <span data-i18n="nav_knowledge">Knowledge</span>
+                </a>
+                <a href="version-history.html" class="mobile-nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-primary/10 hover:text-primary transition">
+                    <i class="fa-solid fa-clock-rotate-left w-4 text-center text-gray-400"></i>
+                    <span data-i18n="nav_versions">Version History</span>
                 </a>
             </div>
 
@@ -581,6 +586,166 @@
             </div>
         </section>
 
+        <!-- ══════════════════════════════════════════════
+             VERSION HISTORY SECTION
+        ══════════════════════════════════════════════ -->
+        <section id="version-history" class="py-24 relative overflow-hidden bg-white dark:bg-gray-900">
+
+            <!-- Decorative background glows -->
+            <div class="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute bottom-0 right-1/4 w-80 h-80 bg-primary/8 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="max-w-5xl mx-auto px-4 relative z-10">
+
+                <!-- Section Header -->
+                <div class="text-center mb-20" id="vhSectionHeader">
+                    <div class="inline-flex items-center gap-2 bg-primary/10 dark:bg-primary/15 text-primaryDark dark:text-primary border border-primary/20 rounded-full px-4 py-1.5 text-sm font-semibold mb-5">
+                        <i class="fa-solid fa-code-branch"></i>
+                        <span data-i18n="vh_badge">Release History</span>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white mb-4" data-i18n="vh_title">
+                        App Version Journey
+                    </h2>
+                    <p class="text-gray-500 dark:text-gray-400 max-w-xl mx-auto" data-i18n="vh_desc">
+                        Every release tells a story. Explore the milestones that shaped Canolia Note.
+                    </p>
+                </div>
+
+                <!-- Timeline -->
+                <div class="relative" id="vhTimeline">
+
+                    <!-- Vertical center line -->
+                    <div id="vhLine" class="absolute left-1/2 top-0 w-0.5 bg-gradient-to-b from-primary via-primary/40 to-transparent -translate-x-1/2 rounded-full" style="height:0"></div>
+
+                    <!-- === v1.4.0 === -->
+                    <div class="vh-item relative flex items-center mb-16 md:mb-20" data-version="1.4.0">
+                        <!-- Left side (even → right on mobile) -->
+                        <div class="w-full md:w-1/2 md:pr-12 md:text-right order-2 md:order-1">
+                            <div class="vh-card bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-lg transition-shadow duration-300 cursor-pointer group"
+                                 onclick="window.location.href='version-history.html#v1_4_0'">
+                                <div class="flex items-center gap-2 md:justify-end mb-2">
+                                    <span class="inline-block bg-primary text-primaryDark text-xs font-bold px-2.5 py-0.5 rounded-full">Latest</span>
+                                    <span class="text-xs text-gray-400">May 2026</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1">v1.4.0</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400" data-i18n="vh_140_title">AI Writing Assistant + Dark Mode Overhaul</p>
+                                <div class="mt-3 flex flex-wrap gap-2 md:justify-end">
+                                    <span class="tag-ai">AI</span><span class="tag-ui">UI</span><span class="tag-perf">Performance</span>
+                                </div>
+                                <div class="mt-3 text-primary text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <span data-i18n="vh_view_details">View Details</span> <i class="fa-solid fa-arrow-right ml-1"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Center dot -->
+                        <div class="vh-dot absolute left-1/2 -translate-x-1/2 z-10 hidden md:flex w-5 h-5 bg-primary rounded-full border-4 border-white dark:border-gray-900 shadow-lg shadow-primary/40 order-1"></div>
+                        <!-- Right side (spacer) -->
+                        <div class="hidden md:block md:w-1/2 md:pl-12 order-3"></div>
+                    </div>
+
+                    <!-- === v1.3.0 === -->
+                    <div class="vh-item relative flex items-center mb-16 md:mb-20" data-version="1.3.0">
+                        <div class="hidden md:block md:w-1/2 md:pr-12 order-1"></div>
+                        <div class="vh-dot absolute left-1/2 -translate-x-1/2 z-10 hidden md:flex w-5 h-5 bg-primary rounded-full border-4 border-white dark:border-gray-900 shadow-lg shadow-primary/40 order-2"></div>
+                        <div class="w-full md:w-1/2 md:pl-12 order-2 md:order-3">
+                            <div class="vh-card bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-lg transition-shadow duration-300 cursor-pointer group"
+                                 onclick="window.location.href='version-history.html#v1_3_0'">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="text-xs text-gray-400">Feb 2026</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1">v1.3.0</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400" data-i18n="vh_130_title">Cloud Sync + Multi-language Support</p>
+                                <div class="mt-3 flex flex-wrap gap-2">
+                                    <span class="tag-feat">Feature</span><span class="tag-i18n">i18n</span>
+                                </div>
+                                <div class="mt-3 text-primary text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <span data-i18n="vh_view_details">View Details</span> <i class="fa-solid fa-arrow-right ml-1"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- === v1.2.0 === -->
+                    <div class="vh-item relative flex items-center mb-16 md:mb-20" data-version="1.2.0">
+                        <div class="w-full md:w-1/2 md:pr-12 md:text-right order-2 md:order-1">
+                            <div class="vh-card bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-lg transition-shadow duration-300 cursor-pointer group"
+                                 onclick="window.location.href='version-history.html#v1_2_0'">
+                                <div class="flex items-center gap-2 md:justify-end mb-2">
+                                    <span class="text-xs text-gray-400">Nov 2025</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1">v1.2.0</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400" data-i18n="vh_120_title">Premium Themes & Rich Text Editor</p>
+                                <div class="mt-3 flex flex-wrap gap-2 md:justify-end">
+                                    <span class="tag-ui">UI</span><span class="tag-feat">Feature</span>
+                                </div>
+                                <div class="mt-3 text-primary text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <span data-i18n="vh_view_details">View Details</span> <i class="fa-solid fa-arrow-right ml-1"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vh-dot absolute left-1/2 -translate-x-1/2 z-10 hidden md:flex w-5 h-5 bg-primary rounded-full border-4 border-white dark:border-gray-900 shadow-lg shadow-primary/40 order-1"></div>
+                        <div class="hidden md:block md:w-1/2 md:pl-12 order-3"></div>
+                    </div>
+
+                    <!-- === v1.1.0 === -->
+                    <div class="vh-item relative flex items-center mb-16 md:mb-20" data-version="1.1.0">
+                        <div class="hidden md:block md:w-1/2 md:pr-12 order-1"></div>
+                        <div class="vh-dot absolute left-1/2 -translate-x-1/2 z-10 hidden md:flex w-5 h-5 bg-primary rounded-full border-4 border-white dark:border-gray-900 shadow-lg shadow-primary/40 order-2"></div>
+                        <div class="w-full md:w-1/2 md:pl-12 order-2 md:order-3">
+                            <div class="vh-card bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-lg transition-shadow duration-300 cursor-pointer group"
+                                 onclick="window.location.href='version-history.html#v1_1_0'">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="text-xs text-gray-400">Aug 2025</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1">v1.1.0</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400" data-i18n="vh_110_title">Bug Fixes, Folder System & Search</p>
+                                <div class="mt-3 flex flex-wrap gap-2">
+                                    <span class="tag-fix">Fix</span><span class="tag-feat">Feature</span>
+                                </div>
+                                <div class="mt-3 text-primary text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <span data-i18n="vh_view_details">View Details</span> <i class="fa-solid fa-arrow-right ml-1"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- === v1.0.0 === -->
+                    <div class="vh-item relative flex items-center" data-version="1.0.0">
+                        <div class="w-full md:w-1/2 md:pr-12 md:text-right order-2 md:order-1">
+                            <div class="vh-card bg-gradient-to-br from-primaryDark/5 to-primary/10 dark:from-primary/5 dark:to-primary/10 rounded-2xl p-6 border-2 border-primary/30 shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer group"
+                                 onclick="window.location.href='version-history.html#v1_0_0'">
+                                <div class="flex items-center gap-2 md:justify-end mb-2">
+                                    <span class="inline-block bg-primaryDark text-white text-xs font-bold px-2.5 py-0.5 rounded-full">Genesis</span>
+                                    <span class="text-xs text-gray-400">Jun 2025</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1">v1.0.0</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400" data-i18n="vh_100_title">Initial Release — The Beginning</p>
+                                <div class="mt-3 flex flex-wrap gap-2 md:justify-end">
+                                    <span class="tag-launch">Launch</span>
+                                </div>
+                                <div class="mt-3 text-primary text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <span data-i18n="vh_view_details">View Details</span> <i class="fa-solid fa-arrow-right ml-1"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vh-dot absolute left-1/2 -translate-x-1/2 z-10 hidden md:flex w-6 h-6 bg-primary rounded-full border-4 border-white dark:border-gray-900 shadow-xl shadow-primary/50 order-1"></div>
+                        <div class="hidden md:block md:w-1/2 md:pl-12 order-3"></div>
+                    </div>
+
+                </div><!-- /vhTimeline -->
+
+                <!-- View All Button -->
+                <div class="text-center mt-16">
+                    <a href="version-history.html"
+                       class="inline-flex items-center gap-2.5 bg-primary hover:bg-yellow-500 text-primaryDark font-bold px-8 py-3.5 rounded-xl shadow-lg shadow-yellow-400/25 transition-all hover:-translate-y-1 hover:shadow-yellow-400/40" id="vhAllBtn">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        <span data-i18n="vh_view_all">View Full Changelog</span>
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
         <!-- Footer -->
         <footer class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-10 mt-auto">
             <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
@@ -593,6 +758,7 @@
                 <div class="flex flex-wrap justify-center gap-6 text-sm text-gray-600 dark:text-gray-400">
                     <a href="#" class="hover:text-primary transition" data-i18n="footer_contact"><i class="fa-solid fa-envelope mr-1"></i> kyawmyothant.dev@gmail.com</a>
                     <a href="privacy-policy.html" class="hover:text-primary transition" data-i18n="footer_privacy">Privacy Policy</a>
+                    <a href="version-history.html" class="hover:text-primary transition" data-i18n="nav_versions">Version History</a>
                 </div>
                 <p class="text-sm text-gray-500">
                     &copy; <span id="year"></span> Canolia Note. All rights reserved.
@@ -739,5 +905,80 @@
 
     <!-- Scripts Section -->
     <script type="module" src="js/script.js"></script>
+
+    <!-- GSAP + ScrollTrigger for Version History -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script>
+    (function () {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Wait for mainApp to be visible (after modal dismissed)
+        function initVHAnimations() {
+            if (!document.getElementById('vhTimeline')) return;
+
+            // Animate the vertical line growing downward
+            gsap.to('#vhLine', {
+                height: function() {
+                    return document.getElementById('vhTimeline').offsetHeight;
+                },
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '#vhTimeline',
+                    start: 'top 80%',
+                    end: 'bottom 20%',
+                    scrub: 1.2
+                }
+            });
+
+            // Section header fade-in
+            gsap.from('#vhSectionHeader', {
+                y: 40, opacity: 0, duration: 0.9, ease: 'power3.out',
+                scrollTrigger: { trigger: '#vhSectionHeader', start: 'top 85%' }
+            });
+
+            // Each timeline card: alternating left / right slide-in
+            document.querySelectorAll('.vh-item').forEach(function(item, i) {
+                var card = item.querySelector('.vh-card');
+                var dot  = item.querySelector('.vh-dot');
+                var fromLeft = (i % 2 === 0); // even index → card on left
+
+                // Card
+                gsap.from(card, {
+                    x: fromLeft ? -60 : 60,
+                    opacity: 0,
+                    duration: 0.75,
+                    ease: 'power3.out',
+                    scrollTrigger: { trigger: item, start: 'top 80%' }
+                });
+
+                // Dot pop
+                if (dot) {
+                    gsap.from(dot, {
+                        scale: 0, opacity: 0, duration: 0.4, ease: 'back.out(2)',
+                        scrollTrigger: { trigger: item, start: 'top 78%' }
+                    });
+                }
+            });
+
+            // CTA button
+            gsap.from('#vhAllBtn', {
+                y: 30, opacity: 0, duration: 0.7, ease: 'power2.out',
+                scrollTrigger: { trigger: '#vhAllBtn', start: 'top 90%' }
+            });
+        }
+
+        // If returning visitor (modal already hidden), init right away on DOMContentLoaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Slight delay so mainApp is visible before we measure heights
+            setTimeout(initVHAnimations, 400);
+        });
+
+        // If first visit, listen for the modal dismiss event to re-init
+        $(document).on('canolia:siteEntered', function() {
+            setTimeout(initVHAnimations, 600);
+        });
+    }());
+    </script>
 </body>
 </html>

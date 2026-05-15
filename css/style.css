@@ -460,3 +460,60 @@ body { transition: background-color 0.3s, color 0.3s; }
     border-color: #FACC15;
     background-color: rgba(250, 204, 21, 0.1);
 }
+
+/* ══════════════════════════════════════════════
+   VERSION HISTORY TIMELINE — Tags
+══════════════════════════════════════════════ */
+.tag-ai, .tag-ui, .tag-feat, .tag-fix, .tag-perf, .tag-i18n, .tag-launch {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 0.15rem 0.6rem;
+    border-radius: 9999px;
+    letter-spacing: 0.03em;
+}
+.tag-ai    { background: #e0f2fe; color: #0369a1; }
+.tag-ui    { background: #f3e8ff; color: #7c3aed; }
+.tag-feat  { background: #dcfce7; color: #16a34a; }
+.tag-fix   { background: #fee2e2; color: #dc2626; }
+.tag-perf  { background: #fff7ed; color: #c2410c; }
+.tag-i18n  { background: #fef9c3; color: #854d0e; }
+.tag-launch{ background: #FACC15; color: #713F12; }
+
+/* Dark mode tag overrides */
+.dark .tag-ai    { background: rgba(14,165,233,0.15); color: #38bdf8; }
+.dark .tag-ui    { background: rgba(167,139,250,0.15); color: #c4b5fd; }
+.dark .tag-feat  { background: rgba(34,197,94,0.15);  color: #86efac; }
+.dark .tag-fix   { background: rgba(239,68,68,0.15);  color: #fca5a5; }
+.dark .tag-perf  { background: rgba(249,115,22,0.15); color: #fdba74; }
+.dark .tag-i18n  { background: rgba(234,179,8,0.15);  color: #fde047; }
+.dark .tag-launch{ background: rgba(250,204,21,0.2);  color: #fde68a; }
+
+/* Version history card hover glow */
+.vh-card { transition: box-shadow 0.3s, transform 0.25s; }
+.vh-card:hover { transform: translateY(-3px); }
+
+/* Neo theme: version history */
+.theme-neo #version-history { background: #A5F3FC !important; }
+.theme-neo .vh-card {
+    border: 2px solid #000 !important;
+    border-radius: 0 !important;
+    box-shadow: 5px 5px 0 #000 !important;
+    background: #fff !important;
+}
+.theme-neo .vh-card:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 8px 8px 0 #000 !important;
+}
+.theme-neo #vhLine { background: #000 !important; }
+.theme-neo .vh-dot { border-color: #000 !important; background: #FACC15 !important; box-shadow: 2px 2px 0 #000 !important; }
+.theme-neo #vhAllBtn {
+    border: 2px solid #000 !important;
+    border-radius: 0 !important;
+    box-shadow: 4px 4px 0 #000 !important;
+    transition: transform 0.1s, box-shadow 0.1s !important;
+}
+.theme-neo #vhAllBtn:hover {
+    transform: translate(2px, 2px) !important;
+    box-shadow: 2px 2px 0 #000 !important;
+}

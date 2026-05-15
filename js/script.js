@@ -183,7 +183,9 @@ $(document).ready(function() {
         localStorage.setItem('canolia_visited', '1');
         
         $('#welcomeModal').fadeOut(400, function() {
-            $('#mainApp').removeClass('hidden').hide().fadeIn(500);
+            $('#mainApp').removeClass('hidden').hide().fadeIn(500, function() {
+                $(document).trigger('canolia:siteEntered');
+            });
         });
         
         showMessage("Settings Applied Successfully", "success");

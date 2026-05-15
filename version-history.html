@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Version History — Canolia Note</title>
+    <meta name="description" content="Complete version history and changelog for Canolia Note app.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: { primary: '#FACC15', primaryDark: '#713F12', darkBg: '#0F172A' },
+                    fontFamily: {
+                        sans: ['Padauk','system-ui','sans-serif'],
+                        serif: ['"Myanmar Text"','serif'],
+                        mono: ['Monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <style>
+        .vh-entry { border-left: 3px solid #FACC15; }
+        .vh-entry-dot { width:14px;height:14px;background:#FACC15;border-radius:50%;margin-left:-8px;flex-shrink:0; }
+        .change-item { display:flex;gap:8px;align-items:flex-start;margin-bottom:6px; }
+        .dark .vh-entry { border-color:rgba(250,204,21,0.4); }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans antialiased transition-colors duration-300">
+
+<!-- Nav -->
+<nav class="sticky top-0 z-40 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
+    <div class="max-w-5xl mx-auto px-4 h-16 flex justify-between items-center">
+        <a href="index.html" class="flex items-center gap-2">
+            <img src="img/app_logo.png" alt="Logo" class="w-9 h-9 object-contain">
+            <span class="font-bold text-lg dark:text-white">Canolia Note</span>
+        </a>
+        <div class="flex items-center gap-3">
+            <a href="index.html" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-primary transition flex items-center gap-1">
+                <i class="fa-solid fa-arrow-left text-xs"></i>
+                <span data-i18n="nav_home">Home</span>
+            </a>
+            <button id="navThemeToggle" class="w-9 h-9 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                <i class="fa-solid fa-moon dark:hidden"></i>
+                <i class="fa-solid fa-sun hidden dark:block"></i>
+            </button>
+            <div class="relative">
+                <button id="threeDotsBtn" class="w-9 h-9 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-gray-200 transition">
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                </button>
+                <div id="threeDotsMenu" class="absolute right-0 mt-2 w-52 bg-white dark:bg-gray-800 rounded-xl shadow-lg py-2 hidden border dark:border-gray-700 z-50">
+                    <div>
+                        <button class="group-toggle w-full flex items-center justify-between px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-globe text-gray-400 w-4"></i><span data-i18n="label_lang">Language</span></div>
+                            <div class="flex items-center gap-2"><span id="currentNavLangDisplay" class="text-xs font-bold text-primary">EN</span><i class="fa-solid fa-chevron-right text-[10px] text-gray-400 transition-transform duration-200 chevron-icon"></i></div>
+                        </button>
+                        <div class="submenu hidden bg-gray-50 dark:bg-gray-800/80 border-y border-gray-100 dark:border-gray-700 py-1">
+                            <a href="#" class="lang-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="en">English</a>
+                            <a href="#" class="lang-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="mm">မြန်မာ</a>
+                            <a href="#" class="lang-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="jp">日本語</a>
+                            <a href="#" class="lang-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="kr">한국어</a>
+                            <a href="#" class="lang-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="cn">中文</a>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="group-toggle w-full flex items-center justify-between px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-palette text-gray-400 w-4"></i><span data-i18n="label_theme">Theme</span></div>
+                            <div class="flex items-center gap-2"><span id="currentNavThemeDisplay" class="text-xs font-bold text-primary">Light</span><i class="fa-solid fa-chevron-right text-[10px] text-gray-400 transition-transform duration-200 chevron-icon"></i></div>
+                        </button>
+                        <div class="submenu hidden bg-gray-50 dark:bg-gray-800/80 border-y border-gray-100 dark:border-gray-700 py-1">
+                            <a href="#" class="theme-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-theme="light">Light</a>
+                            <a href="#" class="theme-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-theme="dark">Dark</a>
+                            <a href="#" class="theme-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-theme="neo">Neo</a>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="group-toggle w-full flex items-center justify-between px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-font text-gray-400 w-4"></i><span data-i18n="label_font">Font</span></div>
+                            <div class="flex items-center gap-2"><span id="currentNavFontDisplay" class="text-xs font-bold text-primary">Sans</span><i class="fa-solid fa-chevron-right text-[10px] text-gray-400 transition-transform duration-200 chevron-icon"></i></div>
+                        </button>
+                        <div class="submenu hidden bg-gray-50 dark:bg-gray-800/80 border-y border-gray-100 dark:border-gray-700 py-1">
+                            <a href="#" class="font-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-font="sans">Sans-serif</a>
+                            <a href="#" class="font-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-font="serif">Serif</a>
+                            <a href="#" class="font-switch block px-11 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700" data-font="mono">Monospace</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="py-16 bg-gradient-to-br from-gray-50 via-white to-yellow-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 border-b border-gray-200 dark:border-gray-800">
+    <div class="max-w-5xl mx-auto px-4 text-center">
+        <div class="inline-flex items-center gap-2 bg-primary/10 text-primaryDark dark:text-primary border border-primary/20 rounded-full px-4 py-1.5 text-sm font-semibold mb-5">
+            <i class="fa-solid fa-code-branch"></i>
+            <span data-i18n="vh_changelog">Changelog</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-4" data-i18n="vh_page_title">Version History</h1>
+        <p class="text-gray-500 dark:text-gray-400 max-w-xl mx-auto" data-i18n="vh_page_desc">A complete timeline of every Canolia Note release.</p>
+    </div>
+</section>
+
+<!-- Changelog Entries -->
+<main class="max-w-3xl mx-auto px-4 py-16 space-y-16">
+
+    <!-- v1.4.0 -->
+    <div id="v1_4_0" class="vh-entry pl-6 scroll-mt-24">
+        <div class="flex items-center gap-3 mb-4">
+            <div class="vh-entry-dot"></div>
+            <div class="flex items-center gap-3 flex-wrap">
+                <span class="text-2xl font-extrabold dark:text-white">v1.4.0</span>
+                <span class="bg-primary text-primaryDark text-xs font-bold px-2.5 py-0.5 rounded-full">Latest</span>
+                <span class="text-sm text-gray-400">May 2026</span>
+            </div>
+        </div>
+        <h2 class="text-lg font-bold text-gray-800 dark:text-gray-100 mb-1" data-i18n="vh_140_title">AI Writing Assistant + Dark Mode Overhaul</h2>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mb-5">A major milestone bringing intelligent writing tools and a completely redesigned dark experience.</p>
+        <div class="space-y-2">
+            <div class="change-item"><span class="tag-ai mt-0.5" data-i18n="vh_new">New</span><span class="text-sm text-gray-700 dark:text-gray-300">AI-powered sentence completion and grammar suggestions</span></div>
+            <div class="change-item"><span class="tag-ai mt-0.5" data-i18n="vh_new">New</span><span class="text-sm text-gray-700 dark:text-gray-300">AI tone rewriter (formal / casual / creative)</span></div>
+            <div class="change-item"><span class="tag-ui mt-0.5" data-i18n="vh_improved">Improved</span><span class="text-sm text-gray-700 dark:text-gray-300">Completely overhauled dark mode with deep navy palette</span></div>
+            <div class="change-item"><span class="tag-ui mt-0.5" data-i18n="vh_improved">Improved</span><span class="text-sm text-gray-700 dark:text-gray-300">Neo-brutalism theme full dark compatibility</span></div>
+            <div class="change-item"><span class="tag-perf mt-0.5" data-i18n="vh_improved">Improved</span><span class="text-sm text-gray-700 dark:text-gray-300">50% faster note load time via lazy rendering</span></div>
+            <div class="change-item"><span class="tag-fix mt-0.5" data-i18n="vh_fixed">Fixed</span><span class="text-sm text-gray-700 dark:text-gray-300">Theme not persisting across pages (centralized shared.js)</span></div>
+        </div>
+    </div>
+
+    <div class="border-t border-dashed border-gray-200 dark:border-gray-700"></div>
+
+    <!-- v1.3.0 -->
+    <div id="v1_3_0" class="vh-entry pl-6 scroll-mt-24">
+        <div class="flex items-center gap-3 mb-4">
+            <div class="vh-entry-dot"></div>
+            <div class="flex items-center gap-3 flex-wrap">
+                <span class="text-2xl font-extrabold dark:text-white">v1.3.0</span>
+                <span class="text-sm text-gray-400">Feb 2026</span>
+            </div>
+        </div>
+        <h2 class="text-lg font-bold text-gray-800 dark:text-gray-100 mb-1" data-i18n="vh_130_title">Cloud Sync + Multi-language Support</h2>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mb-5">Canolia Note goes global — sync anywhere, read in your language.</p>
+        <div class="space-y-2">
+            <div class="change-item"><span class="tag-feat mt-0.5" data-i18n="vh_new">New</span><span class="text-sm text-gray-700 dark:text-gray-300">Cloud Sync for Premium users — notes available on all devices</span></div>
+            <div class="change-item"><span class="tag-i18n mt-0.5" data-i18n="vh_new">New</span><span class="text-sm text-gray-700 dark:text-gray-300">6-language support: English, Myanmar, Japanese, Korean, Thai, Chinese</span></div>
+            <div class="change-item"><span class="tag-i18n mt-0.5" data-i18n="vh_new">New</span><span class="text-sm text-gray-700 dark:text-gray-300">Language selector in Settings and Welcome modal</span></div>
+            <div class="change-item"><span class="tag-ui mt-0.5" data-i18n="vh_improved">Improved</span><span class="text-sm text-gray-700 dark:text-gray-300">Knowledge Sharing section with post cards and filters</span></div>
+            <div class="change-item"><span class="tag-fix mt-0.5" data-i18n="vh_fixed">Fixed</span><span class="text-sm text-gray-700 dark:text-gray-300">Sync conflict resolution when editing offline</span></div>
+        </div>
+    </div>
+
+    <div class="border-t border-dashed border-gray-200 dark:border-gray-700"></div>
+
+    <!-- v1.2.0 -->
+    <div id="v1_2_0" class="vh-entry pl-6 scroll-mt-24">
+        <div class="flex items-center gap-3 mb-4">
+            <div class="vh-entry-dot"></div>
+            <div class="flex items-center gap-3 flex-wrap">
+                <span class="text-2xl font-extrabold dark:text-white">v1.2.0</span>
+                <span class="text-sm text-gray-400">Nov 2025</span>
+            </div>
+        </div>
+        <h2 class="text-lg font-bold text-gray-800 dark:text-gray-100 mb-1" data-i18n="vh_120_title">Premium Themes & Rich Text Editor</h2>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mb-5">Express yourself — new themes and a powerful editor for structured notes.</p>
+        <div class="space-y-2">
+            <div class="change-item"><span class="tag-ui mt-0.5" data-i18n="vh_new">New</span><span class="text-sm text-gray-700 dark:text-gray-300">Neo-Brutalism theme with bold borders and yellow accents</span></div>
+            <div class="change-item"><span class="tag-ui mt-0.5" data-i18n="vh_new">New</span><span class="text-sm text-gray-700 dark:text-gray-300">Dark theme with deep navy gradient background</span></div>
+            <div class="change-item"><span class="tag-feat mt-0.5" data-i18n="vh_new">New</span><span class="text-sm text-gray-700 dark:text-gray-300">Rich text editor: bold, italic, lists, headings, code blocks</span></div>
+            <div class="change-item"><span class="tag-feat mt-0.5" data-i18n="vh_new">New</span><span class="text-sm text-gray-700 dark:text-gray-300">Font family selector (Sans, Serif, Monospace)</span></div>
+            <div class="change-item"><span class="tag-ui mt-0.5" data-i18n="vh_improved">Improved</span><span class="text-sm text-gray-700 dark:text-gray-300">Pricing page with currency conversion (MMK, USD, JPY, KRW)</span></div>
+            <div class="change-item"><span class="tag-fix mt-0.5" data-i18n="vh_fixed">Fixed</span><span class="text-sm text-gray-700 dark:text-gray-300">Mobile drawer animation stutter on iOS Safari</span></div>
+        </div>
+    </div>
+
+    <div class="border-t border-dashed border-gray-200 dark:border-gray-700"></div>
+
+    <!-- v1.1.0 -->
+    <div id="v1_1_0" class="vh-entry pl-6 scroll-mt-24">
+        <div class="flex items-center gap-3 mb-4">
+            <div class="vh-entry-dot"></div>
+            <div class="flex items-center gap-3 flex-wrap">
+                <span class="text-2xl font-extrabold dark:text-white">v1.1.0</span>
+                <span class="text-sm text-gray-400">Aug 2025</span>
+            </div>
+        </div>
+        <h2 class="text-lg font-bold text-gray-800 dark:text-gray-100 mb-1" data-i18n="vh_110_title">Bug Fixes, Folder System & Search</h2>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mb-5">Stability, organisation, and instant search — the foundations of great note-taking.</p>
+        <div class="space-y-2">
+            <div class="change-item"><span class="tag-feat mt-0.5" data-i18n="vh_new">New</span><span class="text-sm text-gray-700 dark:text-gray-300">Folder / category system for organising notes</span></div>
+            <div class="change-item"><span class="tag-feat mt-0.5" data-i18n="vh_new">New</span><span class="text-sm text-gray-700 dark:text-gray-300">Full-text search with instant results</span></div>
+            <div class="change-item"><span class="tag-feat mt-0.5" data-i18n="vh_new">New</span><span class="text-sm text-gray-700 dark:text-gray-300">Note pinning and archiving</span></div>
+            <div class="change-item"><span class="tag-fix mt-0.5" data-i18n="vh_fixed">Fixed</span><span class="text-sm text-gray-700 dark:text-gray-300">App crash when opening very large notes</span></div>
+            <div class="change-item"><span class="tag-fix mt-0.5" data-i18n="vh_fixed">Fixed</span><span class="text-sm text-gray-700 dark:text-gray-300">Settings not saving on Android 12 devices</span></div>
+            <div class="change-item"><span class="tag-perf mt-0.5" data-i18n="vh_improved">Improved</span><span class="text-sm text-gray-700 dark:text-gray-300">Reduced app startup time by 40%</span></div>
+        </div>
+    </div>
+
+    <div class="border-t border-dashed border-gray-200 dark:border-gray-700"></div>
+
+    <!-- v1.0.0 -->
+    <div id="v1_0_0" class="vh-entry pl-6 scroll-mt-24">
+        <div class="flex items-center gap-3 mb-4">
+            <div class="vh-entry-dot" style="background:#713F12"></div>
+            <div class="flex items-center gap-3 flex-wrap">
+                <span class="text-2xl font-extrabold dark:text-white">v1.0.0</span>
+                <span class="bg-primaryDark text-white text-xs font-bold px-2.5 py-0.5 rounded-full">Genesis</span>
+                <span class="text-sm text-gray-400">Jun 2025</span>
+            </div>
+        </div>
+        <h2 class="text-lg font-bold text-gray-800 dark:text-gray-100 mb-1" data-i18n="vh_100_title">Initial Release — The Beginning</h2>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mb-5">The first version of Canolia Note — a secure, ad-free note-taking app for all platforms.</p>
+        <div class="space-y-2">
+            <div class="change-item"><span class="tag-launch mt-0.5" data-i18n="vh_new">Launch</span><span class="text-sm text-gray-700 dark:text-gray-300">Core note creation, editing and deletion</span></div>
+            <div class="change-item"><span class="tag-launch mt-0.5" data-i18n="vh_new">Launch</span><span class="text-sm text-gray-700 dark:text-gray-300">Local storage — all data stays on your device</span></div>
+            <div class="change-item"><span class="tag-launch mt-0.5" data-i18n="vh_new">Launch</span><span class="text-sm text-gray-700 dark:text-gray-300">Android, iOS, Windows, macOS, and Linux support</span></div>
+            <div class="change-item"><span class="tag-launch mt-0.5" data-i18n="vh_new">Launch</span><span class="text-sm text-gray-700 dark:text-gray-300">Light theme with Canolia yellow brand identity</span></div>
+            <div class="change-item"><span class="tag-launch mt-0.5" data-i18n="vh_new">Launch</span><span class="text-sm text-gray-700 dark:text-gray-300">Free tier with 2 daily cloud syncs</span></div>
+        </div>
+    </div>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8">
+    <div class="max-w-5xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
+        <div class="flex items-center gap-2">
+            <img src="img/app_logo.png" alt="Logo" class="w-7 h-7 object-contain">
+            <span class="font-bold dark:text-white">Canolia Note</span>
+        </div>
+        <p>&copy; <span id="year"></span> Canolia Note. All rights reserved.</p>
+        <a href="privacy-policy.html" class="hover:text-primary transition" data-i18n="footer_privacy">Privacy Policy</a>
+    </div>
+</footer>
+
+<script src="js/shared.js"></script>
+<script>
+    gsap.registerPlugin(ScrollTrigger);
+    document.addEventListener('DOMContentLoaded', function() {
+        // Animate each entry on scroll
+        document.querySelectorAll('.vh-entry').forEach(function(el) {
+            gsap.from(el, {
+                x: -40, opacity: 0, duration: 0.7, ease: 'power3.out',
+                scrollTrigger: { trigger: el, start: 'top 85%' }
+            });
+        });
+        // If arriving from index anchor, highlight that version
+        var hash = window.location.hash;
+        if (hash) {
+            var target = document.querySelector(hash);
+            if (target) {
+                setTimeout(function() {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    target.style.transition = 'background 0.5s';
+                    target.style.background = 'rgba(250,204,21,0.08)';
+                    target.style.borderRadius = '12px';
+                    setTimeout(function() { target.style.background = ''; }, 2000);
+                }, 300);
+            }
+        }
+    });
+</script>
+</body>
+</html>

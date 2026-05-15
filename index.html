@@ -52,7 +52,7 @@
 </head>
 <body class="bg-gray-50 text-gray-900 transition-colors duration-300 antialiased font-sans">
 
-    <!-- ပထမဆုံးဝင်ဝင်ခြင်း ပေါ်လာမည့် Initial Setup Modal -->
+    <!-- Initial Setup Modal that appears on first entry -->
     <div id="welcomeModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
         <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6 w-[90%] max-w-md transform transition-all">
             <div class="text-center mb-6">
@@ -167,7 +167,9 @@
                     </div>
 
                     <!-- Desktop Menu -->
-                    <div class="hidden md:flex items-center space-x-6">
+                    <div class="hidden md:flex items-center space-x-6 relative" id="desktopNavContainer">
+                        <!-- Moving underline indicator -->
+                        <div id="navIndicator" class="absolute h-0.5 bg-primary rounded-full" style="bottom: -4px; left: 0; width: 0;"></div>
                         <a href="#hero" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary font-medium" data-i18n="nav_home">Home</a>
                         <a href="#software" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary font-medium" data-i18n="nav_software">Software</a>
                         <a href="#packages" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary font-medium" data-i18n="nav_packages">Packages</a>
@@ -924,17 +926,46 @@
     </div>
 
     <!-- Scripts Section -->
-    <script type="module" src="js/script.js"></script>
-
     <!-- GSAP + ScrollTrigger for Version History -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+    <script type="module" src="js/script.js"></script>
     <script>
     (function () {
-        gsap.registerPlugin(ScrollTrigger);
+        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+        // Smooth scroll to section on nav item click
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const target = this.getAttribute('href');
+                if (target === '#') return;
+                if (!document.querySelector(target)) return;
+                
+                e.preventDefault();
+                
+                gsap.to(window, {
+                    duration: 1.2,
+                    scrollTo: { y: target, offsetY: 70 },
+                    ease: 'power3.inOut'
+                });
+                
+                // If it's a mobile link, close the drawer
+                const mobileDrawer = document.getElementById('mobileDrawer');
+                const backdrop = document.getElementById('mobileMenuBackdrop');
+                if (mobileDrawer && !mobileDrawer.classList.contains('translate-x-full')) {
+                    mobileDrawer.classList.add('translate-x-full');
+                    if (backdrop) {
+                        backdrop.classList.add('hidden');
+                        backdrop.classList.remove('opacity-100');
+                    }
+                }
+            });
+        });
 
         // Wait for mainApp to be visible (after modal dismissed)
         function initVHAnimations() {
+
             if (!document.getElementById('vhTimeline')) return;
 
             // Animate the vertical line growing downward
@@ -986,6 +1017,41 @@
                 y: 30, opacity: 0, duration: 0.7, ease: 'power2.out',
                 scrollTrigger: { trigger: '#vhAllBtn', start: 'top 90%' }
             });
+
+            // Update active nav item on scroll
+            const sections = document.querySelectorAll('section[id]');
+            sections.forEach(section => {
+                ScrollTrigger.create({
+                    trigger: section,
+                    start: 'top 100px',
+                    end: 'bottom 100px',
+                    onEnter: () => setActive(section.getAttribute('id')),
+                    onEnterBack: () => setActive(section.getAttribute('id'))
+                });
+            });
+
+            function setActive(id) {
+                const navLinks = document.querySelectorAll('nav .hidden.md\\:flex a');
+                const indicator = document.getElementById('navIndicator');
+                
+                navLinks.forEach(a => {
+                    if (a.getAttribute('href') === '#' + id) {
+                        a.classList.add('active');
+                        
+                        // Move indicator
+                        if (indicator) {
+                            gsap.to(indicator, {
+                                left: a.offsetLeft,
+                                width: a.offsetWidth,
+                                duration: 0.5,
+                                ease: 'power2.out'
+                            });
+                        }
+                    } else {
+                        a.classList.remove('active');
+                    }
+                });
+            }
         }
 
         // If returning visitor (modal already hidden), init right away on DOMContentLoaded

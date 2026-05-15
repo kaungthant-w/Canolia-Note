@@ -120,7 +120,7 @@
         });
 
         // Desktop three-dots theme-switch links
-        $(document).on('click', '.theme-switch', function (e) {
+        $('.theme-switch').on('click', function (e) {
             e.preventDefault();
             var theme = $(this).attr('data-theme');
             applyTheme(theme);
@@ -131,7 +131,7 @@
         });
 
         // ── Language ─────────────────────────────────────────────────────────
-        $(document).on('click', '.lang-switch', function (e) {
+        $('.lang-switch').on('click', function (e) {
             e.preventDefault();
             var lang = $(this).attr('data-lang');
             applyLanguage(lang);
@@ -148,7 +148,7 @@
         });
 
         // ── Font ─────────────────────────────────────────────────────────────
-        $(document).on('click', '.font-switch', function (e) {
+        $('.font-switch').on('click', function (e) {
             e.preventDefault();
             var font = $(this).attr('data-font');
             applyFont(font);
@@ -170,8 +170,7 @@
             $('#threeDotsMenu').toggleClass('hidden');
         });
 
-        // Accordion submenus inside three-dots menu
-        $(document).on('click', '.group-toggle', function (e) {
+        $('.group-toggle').on('click', function (e) {
             e.stopPropagation();
             var $submenu = $(this).next('.submenu');
             var $icon    = $(this).find('.chevron-icon');

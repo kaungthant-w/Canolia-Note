@@ -1,12 +1,12 @@
-// Firebase ကိုချိတ်ဆက်ခြင်း (Mock & Fallback စနစ်ပါဝင်သည်)
+// Connecting to Firebase (Mock & Fallback system included)
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-// Firebase Setup (Real App မှာ Key တွေထည့်ရပါမည်)
+// Firebase Setup (Keys must be added in the real app)
 const firebaseConfig = {
     apiKey: "AIzaSyCZpAAv3kv6ACBJwShfL8yxm4otGn2xcrY",
     projectId: "canolia-note",
-    // အခြားလိုအပ်သော config များ...
+    // Other necessary configs...
 };
 
 let db;
@@ -62,8 +62,8 @@ const paymentProviders = {
     ]
 };
 
-// --- Data: Currencies Fallback (Realtime Fetch ကို Firebase မှခေါ်မည်) ---
-// အကယ်၍ Firebase မှ မရပါက ဤ Fallback များကို သုံးမည်။
+// --- Data: Currencies Fallback (Realtime Fetch will be called from Firebase) ---
+// If not available from Firebase, use these fallbacks.
 const fallbackRates = {
     USD: { rate: 1, symbol: '$' },
     MMK: { rate: 3500, symbol: 'Ks' },
@@ -106,12 +106,12 @@ $(document).ready(function() {
         updateLanguage('en');
     }
 
-    // 1. Firebase မှ ငွေကြေးနှုန်းထားများကို ဆွဲယူခြင်း
+    // 1. Fetching currency rates from Firebase
     async function fetchRatesFromFirebase() {
         if(!db) return;
         try {
-            // Note: 'artifacts/appId/public/data/pricing' structure ကို လိုက်နာထားပါသည်။
-            // ဤနေရာတွင် appId ကို 'default' အနေဖြင့် ထားထားပါသည်။
+            // Note: Following the 'artifacts/appId/public/data/pricing' structure.
+            // Here, appId is set as 'default'.
             const pricingRef = collection(db, 'artifacts', 'canolia-note-web', 'public', 'data', 'pricing');
             const snapshot = await getDocs(pricingRef);
             if(!snapshot.empty) {
@@ -428,6 +428,89 @@ $(document).ready(function() {
         // Reset submenus when closed
         $('.submenu').slideUp(0);
         $('.chevron-icon').removeClass('rotate-90');
+    });
+
+    // --- Moving Underline Navigation using GSAP ---
+    const $nav = $('#desktopNav');
+    const $underline = $('#navUnderline');
+    let $activeItem = $nav.find('.nav-item').first(); // Default to first item
+
+    function updateUnderline($el) {
+        if (!$el.length) return;
+        const position = $el.position();
+        const width = $el.outerWidth();
+        
+        gsap.to($underline, {
+            left: position.left,
+            width: width,
+            duration: 0.3,
+            ease: "power2.out"
+        });
+    }
+
+    function initNavUnderline() {
+        $activeItem = $nav.find('.nav-item').first();
+        updateUnderline($activeItem);
+        
+        // Initialize ScrollTrigger for Scroll Spy
+        $nav.find('.nav-item').each(function() {
+            const $el = $(this);
+            const target = $el.attr('href');
+            
+            if (target && target.startsWith('#')) {
+                ScrollTrigger.create({
+                    trigger: target,
+                    start: "top 50%",
+                    end: "bottom 50%",
+                    onEnter: () => {
+                        $activeItem = $el;
+                        updateUnderline($el);
+                    },
+                    onEnterBack: () => {
+                        $activeItem = $el;
+                        updateUnderline($el);
+                    }
+                });
+            }
+        });
+    }
+
+    // Call init when site is entered (modal dismissed)
+    $(document).on('canolia:siteEntered', function() {
+        initNavUnderline();
+    });
+
+    // Also call it after a delay in case it's a returning visitor (no modal)
+    setTimeout(() => {
+        if (!$('#mainApp').hasClass('hidden')) {
+            initNavUnderline();
+        }
+    }, 1000);
+
+    $(document).on('mouseenter', '.nav-item', function() {
+        updateUnderline($(this));
+    });
+
+    $(document).on('click', '.nav-item', function(e) {
+        e.preventDefault();
+        $activeItem = $(this);
+        const target = $(this).attr('href');
+        
+        // Smooth scroll using ScrollToPlugin
+        if (target && target.startsWith('#')) {
+            gsap.to(window, {
+                duration: 1,
+                scrollTo: { y: target, autoKill: false },
+                ease: "power2.out",
+                onComplete: () => {
+                    updateUnderline($(this));
+                }
+            });
+        }
+    });
+
+    $nav.on('mouseleave', function() {
+        updateUnderline($activeItem);
     });
 
     $('#navThemeToggle').click(function() {

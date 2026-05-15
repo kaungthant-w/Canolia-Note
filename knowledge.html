@@ -65,7 +65,8 @@
                     </div>
 
                     <!-- Desktop Menu -->
-                    <div class="hidden md:flex items-center space-x-6">
+                    <div class="hidden md:flex items-center space-x-6 relative" id="desktopNavContainer">
+                        <div id="navIndicator" class="absolute h-0.5 bg-primary rounded-full transition-all duration-300 ease-out" style="bottom: -4px; left: 0; width: 0;"></div>
                         <a href="index.html#hero" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary font-medium" data-i18n="nav_home">Home</a>
                         <a href="index.html#software" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary font-medium" data-i18n="nav_software">Software</a>
                         <a href="index.html#packages" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary font-medium" data-i18n="nav_packages">Packages</a>

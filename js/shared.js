@@ -103,6 +103,101 @@
         // Set footer year
         $('#year').text(new Date().getFullYear());
 
+        // ── Moving Underline Indicator ────────────────────────────────────────
+        const $indicator = $('#navIndicator');
+        const $links = $('#desktopNavContainer a');
+
+        if ($indicator.length && $links.length) {
+            $links.on('mouseenter', function() {
+                $indicator.css({
+                    left: this.offsetLeft,
+                    width: this.offsetWidth
+                });
+            });
+
+            // Find active link
+            const currentPath = window.location.pathname;
+            let $activeLink = null;
+
+            $links.each(function() {
+                const href = $(this).attr('href');
+                if (href) {
+                    // Check if current page is the href
+                    if (currentPath.includes(href) && href !== 'index.html' && href !== '#') {
+                        $activeLink = $(this);
+                    }
+                    // Specific check for knowledge page
+                    if (currentPath.includes('knowledge') && href.includes('knowledge')) {
+                        $activeLink = $(this);
+                    }
+                    // Specific check for post detail page to highlight Knowledge
+                    if (currentPath.includes('post-detail') && href.includes('knowledge')) {
+                        $activeLink = $(this);
+                    }
+                    // Specific check for version history
+                    if (currentPath.includes('version-history') && href.includes('version-history')) {
+                        $activeLink = $(this);
+                    }
+                }
+            });
+
+            if ($activeLink) {
+                $activeLink.addClass('active');
+                $indicator.css({
+                    left: $activeLink[0].offsetLeft,
+                    width: $activeLink[0].offsetWidth
+                });
+            }
+
+            $('#desktopNavContainer').on('mouseleave', function() {
+                if ($activeLink) {
+                    $indicator.css({
+                        left: $activeLink[0].offsetLeft,
+                        width: $activeLink[0].offsetWidth
+                    });
+                } else {
+                    $indicator.css({
+                        width: 0
+                    });
+                }
+            });
+        }
+
+        // ── Active Footer Links ──────────────────────────────────────────────
+        const $footerLinks = $('footer ul a');
+        const currentPathForFooter = window.location.pathname;
+        
+        $footerLinks.each(function() {
+            const href = $(this).attr('href');
+            if (href) {
+                // Check if current page is the href
+                if (currentPathForFooter.includes(href) && href !== 'index.html' && href !== '#') {
+                    $(this).addClass('text-primary font-bold');
+                    $(this).removeClass('text-gray-600 dark:text-gray-400');
+                }
+                // Specific check for knowledge page in footer
+                if (currentPathForFooter.includes('knowledge') && href === 'knowledge.html') {
+                    $(this).addClass('text-primary font-bold');
+                    $(this).removeClass('text-gray-600 dark:text-gray-400');
+                }
+                // Specific check for post detail (should highlight knowledge in footer too)
+                if (currentPathForFooter.includes('post-detail') && href === 'knowledge.html') {
+                    $(this).addClass('text-primary font-bold');
+                    $(this).removeClass('text-gray-600 dark:text-gray-400');
+                }
+                // Specific check for privacy policy
+                if (currentPathForFooter.includes('privacy-policy') && href === 'privacy-policy.html') {
+                    $(this).addClass('text-primary font-bold');
+                    $(this).removeClass('text-gray-600 dark:text-gray-400');
+                }
+                // Specific check for version history
+                if (currentPathForFooter.includes('version-history') && href === 'version-history.html') {
+                    $(this).addClass('text-primary font-bold');
+                    $(this).removeClass('text-gray-600 dark:text-gray-400');
+                }
+            }
+        });
+
         // Apply initial settings on page load
         applyTheme(savedTheme);
         applyFont(savedFont);

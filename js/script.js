@@ -863,7 +863,7 @@ $(document).ready(function() {
         if (!container) return; // Only run on index page
 
         if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {
-            if (!loadingIndexPosts && indexVisibleCount < 12 && indexVisibleCount < allPostsData.length) {
+            if (!loadingIndexPosts && indexVisibleCount < 6 && indexVisibleCount < allPostsData.length) {
                 loadingIndexPosts = true;
                 
                 setTimeout(() => {

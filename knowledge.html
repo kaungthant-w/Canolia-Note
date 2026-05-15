@@ -311,188 +311,20 @@
         </footer>
     </div>
 
-    <!-- Script for Knowledge Page -->
+    <!-- Shared nav script (theme / language / font / drawer) -->
+    <script src="js/shared.js"></script>
+
+    <!-- Knowledge page–specific logic -->
     <script>
-        const translations = {};
-        let currentLang = localStorage.getItem('canolia_lang') || 'en';
-        let currentTheme = localStorage.getItem('canolia_theme') || 'light';
-        let currentFont = localStorage.getItem('canolia_font') || 'sans';
-
         $(document).ready(function() {
-            // Set year
-            $('#year').text(new Date().getFullYear());
-
-            // Apply initial theme
-            applyTheme(currentTheme);
-            // Apply initial font
-            applyFont(currentFont);
-            // Apply initial language
-            applyLanguage(currentLang);
-
-            // Desktop Theme Toggle
-            $('#navThemeToggle').click(function() {
-                toggleTheme();
-            });
-
-            // Mobile Theme Toggle
-            $('#navThemeToggleMobile').click(function() {
-                toggleTheme();
-            });
-
-            // Mobile Theme Buttons
-            $('.mobile-theme-btn').click(function() {
-                const theme = $(this).data('theme');
-                applyTheme(theme);
-                localStorage.setItem('canolia_theme', theme);
-            });
-
-            // Language Switch
-            $('.lang-switch').click(function(e) {
-                e.preventDefault();
-                const lang = $(this).attr('data-lang');
-                applyLanguage(lang);
-                localStorage.setItem('canolia_lang', lang);
-                $('#threeDotsMenu').addClass('hidden');
-            });
-
-            // Mobile Language Switch
-            $('#mobileLang').change(function() {
-                const lang = $(this).val();
-                applyLanguage(lang);
-                localStorage.setItem('canolia_lang', lang);
-            });
-
-            // Font Switch
-            $('.font-switch').click(function(e) {
-                e.preventDefault();
-                const font = $(this).attr('data-font');
-                applyFont(font);
-                localStorage.setItem('canolia_font', font);
-                $('#threeDotsMenu').addClass('hidden');
-            });
-
-            // Mobile Font Switch
-            $('#mobileFont').change(function() {
-                const font = $(this).val();
-                applyFont(font);
-                localStorage.setItem('canolia_font', font);
-            });
-
-            // Three Dots Menu Toggle
-            $('#threeDotsBtn').click(function(e) {
-                e.stopPropagation();
-                $('#threeDotsMenu').toggleClass('hidden');
-            });
-
-            // Close menu on outside click
-            $(document).click(function() {
-                $('#threeDotsMenu').addClass('hidden');
-                $('.submenu').slideUp(0);
-                $('.chevron-icon').removeClass('rotate-90');
-            });
-
-            // Submenu toggle in 3 dots menu
-            $('.group-toggle').click(function(e) {
-                e.stopPropagation();
-                const $submenu = $(this).next('.submenu');
-                const $icon = $(this).find('.chevron-icon');
-                
-                $('.submenu').not($submenu).slideUp(200);
-                $('.chevron-icon').not($icon).removeClass('rotate-90');
-                
-                $submenu.slideToggle(200);
-                $icon.toggleClass('rotate-90');
-            });
-
-            // Mobile Drawer
-            $('#mobileMenuBtn').click(function(e) {
-                e.stopPropagation();
-                openMobileDrawer();
-            });
-
-            $('#mobileDrawerClose, #mobileMenuBackdrop').click(function() {
-                closeMobileDrawer();
-            });
-
-            function openMobileDrawer() {
-                $('#mobileMenuBackdrop').removeClass('hidden').addClass('opacity-0');
-                setTimeout(() => $('#mobileMenuBackdrop').removeClass('opacity-0').addClass('opacity-100'), 10);
-                $('#mobileDrawer').removeClass('translate-x-full');
-                $('#mobileMenuBtn i').removeClass('fa-bars').addClass('fa-xmark');
-            }
-
-            function closeMobileDrawer() {
-                $('#mobileMenuBackdrop').removeClass('opacity-100').addClass('opacity-0');
-                setTimeout(() => $('#mobileMenuBackdrop').addClass('hidden'), 300);
-                $('#mobileDrawer').addClass('translate-x-full');
-                $('#mobileMenuBtn i').removeClass('fa-xmark').addClass('fa-bars');
-            }
-
-            function toggleTheme() {
-                let newTheme;
-                if($('html').hasClass('theme-neo')) {
-                    newTheme = 'dark';
-                } else if($('html').hasClass('dark')) {
-                    newTheme = 'light';
-                } else {
-                    newTheme = 'dark';
-                }
-                applyTheme(newTheme);
-                localStorage.setItem('canolia_theme', newTheme);
-            }
-
-            function applyTheme(theme) {
-                $('html').removeClass('dark theme-neo');
-                if(theme === 'dark') {
-                    $('html').addClass('dark');
-                } else if(theme === 'neo') {
-                    $('html').addClass('theme-neo');
-                }
-                
-                // Update displays
-                $('#currentNavThemeDisplay').text(theme.charAt(0).toUpperCase() + theme.slice(1));
-                $('.mobile-theme-btn').removeClass('border-primary bg-primary/10');
-                $(`.mobile-theme-btn[data-theme="${theme}"]`).addClass('border-primary bg-primary/10');
-            }
-
-            function applyFont(font) {
-                $('body').removeClass('font-sans font-serif font-mono').addClass('font-' + font);
-                $('#currentNavFontDisplay').text(font.charAt(0).toUpperCase() + font.slice(1));
-                $('#mobileFont').val(font);
-            }
 
             let currentCategory = sessionStorage.getItem('canolia_category') || 'all';
-            let currentSort = sessionStorage.getItem('canolia_sort') || 'date';
+            let currentSort     = sessionStorage.getItem('canolia_sort')     || 'date';
 
-            async function applyLanguage(lang) {
-                currentLang = lang;
-                $('#currentNavLangDisplay').text(lang.toUpperCase());
-                $('#mobileLang').val(lang);
-
-                if (!translations[lang]) {
-                    try {
-                        const res = await fetch(`json/${lang}.json`);
-                        translations[lang] = await res.json();
-                    } catch (e) {
-                        console.error("Failed to load language", lang, e);
-                    }
-                }
-                
-                const texts = translations[lang] || translations['en'];
-                if (!texts) return;
-                
-                $('[data-i18n]').each(function() {
-                    const key = $(this).attr('data-i18n');
-                    if(texts[key]) {
-                        $(this).html(texts[key]);
-                    }
-                });
-
-                // Re-render posts
-                if (document.getElementById('knowledgePostsContainer')) {
-                    renderPostCards('knowledgePostsContainer', null, currentCategory, currentSort);
-                }
-            }
+            // Re-render posts whenever shared.js fires a language change
+            $(document).on('shared:langChanged', function(e, lang) {
+                renderPostCards('knowledgePostsContainer', null, currentCategory, currentSort);
+            });
 
             // Knowledge System Logic
             async function fetchPosts() {
@@ -512,7 +344,8 @@
             function createCardHTML(post, currentLang) {
                 const langData = post.translations[currentLang] || post.translations['en'];
                 const categoryKey = `filter_${post.category.toLowerCase()}`;
-                const categoryTitle = (translations[currentLang] && translations[currentLang][categoryKey]) || post.category;
+                const t = window.sharedTranslations || {};
+                const categoryTitle = (t[currentLang] && t[currentLang][categoryKey]) || post.category;
                 
                 return `
                     <div class="card bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition flex flex-col">

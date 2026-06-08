@@ -127,25 +127,74 @@ $(document).ready(function() {
     }
     fetchRatesFromFirebase();
 
-    // 2. Initial Modal UI Handling
-    let isCaptchaVerified = false;
+    // reCAPTCHA v3 Site Key
+    const RECAPTCHA_SITE_KEY = '6LeyrRMtAAAAABbZkuz6zkv0OMs3aql1mQGrA82d';
+    let welcomeRecaptchaToken = '';
+    let paymentRecaptchaToken = '';
     let isPaymentCaptchaVerified = false;
-    
+
+    // Execute reCAPTCHA v3 for Welcome Modal
+    function executeWelcomeCaptcha() {
+        if (typeof grecaptcha === 'undefined') {
+            // Retry after API loads
+            setTimeout(executeWelcomeCaptcha, 500);
+            return;
+        }
+        $('#captchaCheck').html('<div class="loader"></div>');
+        grecaptcha.ready(function() {
+            grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'welcome' }).then(function(token) {
+                welcomeRecaptchaToken = token;
+                $('#welcomeRecaptchaToken').val(token);
+                $('#captchaCheck')
+                    .html('<i class="fa-solid fa-check"></i>')
+                    .removeClass('border-gray-400 bg-white')
+                    .addClass('border-green-500 bg-green-50 text-green-500');
+                $('#enterSiteBtn').prop('disabled', false);
+            }).catch(function() {
+                $('#captchaCheck')
+                    .html('<i class="fa-solid fa-xmark"></i>')
+                    .removeClass('border-gray-400 bg-white')
+                    .addClass('border-red-400 bg-red-50 text-red-400');
+            });
+        });
+    }
+
+    // Execute reCAPTCHA v3 for Payment Modal
+    function executePaymentCaptcha() {
+        if (typeof grecaptcha === 'undefined') {
+            setTimeout(executePaymentCaptcha, 500);
+            return;
+        }
+        $('#paymentCaptchaCheck').html('<div class="loader"></div>');
+        grecaptcha.ready(function() {
+            grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'payment' }).then(function(token) {
+                paymentRecaptchaToken = token;
+                $('#paymentRecaptchaToken').val(token);
+                $('#paymentCaptchaCheck')
+                    .html('<i class="fa-solid fa-check"></i>')
+                    .removeClass('border-gray-400 bg-white')
+                    .addClass('border-green-500 bg-green-50 text-green-500');
+                isPaymentCaptchaVerified = true;
+                validatePaymentForm();
+            }).catch(function() {
+                $('#paymentCaptchaCheck')
+                    .html('<i class="fa-solid fa-xmark"></i>')
+                    .removeClass('border-gray-400 bg-white')
+                    .addClass('border-red-400 bg-red-50 text-red-400');
+            });
+        });
+    }
+
+    // Trigger welcome captcha automatically once page loads (first visit modal)
+    if (!hasVisited) {
+        executeWelcomeCaptcha();
+    }
+
+
+    // See More Options toggle
     $('#seeMoreBtn').click(function() {
         $('#optionalSettings').slideToggle();
         $('#seeMoreIcon').toggleClass('rotate-180');
-    });
-
-    // Mock Captcha Click
-    $('#mockCaptchaBox').click(function() {
-        if(!isCaptchaVerified) {
-            $('#captchaCheck').html('<div class="loader"></div>');
-            setTimeout(() => {
-                $('#captchaCheck').html('<i class="fa-solid fa-check"></i>').removeClass('border-gray-400 bg-white').addClass('border-green-500 bg-green-50 text-green-500');
-                isCaptchaVerified = true;
-                $('#enterSiteBtn').prop('disabled', false);
-            }, 1000);
-        }
     });
 
     // Immediate language update when changed in modal
@@ -616,8 +665,12 @@ $(document).ready(function() {
 
         // Reset Captcha in Payment Modal
         isPaymentCaptchaVerified = false;
-        $('#paymentCaptchaCheck').html('').removeClass('border-green-500 bg-green-50 text-green-500').addClass('border-gray-400 bg-white');
+        paymentRecaptchaToken = '';
+        $('#paymentRecaptchaToken').val('');
+        $('#paymentCaptchaCheck').html('').removeClass('border-green-500 bg-green-50 text-green-500 border-red-400 bg-red-50 text-red-400').addClass('border-gray-400 bg-white');
         $('#sendPaymentBtn').prop('disabled', true);
+        // Auto-execute reCAPTCHA v3 for payment
+        executePaymentCaptcha();
 
         // Reset to Step 1
         $('#paymentStep1').removeClass('hidden');
@@ -649,17 +702,7 @@ $(document).ready(function() {
         }
     }
 
-    // Payment Captcha Click
-    $('#paymentCaptchaBox').click(function() {
-        if(!isPaymentCaptchaVerified) {
-            $('#paymentCaptchaCheck').html('<div class="loader"></div>');
-            setTimeout(() => {
-                $('#paymentCaptchaCheck').html('<i class="fa-solid fa-check"></i>').removeClass('border-gray-400 bg-white').addClass('border-green-500 bg-green-50 text-green-500');
-                isPaymentCaptchaVerified = true;
-                validatePaymentForm();
-            }, 1000);
-        }
-    });
+    // Payment Captcha — handled automatically by executePaymentCaptcha() on modal open
 
     // Image Preview for Payment Screenshot
     $('#screenshotInput').change(function() {
